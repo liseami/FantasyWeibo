@@ -36,7 +36,7 @@ struct PostDetailView: View {
                     .multilineTextAlignment(.leading)
                     .PF_Leading()
                     .lineSpacing(4)
-                    .mFont(style: .Title_17_R,color: .fc1)
+                    .mFont(style: .LargeTitle_22_R,color: .fc1)
             
                 Spacer()
             }

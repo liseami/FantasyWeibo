@@ -4,7 +4,7 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>MiSans-Regular.ttf</string>
+		<string>MiSans-Normal.ttf</string>
 		<string>MiSans-Semibold.ttf</string>
 	</array>
 </dict>

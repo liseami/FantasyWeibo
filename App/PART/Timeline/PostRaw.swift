@@ -52,11 +52,11 @@ struct PostRaw: View {
 //              Color.red.frame(width: imageW, height: imageW)
                 
                 HStack(spacing:SW * 0.2){
-                    ICON(name: "Message",fcolor:.fc2,size: 20){madasoft()}
+                    ICON(name: "message-alt",fcolor:.fc2,size: 20){madasoft()}
                     .buttonStyle(PlainButtonStyle())
-                    ICON(name: "Retweet",fcolor:.fc2,size: 20){madasoft()}
+                    ICON(name: "enter",fcolor:.fc2,size: 20){madasoft()}
                     .buttonStyle(PlainButtonStyle())
-                    ICON(name: "Like",fcolor:.fc2,size: 20){madasoft()}
+                    ICON(name: "heart",fcolor:.fc2,size: 20){madasoft()}
                     .buttonStyle(PlainButtonStyle())
                 }
                 

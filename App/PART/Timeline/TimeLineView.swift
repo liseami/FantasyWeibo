@@ -11,23 +11,26 @@ import FantasyUI
 struct TimeLineView: View {
     @State private var offset : CGFloat = 0
     @ObservedObject var uistate = UIState.shared
+    
+    let str = randomString(Int.random(in: 12...140))
+    
     var body: some View {
         
         
         PF_OffsetScrollView(offset: $offset, content: {
            
+            
             LazyVStack {
-
                 Spacer().frame(width: 1, height: 1)
                 ForEach(0..<12){ index in
-                    PostRaw(username: randomString(3), usernickname: "liseami", postcontent: randomString(Int.random(in: 12...140)))
+                    PostRaw(username: randomString(3), usernickname: "liseami", postcontent: str)
                 }
                 Spacer().frame(width: 1, height: 80)
             }
             .padding(.all,12)
         })
         .navigationBarTitleDisplayMode(.inline)
-        .PF_Navitop(style: .large) {
+        .PF_Navitop(style:offset < -5 ? .large : .none) {
             BlurView()
         } TopCenterView: {
             Image("Web3Logo")

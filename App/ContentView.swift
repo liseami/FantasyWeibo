@@ -88,7 +88,7 @@ struct ContentView: View {
                     Circle()
                         .foregroundColor( poluar ? .Purple : .MainColor)
                         .frame(width: SW * 0.13, height: SW * 0.13)
-                        .overlay(ICON(name: poluar ? "upup" : "Plus add",fcolor: .Card,size: 24))
+                        .overlay(ICON(name: poluar ? "shopping-cart-add" : "edit",fcolor: .Card,size: 24))
                         .shadow(color: .fc1.opacity(0.12), radius: 4, x: 0, y: 4)
                 }
             }
@@ -118,7 +118,7 @@ struct ContentView: View {
     
     var searchBtn : some View {
             HStack(spacing:2){
-                ICON(name: "Search",fcolor: .fc2,size: 16)
+                ICON(name: "search",fcolor: .fc2,size: 16)
                     Text("搜索新浪微博")
                         .mFont(style: .Title_17_R,color: .fc2)
                 }
@@ -138,7 +138,7 @@ struct ContentView: View {
         Button {
             uistate.showSettingView.toggle()
         } label: {
-            ICON(name:"Gear",fcolor: .fc1){
+            ICON(name:"settings",fcolor: .fc1){
                 uistate.showSettingView.toggle()
             }
         }

@@ -32,13 +32,13 @@ class UIState : ObservableObject{
         var iconname : String{
             switch self {
             case .Timeline:
-                return "Home"
+                return "home"
             case .Search:
-                return "Search"
+                return "search"
             case .Message:
-                return "Mail"
+                return "email"
             case .Poluar :
-                return "Customize"
+                return "bar-chart-alt"
             }
         }
     }
