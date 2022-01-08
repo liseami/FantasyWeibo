@@ -57,7 +57,7 @@ struct PolularView: View {
         }
         .frame(width: SW)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(Text("新浪微博O3"))
+        .navigationTitle(Text("Web3"))
     }
 
     

@@ -17,13 +17,13 @@ struct SettingView: View {
     var body: some View {
         
         VStack(spacing:0){
-            SettingListRow(title: "邀请朋友使用新浪微博O3", iconnmae: "share")
+            SettingListRow(title: "邀请朋友使用Web3", iconnmae: "share")
             SettingListRow(title: "设置", iconnmae: "settings")
             SettingListRow(title: "账号数据", iconnmae: "reorder")
             SettingListRow(title: "充值", iconnmae: "shopping-cart-add")
             SettingListRow(title: "去AppStore评分", iconnmae: "favorite")
             SettingListRow(title: "意见反馈邮箱", iconnmae: "message")
-            SettingListRow(title: "关于新浪微博O3", iconnmae: "external-link")
+            SettingListRow(title: "关于Web3", iconnmae: "external-link")
             SettingListRow(title: "账户", iconnmae: "WeiboLogo")
             
             versionInfo
@@ -73,8 +73,7 @@ struct SettingListRow : View {
             Text(title)
                 .mFont(style: .Title_17_R,color: .fc1)
             Spacer()
-            ICON(name: "Arrow Up",fcolor: .fc3,size: 20)
-                .rotationEffect(Angle(degrees: 90))
+            ICON(name: "arrow-right",fcolor: .fc3,size: 20)
                 .ifshow(isNavigation)
         }
         .padding(.vertical,20)
