@@ -37,6 +37,10 @@
 		A20801C827896D00008461DA /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20801AE27896D00008461DA /* Font.swift */; };
 		A20801C927896D00008461DA /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20801AF27896D00008461DA /* Color.swift */; };
 		A20801CA27896D00008461DA /* UIstate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20801B027896D00008461DA /* UIstate.swift */; };
+		A208025C27896FF2008461DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208025A27896FF1008461DA /* AppDelegate.swift */; };
+		A208025D27896FF2008461DA /* DefultStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208025B27896FF1008461DA /* DefultStore.swift */; };
+		A208025F278974D1008461DA /* MiSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A208022427896D23008461DA /* MiSans-Regular.ttf */; };
+		A2080260278974D1008461DA /* MiSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A208022C27896D23008461DA /* MiSans-Semibold.ttf */; };
 		C0AE95AB62543DD693B05D06 /* Pods_FantasyWeibo__iOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF88F2E2428E944BAA7434CC /* Pods_FantasyWeibo__iOS_.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +99,9 @@
 		A208022F27896D23008461DA /* Montserrat-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Italic.ttf"; sourceTree = "<group>"; };
 		A208023027896D23008461DA /* Montserrat-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		A208023127896D23008461DA /* Montserrat-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		A208025A27896FF1008461DA /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A208025B27896FF1008461DA /* DefultStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefultStore.swift; sourceTree = "<group>"; };
+		A208025E278970EF008461DA /* FantasyWeibo--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "FantasyWeibo--iOS--Info.plist"; sourceTree = "<group>"; };
 		AF88F2E2428E944BAA7434CC /* Pods_FantasyWeibo__iOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FantasyWeibo__iOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -116,16 +123,17 @@
 				776E55F5B1444D47B6731114 /* Pods-FantasyWeibo (iOS).debug.xcconfig */,
 				59ABB73B26A97160BE2DD990 /* Pods-FantasyWeibo (iOS).release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
 		A208016427896B60008461DA = {
 			isa = PBXGroup;
 			children = (
+				A208025E278970EF008461DA /* FantasyWeibo--iOS--Info.plist */,
 				A208016927896B61008461DA /* App */,
 				A208017227896B62008461DA /* Products */,
 				752F0769FC3B2A3B23F4D682 /* Pods */,
+				A208021D27896D23008461DA /* Font */,
 				A339F994476B2F21EE20A99A /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -134,6 +142,8 @@
 			isa = PBXGroup;
 			children = (
 				A208016A27896B61008461DA /* FantasyWeiboApp.swift */,
+				A208025A27896FF1008461DA /* AppDelegate.swift */,
+				A208025B27896FF1008461DA /* DefultStore.swift */,
 				A208016B27896B61008461DA /* ContentView.swift */,
 				A208016C27896B62008461DA /* Assets.xcassets */,
 				A208018927896CD5008461DA /* FantasyWeibo(iOS)-Bridging-Header.m */,
@@ -141,7 +151,6 @@
 				A208018B27896D00008461DA /* PART */,
 				A20801A227896D00008461DA /* TOOLS */,
 				A20801AA27896D00008461DA /* UI */,
-				A208021D27896D23008461DA /* Font */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -370,6 +379,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A208025F278974D1008461DA /* MiSans-Regular.ttf in Resources */,
+				A2080260278974D1008461DA /* MiSans-Semibold.ttf in Resources */,
 				A208017E27896B62008461DA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -451,6 +462,7 @@
 				A20801BB27896D00008461DA /* SettingView.swift in Sources */,
 				A20801C227896D00008461DA /* WebView.swift in Sources */,
 				A20801C927896D00008461DA /* Color.swift in Sources */,
+				A208025D27896FF2008461DA /* DefultStore.swift in Sources */,
 				A208017C27896B62008461DA /* ContentView.swift in Sources */,
 				A20801B227896D00008461DA /* InBoxView.swift in Sources */,
 				A20801BC27896D00008461DA /* PostDetailView.swift in Sources */,
@@ -458,6 +470,7 @@
 				A208018A27896CD5008461DA /* FantasyWeibo(iOS)-Bridging-Header.m in Sources */,
 				A208017A27896B62008461DA /* FantasyWeiboApp.swift in Sources */,
 				A20801B427896D00008461DA /* PolularVideo.swift in Sources */,
+				A208025C27896FF2008461DA /* AppDelegate.swift in Sources */,
 				A20801BF27896D00008461DA /* LoginView.swift in Sources */,
 				A20801C127896D00008461DA /* MT_PageSegmentView.swift in Sources */,
 				A20801B727896D00008461DA /* PolularPhoto.swift in Sources */,
@@ -598,6 +611,7 @@
 				DEVELOPMENT_TEAM = 6UB6WM6VQR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "FantasyWeibo--iOS--Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -632,6 +646,7 @@
 				DEVELOPMENT_TEAM = 6UB6WM6VQR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "FantasyWeibo--iOS--Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

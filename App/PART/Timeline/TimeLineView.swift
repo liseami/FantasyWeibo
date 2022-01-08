@@ -30,7 +30,7 @@ struct TimeLineView: View {
         .PF_Navitop(style: .large) {
             BlurView()
         } TopCenterView: {
-            Image("Logo")
+            Image("Web3Logo")
                 .resizable()
                 .frame(width: 28, height: 28)
                 .scaledToFit()

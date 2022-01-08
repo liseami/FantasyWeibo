@@ -119,7 +119,7 @@ struct ContentView: View {
     var searchBtn : some View {
             HStack(spacing:2){
                 ICON(name: "Search",fcolor: .fc2,size: 16)
-                    Text("搜索Twitter")
+                    Text("搜索新浪微博")
                         .mFont(style: .Title_17_R,color: .fc2)
                 }
                 .padding(.all,12)

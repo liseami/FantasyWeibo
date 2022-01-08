@@ -97,11 +97,11 @@
 "facebook_info_2" = "[SFI10002]FAQ: Facebook/Twitter分享点击分享后没有进入分享编辑页。 https://developer.umeng.com/docs/66632/detail/67065?um_channel=sdk";
 "facebook_info_3" = "[SFE10003]FAQ: Facebook分享失败，提示missing publish_actions permissions。 https://developer.umeng.com/docs/66632/detail/67066?um_channel=sdk";
 
-//twitter
-"twitter_auth_error_1" = "[SCE10002]请检查是否设置了 Twitter 的 URLScheme。 https://developer.umeng.com/docs/66632/detail/67024?um_channel=sdk";
+//Twitter
+"Twitter_auth_error_1" = "[SCE10002]请检查是否设置了 Twitter 的 URLScheme。 https://developer.umeng.com/docs/66632/detail/67024?um_channel=sdk";
 //info
-"twitter_info_1" = "[STI10001]Twitter如何获取TokenSecret。 https://developer.umeng.com/docs/66632/detail/67068?um_channel=sdk";
-"twitter_info_2" = "[STE10002]FAQ: Twitter 分享报错401。 https://developer.umeng.com/docs/66632/detail/67069?um_channel=sdk";
+"Twitter_info_1" = "[STI10001]Twitter如何获取TokenSecret。 https://developer.umeng.com/docs/66632/detail/67068?um_channel=sdk";
+"Twitter_info_2" = "[STE10002]FAQ: Twitter 分享报错401。 https://developer.umeng.com/docs/66632/detail/67069?um_channel=sdk";
 
 // --------- sdk 内 log
 "core_version" = "UMShare版本号：%@。";

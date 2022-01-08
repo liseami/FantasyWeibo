@@ -63,7 +63,7 @@ struct SearchInputView: View {
                     $0.textAlignment = .left
                     $0.textColor = UIColor(Color.fc1)
                     $0.font = UIFont.systemFont(ofSize: 17)
-                    $0.placeholder = "搜索Twitter"
+                    $0.placeholder = "搜索新浪微博"
                 }
                 .padding(.all,12)
                 .frame(height: 32)

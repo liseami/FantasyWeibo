@@ -20,7 +20,7 @@ struct LoginView: View {
             VStack{
                 
                 
-//                Link(destination: URL(string: "https://twitter.com/liseami1")!) {
+//                Link(destination: URL(string: "https://Twitter.com/liseami1")!) {
 //                    Text("最新进展")
 //                }
                 
@@ -32,17 +32,17 @@ struct LoginView: View {
                 
                 
                 Spacer()
-                Text("专业用户的，另一个Twitter客户端。更好地经营账号，获取粉丝，扩大营收 💸💸💸 ")
+                Text("面向未来的，另一个微博客户端。用严苛的极简，更新你的微博体验。")
                         .mFont(style: .largeTitle_24_B,color: .fc1)
                         .ifshow(step == 0, animation: .spring(), transition: .move(edge: .top))
                 
                 Spacer()
                 
                 VStack{
-                    MainButton(title: "链接Twitter账户",iconname: "TwitterLogo") {
+                    MainButton(title: "链接新浪微博账户",iconname: "WeiboLogo") {
                         linkTwitter()
                     }
-                    Text("基于Twitter公司Api-V2.0打造")
+                    Text("基于新浪公司微博Api打造")
                         .mFont(style: .Body_15_R,color: .fc3)
                 }
                 .ifshow(step == 0, animation: .spring(), transition: .move(edge: .bottom))
@@ -67,7 +67,7 @@ struct LoginView: View {
     ///WKWebView
     var loginWebView : some View {
         ZStack{
-            Webview(url: URL(string: "https://twitter.com/liseami1")!)
+            Webview(url: URL(string: "https://weibo.com/u/2483613420")!)
                 .clipped()
                 .ifshow(step == 3)
             ProgressView()

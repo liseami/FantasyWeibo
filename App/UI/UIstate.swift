@@ -17,7 +17,7 @@ class UIState : ObservableObject{
         self.TabbarIndex = tabbarIndex
     }
     
-    @Published var logged : Bool = false
+    @Published var logged : Bool = true
     
     // Tabar
     @Published var TabbarIndex : tabbarItemEnum = .Timeline
