@@ -21,13 +21,13 @@ class UIState : ObservableObject{
     // Tabar
     @Published var TabbarIndex : tabbarItemEnum = .Timeline
     @Published var TabbarProgress : Double = 0
-    var tabbarItem : [tabbarItemEnum] = [.Timeline,.Poluar,.Search,.Message]
+    var tabbarItem : [tabbarItemEnum] = [.Timeline,.Search ,.Message,.User]
     
     enum tabbarItemEnum {
         case Timeline
         case Search
         case Message
-        case Poluar
+        case User
         var iconname : String{
             switch self {
             case .Timeline:
@@ -36,8 +36,8 @@ class UIState : ObservableObject{
                 return "search"
             case .Message:
                 return "email"
-            case .Poluar :
-                return "bar-chart-alt"
+            case .User :
+                return "user"
             }
         }
     }

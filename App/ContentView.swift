@@ -49,9 +49,9 @@ struct ContentView: View {
             switch uistate.TabbarIndex{
             ///主页面
             case .Timeline :  TimeLineView()
-            case .Poluar   :  PolularView()
             case .Search   :  searchView
-            case .Message  :  InBoxView()
+            case .Message   :  InBoxView()
+            case .User  :  ProFileView()
             }
         }
         ///Navilink
@@ -84,7 +84,7 @@ struct ContentView: View {
                 Spacer()
                 Button {
                 } label: {
-                    let poluar = uistate.TabbarIndex == .Poluar
+                    let poluar = uistate.TabbarIndex == .User
                     Circle()
                         .foregroundColor( poluar ? .Purple : .MainColor)
                         .frame(width: SW * 0.13, height: SW * 0.13)
