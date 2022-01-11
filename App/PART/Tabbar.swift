@@ -27,7 +27,7 @@ struct Tabbar: View {
                         Rectangle()
                       .hidden()
                       .overlay(ICON(name: selected ? iconname + ".selected" : iconname,
-                                    fcolor: selected ?  .MainColor : .fc2,
+                                    fcolor: selected ?  .MainColor : .fc1,
                                     size: 24))
                     }
                 }

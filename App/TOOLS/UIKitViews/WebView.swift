@@ -12,6 +12,7 @@ import WebKit
 
 struct Webview: UIViewControllerRepresentable {
     let url: URL
+    
 
     func makeUIViewController(context: Context) -> WebviewController {
         let webviewController = WebviewController()
@@ -95,3 +96,27 @@ class WebviewController: UIViewController, WKNavigationDelegate {
         }
     }
 }
+
+
+
+
+struct WebviewHTML: UIViewControllerRepresentable {
+    let HTMLString : String
+    
+
+    func makeUIViewController(context: Context) -> WebviewController {
+        let webviewController = WebviewController()
+
+        
+        webviewController.webview.loadHTMLString(HTMLString, baseURL: nil)
+
+        return webviewController
+    }
+
+    func updateUIViewController(_ webviewController: WebviewController, context: Context) {
+        
+        webviewController.webview.loadHTMLString(HTMLString, baseURL: nil)
+    }
+}
+
+

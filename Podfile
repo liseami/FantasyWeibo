@@ -24,6 +24,8 @@ pod 'FantasyUI', :path => './FantasyUI'
 
 pod 'SDWebImageSwiftUI'
 
+pod "Weibo_SDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git" 
+
 end
 
 

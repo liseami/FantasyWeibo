@@ -12,6 +12,10 @@
 //全局导入FantasyUI
 #import <FantasyUI/FantasyUI.h>
 
+
+#import <Weibo_SDK/WeiboSDK.h>
+#import <Weibo_SDK/WBHttpRequest.h>
+
 //! Project version number for ColorKit.
 FOUNDATION_EXPORT double ColorKitVersionNumber;
 
