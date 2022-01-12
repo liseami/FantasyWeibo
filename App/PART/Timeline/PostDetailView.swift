@@ -7,32 +7,23 @@
 
 import SwiftUI
 import FantasyUI
+import SDWebImageSwiftUI
 
 struct PostDetailView: View {
     @State private var offset : CGFloat = 0
+    
+    let post : TimeLinePost
+    
+    let avatarW = SW * 0.14
+    
     var body: some View {
-        
         
         PF_OffsetScrollView(offset: $offset) {
             VStack(spacing:24){
-                HStack(alignment: .top,  spacing:12){
-                    Image("liseamiAvatar")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: SW * 0.12, height: SW * 0.12)
-                        .clipShape(Circle())
-                    
-                        VStack(alignment: .leading, spacing:0){
-                            Text("Liseami")
-                                .mFont(style: .Title_17_B,color: .fc1)
-                            Text("@" + "usernickname")
-                                .mFont(style: .Title_17_R,color: .fc2)
-                        }
-                    Spacer()
-                }
-       
                 
-                Text(randomString(140))
+                userline
+                
+                Text(post.text ?? "")
                     .multilineTextAlignment(.leading)
                     .PF_Leading()
                     .lineSpacing(4)
@@ -52,6 +43,31 @@ struct PostDetailView: View {
 
     
        
+    }
+    
+    var userline : some View {
+        HStack(alignment: .top,  spacing:12){
+            Color.MainColor
+                .frame(width: avatarW, height: avatarW)
+                .overlay(
+                    Group{
+                        if let avatarurl = URL(string: post.user?.avatar_large ?? ""){
+                            WebImage(url: avatarurl)
+                                .resizable()
+                                .scaledToFill()
+                        }
+                    }
+                )
+                .clipShape(Circle())
+            
+                VStack(alignment: .leading, spacing:0){
+                    Text(post.user?.name ?? "用户名不可见")
+                        .mFont(style: .Title_17_B,color: .fc1)
+                    Text( post.user?.description ?? "")
+                        .mFont(style: .Title_17_R,color: .fc2)
+                }
+            Spacer()
+        }
     }
 }
 

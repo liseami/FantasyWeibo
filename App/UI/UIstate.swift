@@ -11,11 +11,14 @@ class UIState : ObservableObject{
     
     static let shared = UIState()
     
+    
     let userdefult = UserDefaults.standard
    
-    init(tabbarIndex : tabbarItemEnum = .Timeline){
+    init(tabbarIndex : tabbarItemEnum = .Timeline,logged : Bool = false){
         self.TabbarIndex = tabbarIndex
+        self.logged = logged
     }
+    
     
     @Published var logged : Bool = false
     // Tabar
@@ -48,5 +51,6 @@ class UIState : ObservableObject{
     
     ///post
     @Published var showPostDetailView : Bool = false
+    @Published var targetPost : TimeLinePost = TimeLinePost.init()
     
 }

@@ -6,6 +6,7 @@
 //
 
 import FantasyUI
+import Foundation
 
 
 protocol ApiType: CustomTargetType {
@@ -21,7 +22,7 @@ extension ApiType {
     
 
     var headers: [String: String]? {
-        return nil
+        return ["Authorization":"OAuth2" + " " + UserDefaults.standard.string(forKey: "access_token")!]
     }
 
     
@@ -38,7 +39,7 @@ struct ProjectConfig {
     
     static var host: String {
         switch env {
-        case .test: return "open.weibo.cn" //
+        case .test: return "api.weibo.com/2" //
         case .prod: return "" //
         }
     }

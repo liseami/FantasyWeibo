@@ -18,6 +18,10 @@ class LaunchManager : ObservableObject {
             //不是第一次启动
             
             //增加启动次数
+            if let _ = userDefaults.string(forKey: "access_token"){
+                UIState.shared.logged = true
+            }
+            
             let launchtime = userDefaults.integer(forKey: "Launch Time") + 1
             userDefaults.set(launchtime, forKey: "Launch Time")
             

@@ -61,7 +61,7 @@ struct ContentView: View {
         }
         ///Post详情
         .PF_Navilink(isPresented: $uistate.showPostDetailView, content: {
-            PostDetailView()
+            PostDetailView(post: uistate.targetPost)
         })
     }
     
