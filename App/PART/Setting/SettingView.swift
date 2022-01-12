@@ -17,17 +17,24 @@ struct SettingView: View {
     var body: some View {
         
         VStack(spacing:0){
-            SettingListRow(title: "邀请朋友使用Web3", iconnmae: "share")
-            SettingListRow(title: "设置", iconnmae: "settings")
-            SettingListRow(title: "账号数据", iconnmae: "reorder")
-            SettingListRow(title: "充值", iconnmae: "shopping-cart-add")
-            SettingListRow(title: "去AppStore评分", iconnmae: "favorite")
-            SettingListRow(title: "意见反馈邮箱", iconnmae: "message")
-            SettingListRow(title: "关于Web3", iconnmae: "external-link")
-            SettingListRow(title: "账户", iconnmae: "WeiboLogo")
+            SettingListRow(title: "邀请朋友使用Web3", iconnmae: "share"){}
+            SettingListRow(title: "设置", iconnmae: "settings"){}
+            SettingListRow(title: "账号数据", iconnmae: "reorder"){}
+            SettingListRow(title: "充值", iconnmae: "shopping-cart-add"){}
+            SettingListRow(title: "去AppStore评分", iconnmae: "favorite"){}
+            SettingListRow(title: "意见反馈邮箱", iconnmae: "message"){
+                uistate.showFeedBackView.toggle()
+            }
+            SettingListRow(title: "关于Web3", iconnmae: "external-link"){}
+            SettingListRow(title: "账户", iconnmae: "WeiboLogo"){}
             
             versionInfo
         }
+        .PF_FullScreen(isPresented: $uistate.showFeedBackView, onDismiss: {
+            
+        }, content: {
+            FeedBackView()
+        })
         .padding(.all,20)
         .background(Color.Card)
         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
@@ -65,18 +72,26 @@ struct SettingListRow : View {
     let title : String
     let iconnmae : String
     var isNavigation : Bool = true
+    let action : ()->()
+    
     
     var body: some View{
         
-        HStack(alignment: .center, spacing:20){
-            ICON(name: iconnmae,fcolor: .fc1,size: 24)
-            Text(title)
-                .mFont(style: .Title_17_R,color: .fc1)
-            Spacer()
-            ICON(name: "arrow-right",fcolor: .fc3,size: 20)
-                .ifshow(isNavigation)
+        Button {
+            action()
+        } label: {
+            HStack(alignment: .center, spacing:20){
+                ICON(name: iconnmae,fcolor: .fc1,size: 24)
+                Text(title)
+                    .mFont(style: .Title_17_R,color: .fc1)
+                Spacer()
+                ICON(name: "arrow-right",fcolor: .fc3,size: 20)
+                    .ifshow(isNavigation)
+            }
+            .padding(.vertical,20)
         }
-        .padding(.vertical,20)
+
+      
         
     }
 }

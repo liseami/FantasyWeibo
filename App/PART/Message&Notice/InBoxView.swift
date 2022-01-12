@@ -67,7 +67,7 @@ struct InBoxView: View {
         }
 
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(Text("InBox"))
+        .navigationTitle(Text("消息"))
     
     }
     

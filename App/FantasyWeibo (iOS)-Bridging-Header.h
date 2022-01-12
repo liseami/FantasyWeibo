@@ -8,10 +8,8 @@
 //导入UMAnalytics的OC的头文件
 #import <UMCommon/MobClick.h>
 
-
 //全局导入FantasyUI
 #import <FantasyUI/FantasyUI.h>
-
 
 #import <Weibo_SDK/WeiboSDK.h>
 #import <Weibo_SDK/WBHttpRequest.h>

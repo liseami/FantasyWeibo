@@ -14,6 +14,7 @@
 		A2066913278ECB6E00384380 /* PostMods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2066912278ECB6E00384380 /* PostMods.swift */; };
 		A2066916278ECB9700384380 /* PostApis.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2066915278ECB9700384380 /* PostApis.swift */; };
 		A2066918278ECBBE00384380 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2066917278ECBBE00384380 /* UserManager.swift */; };
+		A206691A278ED44B00384380 /* FeedBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2066919278ED44B00384380 /* FeedBackView.swift */; };
 		A208017A27896B62008461DA /* FantasyWeiboApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208016A27896B61008461DA /* FantasyWeiboApp.swift */; };
 		A208017C27896B62008461DA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208016B27896B61008461DA /* ContentView.swift */; };
 		A208017E27896B62008461DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A208016C27896B62008461DA /* Assets.xcassets */; };
@@ -61,6 +62,7 @@
 		A2066912278ECB6E00384380 /* PostMods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMods.swift; sourceTree = "<group>"; };
 		A2066915278ECB9700384380 /* PostApis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostApis.swift; sourceTree = "<group>"; };
 		A2066917278ECBBE00384380 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		A2066919278ED44B00384380 /* FeedBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackView.swift; sourceTree = "<group>"; };
 		A208016A27896B61008461DA /* FantasyWeiboApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FantasyWeiboApp.swift; sourceTree = "<group>"; };
 		A208016B27896B61008461DA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A208016C27896B62008461DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				A208019B27896D00008461DA /* SettingView.swift */,
+				A2066919278ED44B00384380 /* FeedBackView.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 				A20801C527896D00008461DA /* PublicFuncs.swift in Sources */,
 				A20801BA27896D00008461DA /* ProFileView.swift in Sources */,
 				A20801C627896D00008461DA /* Buttons.swift in Sources */,
+				A206691A278ED44B00384380 /* FeedBackView.swift in Sources */,
 				A20801B127896D00008461DA /* Tabbar.swift in Sources */,
 				A20801C827896D00008461DA /* Font.swift in Sources */,
 				A20801B827896D00008461DA /* SearchView.swift in Sources */,
@@ -641,7 +645,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 6UB6WM6VQR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -656,7 +660,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fantasy.FantasyWeibo;
 				PRODUCT_NAME = Web3;
 				SDKROOT = iphoneos;
@@ -676,7 +680,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 6UB6WM6VQR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -691,7 +695,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fantasy.FantasyWeibo;
 				PRODUCT_NAME = Web3;
 				SDKROOT = iphoneos;

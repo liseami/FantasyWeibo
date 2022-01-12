@@ -12,9 +12,6 @@ class UserManager : ObservableObject {
     static let shared = UserManager()
     let userDefaults = UserDefaults.standard
     
-    
-    
-    
     //是否登录
     var logged : Bool {
         get{
@@ -28,7 +25,6 @@ class UserManager : ObservableObject {
             objectWillChange.send()
             self.logged = newValue
         }
-      
     }
     
     //Token

@@ -53,4 +53,7 @@ class UIState : ObservableObject{
     @Published var showPostDetailView : Bool = false
     @Published var targetPost : TimeLinePost = TimeLinePost.init()
     
+    ///Setting
+    @Published var showFeedBackView : Bool = false
+    
 }
