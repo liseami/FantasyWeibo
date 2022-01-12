@@ -55,8 +55,13 @@ struct PostRaw: View {
         .padding(.all,12)
         .background(Color.Card)
         .onTapGesture {
-            UIState.shared.targetPost = post
-            UIState.shared.showPostDetailView = true
+            if let id = post.id {
+                PostDataCenter.shared.targetPostId = id
+                PostDataCenter.shared.getPostDetail()
+                UIState.shared.showPostDetailView = true
+            }else{
+                madaError()
+            }
         }
         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
     }

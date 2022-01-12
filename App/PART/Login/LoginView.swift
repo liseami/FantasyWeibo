@@ -163,8 +163,7 @@ class WeiboLoginViewModel :NSObject,WeiboSDKDelegate, ObservableObject{
     }
     
     func didReceiveWeiboRequest(_ request: WBBaseRequest?) {
-        print("🦢🦢🦢🦢🦢🦢🦢didReceiveWeiboRequest")
-    }
+        print("🦢🦢🦢🦢🦢🦢🦢didReceiveWeiboRequest")    }
     
     
 }

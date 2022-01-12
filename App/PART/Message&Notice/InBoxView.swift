@@ -13,24 +13,24 @@ class InBoxManager : ObservableObject{
     
     
     enum messageSwitch:MTPageSegmentProtocol {
-        case message
-        case notice
+        case like
+        case comment
         case mentions
 
         var showText: String{
             switch self {
-            case .message:
-                    return "私信"
-            case .notice:
-                    return "通知"
+            case .like:
+                    return "赞"
+            case .comment:
+                    return "评论"
             case .mentions:
-                    return "@提及"
+                    return "@提及我"
             }
         }
     }
     
-    @Published var messageTab : messageSwitch = .message
-    var tabitems : [messageSwitch] = [.message,.notice,.mentions]
+    @Published var messageTab : messageSwitch = .like
+    var tabitems : [messageSwitch] = [.like,.comment,.mentions]
 }
 
 

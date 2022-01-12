@@ -10,30 +10,34 @@ import FantasyUI
 import SDWebImageSwiftUI
 
 struct PostDetailView: View {
+    
     @State private var offset : CGFloat = 0
-    
-    let post : TimeLinePost
-    
     let avatarW = SW * 0.14
+    @ObservedObject var vm = PostDataCenter.shared
     
     var body: some View {
         
         PF_OffsetScrollView(offset: $offset) {
-            VStack(spacing:24){
-                
-                userline
-                
-                Text(post.text ?? "")
-                    .multilineTextAlignment(.leading)
-                    .PF_Leading()
-                    .lineSpacing(4)
-                    .mFont(style: .LargeTitle_22_R,color: .fc1)
-            
-                Spacer()
+            Group{
+                if let post = vm.postDetail{
+                    VStack(spacing:24){
+                        userline
+                        Text(post.text ?? "")
+                            .multilineTextAlignment(.leading)
+                            .PF_Leading()
+                            .lineSpacing(4)
+                            .mFont(style: .LargeTitle_22_R,color: .fc1)
+                    
+                        Spacer()
+                    }
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationTitle(Text("Tweet"))
+                    .padding(.all,16)
+                }else{
+                    ProgressView()
+                }
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(Text("Tweet"))
-            .padding(.all,16)
+           
         }
         .PF_Navitop(style:offset < -5 ? .large : .none) {
             BlurView()
@@ -45,7 +49,9 @@ struct PostDetailView: View {
        
     }
     
+    @ViewBuilder
     var userline : some View {
+        let post = vm.postDetail!
         HStack(alignment: .top,  spacing:12){
             Color.MainColor
                 .frame(width: avatarW, height: avatarW)

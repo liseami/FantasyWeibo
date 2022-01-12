@@ -10,6 +10,9 @@
 		A20199BD278D330300599C29 /* ApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20199BB278D330300599C29 /* ApiTest.swift */; };
 		A20199BE278D330300599C29 /* HTTPConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20199BC278D330300599C29 /* HTTPConfig.swift */; };
 		A20199C9278E971400599C29 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20199C8278E971400599C29 /* SceneDelegate.swift */; };
+		A2066910278ECB3500384380 /* PostDataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206690F278ECB3500384380 /* PostDataCenter.swift */; };
+		A2066913278ECB6E00384380 /* PostMods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2066912278ECB6E00384380 /* PostMods.swift */; };
+		A2066916278ECB9700384380 /* PostApis.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2066915278ECB9700384380 /* PostApis.swift */; };
 		A208017A27896B62008461DA /* FantasyWeiboApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208016A27896B61008461DA /* FantasyWeiboApp.swift */; };
 		A208017C27896B62008461DA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208016B27896B61008461DA /* ContentView.swift */; };
 		A208017E27896B62008461DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A208016C27896B62008461DA /* Assets.xcassets */; };
@@ -53,6 +56,9 @@
 		A20199BB278D330300599C29 /* ApiTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiTest.swift; sourceTree = "<group>"; };
 		A20199BC278D330300599C29 /* HTTPConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPConfig.swift; sourceTree = "<group>"; };
 		A20199C8278E971400599C29 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		A206690F278ECB3500384380 /* PostDataCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDataCenter.swift; sourceTree = "<group>"; };
+		A2066912278ECB6E00384380 /* PostMods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMods.swift; sourceTree = "<group>"; };
+		A2066915278ECB9700384380 /* PostApis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostApis.swift; sourceTree = "<group>"; };
 		A208016A27896B61008461DA /* FantasyWeiboApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FantasyWeiboApp.swift; sourceTree = "<group>"; };
 		A208016B27896B61008461DA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A208016C27896B62008461DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -117,6 +123,7 @@
 		A20199B9278D32B500599C29 /* NetWork */ = {
 			isa = PBXGroup;
 			children = (
+				A2066914278ECB8600384380 /* Apis */,
 				A20199BA278D330300599C29 /* Networking */,
 			);
 			path = NetWork;
@@ -129,6 +136,30 @@
 				A20199BC278D330300599C29 /* HTTPConfig.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		A206690E278ECB0900384380 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A206690F278ECB3500384380 /* PostDataCenter.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A2066911278ECB4600384380 /* Moduels */ = {
+			isa = PBXGroup;
+			children = (
+				A2066912278ECB6E00384380 /* PostMods.swift */,
+			);
+			path = Moduels;
+			sourceTree = "<group>";
+		};
+		A2066914278ECB8600384380 /* Apis */ = {
+			isa = PBXGroup;
+			children = (
+				A2066915278ECB9700384380 /* PostApis.swift */,
+			);
+			path = Apis;
 			sourceTree = "<group>";
 		};
 		A208016427896B60008461DA = {
@@ -146,6 +177,8 @@
 		A208016927896B61008461DA /* App */ = {
 			isa = PBXGroup;
 			children = (
+				A2066911278ECB4600384380 /* Moduels */,
+				A206690E278ECB0900384380 /* ViewModel */,
 				A20199B9278D32B500599C29 /* NetWork */,
 				A208016A27896B61008461DA /* FantasyWeiboApp.swift */,
 				A20199C8278E971400599C29 /* SceneDelegate.swift */,
@@ -446,6 +479,7 @@
 				A20801C727896D00008461DA /* Comps.swift in Sources */,
 				A20801C027896D00008461DA /* LacunchManager.swift in Sources */,
 				A20801B527896D00008461DA /* PolularPost.swift in Sources */,
+				A2066913278ECB6E00384380 /* PostMods.swift in Sources */,
 				A20801B627896D00008461DA /* PolularSpace.swift in Sources */,
 				A20199C9278E971400599C29 /* SceneDelegate.swift in Sources */,
 				A20801CA27896D00008461DA /* UIstate.swift in Sources */,
@@ -453,8 +487,10 @@
 				A20801BB27896D00008461DA /* SettingView.swift in Sources */,
 				A20801C227896D00008461DA /* WebView.swift in Sources */,
 				A20801C927896D00008461DA /* Color.swift in Sources */,
+				A2066910278ECB3500384380 /* PostDataCenter.swift in Sources */,
 				A208025D27896FF2008461DA /* DefultStore.swift in Sources */,
 				A208017C27896B62008461DA /* ContentView.swift in Sources */,
+				A2066916278ECB9700384380 /* PostApis.swift in Sources */,
 				A20801B227896D00008461DA /* InBoxView.swift in Sources */,
 				A20801BC27896D00008461DA /* PostDetailView.swift in Sources */,
 				A20801B927896D00008461DA /* SearchInputView.swift in Sources */,
