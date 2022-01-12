@@ -13,6 +13,7 @@
 		A2066910278ECB3500384380 /* PostDataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206690F278ECB3500384380 /* PostDataCenter.swift */; };
 		A2066913278ECB6E00384380 /* PostMods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2066912278ECB6E00384380 /* PostMods.swift */; };
 		A2066916278ECB9700384380 /* PostApis.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2066915278ECB9700384380 /* PostApis.swift */; };
+		A2066918278ECBBE00384380 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2066917278ECBBE00384380 /* UserManager.swift */; };
 		A208017A27896B62008461DA /* FantasyWeiboApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208016A27896B61008461DA /* FantasyWeiboApp.swift */; };
 		A208017C27896B62008461DA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208016B27896B61008461DA /* ContentView.swift */; };
 		A208017E27896B62008461DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A208016C27896B62008461DA /* Assets.xcassets */; };
@@ -59,6 +60,7 @@
 		A206690F278ECB3500384380 /* PostDataCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDataCenter.swift; sourceTree = "<group>"; };
 		A2066912278ECB6E00384380 /* PostMods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMods.swift; sourceTree = "<group>"; };
 		A2066915278ECB9700384380 /* PostApis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostApis.swift; sourceTree = "<group>"; };
+		A2066917278ECBBE00384380 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		A208016A27896B61008461DA /* FantasyWeiboApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FantasyWeiboApp.swift; sourceTree = "<group>"; };
 		A208016B27896B61008461DA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A208016C27896B62008461DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				A206690F278ECB3500384380 /* PostDataCenter.swift */,
+				A2066917278ECBBE00384380 /* UserManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -177,9 +180,6 @@
 		A208016927896B61008461DA /* App */ = {
 			isa = PBXGroup;
 			children = (
-				A2066911278ECB4600384380 /* Moduels */,
-				A206690E278ECB0900384380 /* ViewModel */,
-				A20199B9278D32B500599C29 /* NetWork */,
 				A208016A27896B61008461DA /* FantasyWeiboApp.swift */,
 				A20199C8278E971400599C29 /* SceneDelegate.swift */,
 				A208025A27896FF1008461DA /* AppDelegate.swift */,
@@ -188,6 +188,9 @@
 				A208016C27896B62008461DA /* Assets.xcassets */,
 				A208018927896CD5008461DA /* FantasyWeibo(iOS)-Bridging-Header.m */,
 				A208018827896CD4008461DA /* FantasyWeibo (iOS)-Bridging-Header.h */,
+				A2066911278ECB4600384380 /* Moduels */,
+				A206690E278ECB0900384380 /* ViewModel */,
+				A20199B9278D32B500599C29 /* NetWork */,
 				A208018B27896D00008461DA /* PART */,
 				A20801A227896D00008461DA /* TOOLS */,
 				A20801AA27896D00008461DA /* UI */,
@@ -475,6 +478,7 @@
 			files = (
 				A20801B327896D00008461DA /* PolularView.swift in Sources */,
 				A20801BE27896D00008461DA /* PostRaw.swift in Sources */,
+				A2066918278ECBBE00384380 /* UserManager.swift in Sources */,
 				A20199BD278D330300599C29 /* ApiTest.swift in Sources */,
 				A20801C727896D00008461DA /* Comps.swift in Sources */,
 				A20801C027896D00008461DA /* LacunchManager.swift in Sources */,

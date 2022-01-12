@@ -17,13 +17,14 @@ class LaunchManager : ObservableObject {
         if userDefaults.bool(forKey: "First Launch") == true{
             //不是第一次启动
             
-            //增加启动次数
-            if let _ = userDefaults.string(forKey: "access_token"){
-                UIState.shared.logged = true
-            }
             
+            //打开App时检查是否登录
+            //TODO: 检查TOken有效性
+      
+            //增加启动次数
             let launchtime = userDefaults.integer(forKey: "Launch Time") + 1
             userDefaults.set(launchtime, forKey: "Launch Time")
+            
             
             print("App第\(userDefaults.integer(forKey: "Launch Time"))次启动")
             

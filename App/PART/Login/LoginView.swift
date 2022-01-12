@@ -26,13 +26,9 @@ struct LoginView: View {
             VStack{
                 
                 
-//                Link(destination: URL(string: "https://Twitter.com/liseami1")!) {
-//                    Text("最新进展")
-//                }
-                
-                Button("最新进展"){
-                    UIState.shared.logged = true
-                }
+                Link(destination: URL(string: "https://weibo.com/u/2483613420")!) {
+                                  Text("最新进展")
+                              }
                 .mFont(style: .Title_17_B,color: .MainColor)
                 .frame(maxWidth:.infinity,alignment: .trailing)
                 
@@ -153,8 +149,7 @@ class WeiboLoginViewModel :NSObject,WeiboSDKDelegate, ObservableObject{
                     let userID = authorizeResponse.userID
                     let accessToken = authorizeResponse.accessToken
                     if let token = accessToken{
-                        UserDefaults.standard.set(token, forKey: "access_token")
-                        UIState.shared.logged = true
+                        UserManager.shared.token = token
                     }
                     print("userID:\(String(describing: userID))\naccessToken:\(String(describing: accessToken))")
                 }
