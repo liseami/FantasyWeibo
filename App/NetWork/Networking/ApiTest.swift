@@ -17,7 +17,7 @@ enum LogoutApi: ApiType {
         "/system/logout"
     }
     
-    var method: HTTPRequestMethod {
+    var method: HTTPMethod {
         .get
     }
     

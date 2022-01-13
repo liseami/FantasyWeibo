@@ -11,7 +11,7 @@ import SDWebImageSwiftUI
 struct PostRaw: View {
  
     
-    let post : TimeLinePost
+    let post : Post
     let avatarW = SW * 0.14
     
     var body: some View {
@@ -42,7 +42,10 @@ struct PostRaw: View {
                     .PF_Leading()
                     .mFont(style: .Title_17_R,color: .fc1)
             
-                pictures
+                
+                PostPicsView(urls: post.pic_urls.map({ pic_url in
+                    pic_url.thumbnail_pic!
+                }))
                     .ifshow(!post.pic_urls.isEmpty)
              
                 
@@ -55,80 +58,13 @@ struct PostRaw: View {
         .padding(.all,12)
         .background(Color.Card)
         .onTapGesture {
-            if let id = post.id {
-                PostDataCenter.shared.targetPostId = id
-                PostDataCenter.shared.getPostDetail()
-                UIState.shared.showPostDetailView = true
-            }else{
-                madaError()
-            }
+            PostDataCenter.shared.targetPost = post
+            UIState.shared.showPostDetailView = true
         }
         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
     }
     
-    var pictures : some View {
-        Group{
-                let urls = post.pic_urls
-                let imageW = SW - 24 - 24 - avatarW - 12
-            Color.clear.frame(width: imageW, height: imageW * (urls.count == 1 ? 1.4 : 0.618))
-                    .overlay(
-                        Group{
-                            switch post.pic_num{
-                            case 1 :
-                                
-                                WebImage(url: URL(string: post.bmiddle_pic!)!)
-                                    .resizable()
-                                    .scaledToFill()
-                                
-                            case 2 : HStack(spacing:1){
-                                WebImage(url: URL(string: urls.first!.thumbnail_pic!)!)
-                                    .resizable()
-                                    .scaledToFill()
-                                WebImage(url: URL(string: urls.last!.thumbnail_pic!)!)
-                                    .resizable()
-                                    .scaledToFill()
-                            }
-                            case 3 : HStack(spacing:1){
-                                WebImage(url: URL(string: urls.first!.thumbnail_pic!)!)
-                                    .resizable()
-                                    .scaledToFill()
-                                VStack(spacing:1){
-                                    WebImage(url: URL(string: urls[1].thumbnail_pic!)!)
-                                        .resizable()
-                                        .scaledToFill()
-                                    WebImage(url: URL(string: urls.last!.thumbnail_pic!)!)
-                                        .resizable()
-                                        .scaledToFill()
-                                }
-                            }
-                            case 4...12 : HStack(spacing:1){
-                                VStack(spacing:1){
-                                    WebImage(url: URL(string: urls.first!.thumbnail_pic!)!)
-                                        .resizable()
-                                        .scaledToFill()
-                                    WebImage(url: URL(string: urls[2].thumbnail_pic!)!)
-                                        .resizable()
-                                        .scaledToFill()
-                                }
-                                VStack(spacing:1){
-                                    WebImage(url: URL(string: urls[1].thumbnail_pic!)!)
-                                        .resizable()
-                                        .scaledToFill()
-                                    WebImage(url: URL(string: urls.last!.thumbnail_pic!)!)
-                                        .resizable()
-                                        .scaledToFill()
-                                }
-                            }
-                            default:
-                                EmptyView()
-                            }
-                        }
-                       
-                    )
-                    .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(lineWidth: 1).foregroundColor(.fc3.opacity(0.6)))
-                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-        }
-    }
+    
     var userline : some View {
         HStack(alignment: .center, spacing:6){
             Text(post.user?.name ?? "用户名不可见")
@@ -196,11 +132,11 @@ struct PostRaw: View {
 
 struct PostRaw_Previews: PreviewProvider {
     static var previews: some View {
-        PostRaw(post: TimeLinePost.init())
+        PostRaw(post: Post.init())
             .previewLayout(.sizeThatFits)
         ZStack{
             Color.BackGround.ignoresSafeArea()
-            PostRaw(post: TimeLinePost.init())
+            PostRaw(post: Post.init())
                 .padding(.all,12)
         }
  

@@ -19,17 +19,20 @@ struct ContentView: View {
             LoginView()
         }else{
             NavigationView {
-                if #available(iOS 15.0, *) {
-                    mainViews
-                    ///Toolbar
-                    .toolbar {toolbar}
-                }else{
-                    mainViews
-                    .navigationBarItems(leading: toolbarLeading, trailing: toolbarTrailing)
+                Group{
+                    if #available(iOS 15.0, *) {
+                        mainViews
+                        ///Toolbar
+                        .toolbar {toolbar}
+                    }else{
+                        mainViews
+                        .navigationBarItems(leading: toolbarLeading, trailing: toolbarTrailing)
+                    }
                 }
+                .overlay(Tabbar())
+                .overlay(TabbarBtn)
+             
             }
-            .overlay(Tabbar())
-            .overlay(TabbarBtn)
             .PF_Sheet(isPresented: $uistate.showSettingView, backColor: .clear, content: {
                 SettingView()
             })
@@ -84,11 +87,10 @@ struct ContentView: View {
                 Spacer()
                 Button {
                 } label: {
-                    let poluar = uistate.TabbarIndex == .User
                     Circle()
-                        .foregroundColor( poluar ? .Purple : .MainColor)
+                        .foregroundColor( .MainColor)
                         .frame(width: SW * 0.13, height: SW * 0.13)
-                        .overlay(ICON(name: poluar ? "shopping-cart-add" : "edit",fcolor: .Card,size: 24))
+                        .overlay(ICON(name: "edit",fcolor: .Card,size: 24))
                         .shadow(color: .fc1.opacity(0.12), radius: 4, x: 0, y: 4)
                 }
             }

@@ -8,12 +8,6 @@
 import SwiftUI
 import FantasyUI
 
-
-
-
-
-
-
 struct LoginView: View {
     
     @State private var step : Int = 0
@@ -69,8 +63,7 @@ struct LoginView: View {
     ///WKWebView
     var loginWebView : some View {
         ZStack{
-            Webview(url: URL(string: "https://weibo.com/u/2483613420")!)
-                .clipped()
+            ICON(name: "WeiboLogo",fcolor: .Card,size: 32)
                 .ifshow(step == 3)
             ProgressView()
                 .ifshow(step == 2)
@@ -148,8 +141,10 @@ class WeiboLoginViewModel :NSObject,WeiboSDKDelegate, ObservableObject{
                     let  authorizeResponse : WBAuthorizeResponse = response as! WBAuthorizeResponse
                     let userID = authorizeResponse.userID
                     let accessToken = authorizeResponse.accessToken
-                    if let token = accessToken{
+                    if let token = accessToken,let userid = userID{
+                        //保存Token与locuid
                         UserManager.shared.token = token
+                        UserManager.shared.locuid = userid
                     }
                     print("userID:\(String(describing: userID))\naccessToken:\(String(describing: accessToken))")
                 }

@@ -24,65 +24,12 @@ struct getPostDetailReqMod : Convertible{
     var id : Int?  // 需要获取的微博ID。
 }
 
-
-
-struct User : Convertible{
-    var  id: String?
-    var  screen_name: String?
-    var  name: String?
-    var  province: String?
-    var  city: String?
-    var  location: String?
-    var  description: String?
-    var  url: String?
-    var  profile_image_url: String?
-    var  domain: String?
-    var  gender: String?
-    var  followers_count: String?
-    var  friends_count: String?
-    var  statuses_count: String?
-    var  favourites_count: String?
-    var  created_at: String?
-    var  following: Bool = false
-    var  allow_all_act_msg: Bool = false
-    var  remark: String?
-    var  geo_enabled: Bool = false
-    var  verified: Bool = false
-    var  allow_all_comment: Bool = false
-    var  avatar_large: String?
-    var  verified_reason: String?
-    var  follow_me: Bool = false
-    var  online_status: String?
-    var  bi_followers_count: String?
-}
-
-
 struct Weibo_ADPost : Convertible{
     var id : String?
     var mark : String?
 }
 
-
-struct PostDetailMod : Convertible{
-    var  created_at : String?
-    var  id  : Int?
-      var  text : String?
-      var  source : String?
-    var  favorited: Bool = false
-    var  truncated : Bool = false
-      var  in_reply_to_status_id : String?
-      var  in_reply_to_user_id : String?
-      var  in_reply_to_screen_name : String?
-    var  geo : weiboGEO?
-      var  mid  : String?
-      var  reposts_count  : String?
-      var  comments_count : String?
-     var  annotations : [String]?
-    var user : User?
-    
-}
-
-struct TimeLinePost : Convertible {
+struct Post : Convertible {
     var created_at : String?
     var id : Int?
     var idstr : String?
@@ -109,7 +56,7 @@ struct TimeLinePost : Convertible {
     
     var user : User?
     
-    var picStatus : String?
+    var  picStatus : String?
     var  reposts_count : String = "0"
     var  comments_count : String  = "0"
     var  reprint_cmt_count : String  = "0"
@@ -136,7 +83,7 @@ struct TimeLinePost : Convertible {
 }
 
 struct TimeLineResponse : Convertible{
-    var statuses : [TimeLinePost] = []
+    var statuses : [Post] = []
     var ad : [Weibo_ADPost] = []
     var total_number : String?
 }

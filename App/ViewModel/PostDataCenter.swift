@@ -11,27 +11,23 @@ import SwiftUI
 class PostDataCenter : ObservableObject{
     static let shared = PostDataCenter()
     
-    @Published var timelinedata : TimeLineResponse?
-    @Published var posts : [TimeLinePost] = []
-    @Published var targetPostId : Int = 0
-    @Published var postDetail : PostDetailMod?
+    
+    @Published var homeTimelinePosts : [Post] = []
+    @Published var targetPost : Post?
+    
     
     func getTimeLine() {
-        let target = TimeLineApi.getTimeLinePosts(p: .init())
-        Networking.requestArray(target, modeType: TimeLinePost.self, atKeyPath: "statuses") { r, arr in
-            if let arr = arr {
-                self.posts = arr
-            }
+//        let target = TimeLineApi.getTimeLinePosts(p: .init())
+//        Networking.requestArray(target, modeType: TimeLinePost.self, atKeyPath: "statuses") { r, arr in
+//            if let arr = arr {
+//                self.homeTimelinePosts = arr
+//            }
+//        }
+        
+        if let arr = MockTool.readArray(Post.self, fileName: "timelinedata", atKeyPath: "statuses"){
+            self.homeTimelinePosts = arr
         }
-    }
-    
-    func getPostDetail(){
-        let target = TimeLineApi.getPostDetail(p: .init(access_token: nil, id: self.targetPostId))
-        Networking.requestObject(target, modeType: PostDetailMod.self) { r , mod in
-            if let mod = mod {
-                self.postDetail = mod
-            }
-        }
+        
     }
     
 }

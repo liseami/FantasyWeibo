@@ -10,15 +10,12 @@ import SwiftUI
 class UIState : ObservableObject{
     
     static let shared = UIState()
-    
-    
     let userdefult = UserDefaults.standard
    
     init(tabbarIndex : tabbarItemEnum = .Timeline,logged : Bool = false){
         self.TabbarIndex = tabbarIndex
         
     }
-    
     
     
     // Tabar
@@ -51,9 +48,25 @@ class UIState : ObservableObject{
     
     ///post
     @Published var showPostDetailView : Bool = false
-    @Published var targetPost : TimeLinePost = TimeLinePost.init()
+    @Published var targetPost : Post = Post.init()
     
     ///Setting
     @Published var showFeedBackView : Bool = false
     
+    
+    
+    var imageGroup_Height : Float {
+        get{
+            let h = userdefult.float(forKey: "imageGroup_Height")
+            if h != 0 {
+                return h
+            }else{
+                return Float(0)
+            }
+        }
+        set{
+            objectWillChange.send()
+            userdefult.set(newValue, forKey: "imageGroup_Height")
+        }
+    }
 }

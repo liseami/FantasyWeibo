@@ -62,7 +62,7 @@ struct SearchView: View {
             
                 VStack(spacing:12){
                     ForEach(0..<12){index in
-                        PostRaw(post: TimeLinePost.init())
+                        PostRaw(post: Post.init())
                     }
                 }
                 .padding(.horizontal,8)

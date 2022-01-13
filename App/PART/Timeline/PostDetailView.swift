@@ -19,7 +19,7 @@ struct PostDetailView: View {
         
         PF_OffsetScrollView(offset: $offset) {
             Group{
-                if let post = vm.postDetail{
+                if let post = vm.targetPost{
                     VStack(spacing:24){
                         userline
                         Text(post.text ?? "")
@@ -31,13 +31,12 @@ struct PostDetailView: View {
                         Spacer()
                     }
                     .navigationBarTitleDisplayMode(.inline)
-                    .navigationTitle(Text("Tweet"))
+                    .navigationTitle(Text("详情"))
                     .padding(.all,16)
                 }else{
                     ProgressView()
                 }
             }
-           
         }
         .PF_Navitop(style:offset < -5 ? .large : .none) {
             BlurView()
@@ -51,7 +50,7 @@ struct PostDetailView: View {
     
     @ViewBuilder
     var userline : some View {
-        let post = vm.postDetail!
+        let post = vm.targetPost!
         HStack(alignment: .top,  spacing:12){
             Color.MainColor
                 .frame(width: avatarW, height: avatarW)

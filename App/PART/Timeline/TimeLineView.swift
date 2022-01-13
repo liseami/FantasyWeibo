@@ -25,8 +25,8 @@ struct TimeLineView: View {
             LazyVStack {
                 Spacer().frame(width: 1, height: 1)
                 
-                if !vm.posts.isEmpty {
-                    ForEach(vm.posts,id:\.self.id){ post in
+                if !vm.homeTimelinePosts.isEmpty {
+                    ForEach(vm.homeTimelinePosts,id:\.self.id){ post in
                         PostRaw(post: post)
                     }
                 }else{

@@ -12,6 +12,8 @@ struct ProFileView: View {
     
     @State private var backcolor : Color = .BackGround
     @State private var offset : CGFloat = 0
+    @ObservedObject var vm = UserManager.shared
+    let loc : Bool = true
     
     var body: some View {
         
@@ -27,132 +29,110 @@ struct ProFileView: View {
                     .animation(.spring(), value: backcolor)
                     .transition(.move(edge: .top))
             }
-           
+            
             BlurView().ignoresSafeArea()
-      
-
+            
+            
             
             PF_OffsetScrollView(offset: $offset) {
-            
+                
                 VStack(spacing:32){
-               
+                    
                     VStack(spacing:12){
                         avatar
                         
-                        Text("Over Liseami")
+                        Text(vm.locUser.name ?? "...")
                             .mFont(style: .LargeTitle_22_B,color: .fc1)
-                        Text("修改资料")
-                            .mFont(style: .Body_15_B,color: .fc1)
-                            .padding(.horizontal,32)
-                            .padding(.vertical,6)
-                            .background(Color.fc3.opacity(0.2))
-                            .clipShape(Capsule(style: .continuous))
+                        
+                        
+                        Group{
+                            if let verified_reason = vm.locUser.verified_reason{
+                                Text(verified_reason)
+                            }
+                        }
+                        .mFont(style: .Body_15_B,color: .fc1)
+                        .padding(.horizontal,32)
+                        .padding(.vertical,6)
+                        .background(Color.fc3.opacity(0.2))
+                        .clipShape(Capsule(style: .continuous))
                     }
-                  
-                    
                     
                     HStack(spacing:SW * 0.12){
                         
                         VStack{
-                            Text("249")
+                            Text(vm.locUser.status_total_counter?.comment_cnt ?? "0")
                                 .mFont(style: .Body_13_B,color: .fc1)
                             Text("照片")
                         }
                         
                         VStack{
-                            Text("234")
+                            Text(vm.locUser.statuses_count)
                                 .mFont(style: .Body_13_B,color: .fc1)
-                            Text("推文")
+                            Text("微博")
                         }
                         
                         VStack{
-                            Text("100102")
+                            Text(vm.locUser.followers_count)
                                 .mFont(style: .Body_13_B,color: .fc1)
                             Text("粉丝")
                         }
                         
                         VStack{
-                            Text("429")
+                            Text(vm.locUser.bi_followers_count)
                                 .mFont(style: .Body_13_B,color: .fc1)
                             Text("关注")
                         }
-                       
+                        
                     }
                     .mFont(style: .Body_15_R,color: .fc2)
-
                     
-                        Spacer()
+                    
+                    Spacer()
                 }
                 .padding(.all,24)
             }
-        
-                
-                
-            }
-        .navigationBarTitleDisplayMode(.inline)
+            
             
             
         }
+        .onAppear(perform: {
+            vm.getLocUserProFile()
+        })
+        .navigationBarTitleDisplayMode(.inline)
+        
+        
+    }
     
     @ViewBuilder
     var avatar : some View {
-        let imageurl = URL(string: "https://m.media-amazon.com/images/M/MV5BMjIyNjk1OTgzNV5BMl5BanBnXkFtZTcwOTU0OTk1Mw@@._V1_Ratio1.5000_AL_.jpg")
-        if #available(iOS 15.0, *) {
-            AsyncImage(url: imageurl){ image in
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: SW * 0.3,height: SW * 0.3)
-                    .clipShape(Circle())
-                    .onAppear {
-                        let uiimage = image.asUIImage()
-                        getDominantColorsByUIImage(uiimage) { color  in
-                            DispatchQueue.main.async {
-                                madasoft()
-                                withAnimation {
-                                    self.backcolor = color
-                                }
-                            }
-                        }
-                    }
-            }placeholder: {
+        let imageurl = URL(string: vm.locUser.avatar_large ?? "")
+        
+        WebImage(url: imageurl)
+            .resizable()
+            .placeholder(content: {
                 Color.Card
                     .frame(width: SW * 0.3,height: SW * 0.3)
                     .clipShape(Circle())
                     .overlay(ProgressView())
-            }
-             
-        } else {
-            
-            WebImage(url: imageurl)
-                .resizable()
-                .placeholder(content: {
-                    Color.Card
-                        .frame(width: SW * 0.3,height: SW * 0.3)
-                        .clipShape(Circle())
-                        .overlay(ProgressView())
-                })
-                .scaledToFill()
-                .frame(width: SW * 0.3,height: SW * 0.3)
-                .clipShape(Circle())
-                .onAppear {
-                    let uiimage =  WebImage(url: imageurl).asUIImage()
-                    getDominantColorsByUIImage(uiimage) { color  in
-                        DispatchQueue.main.async {
-                            madasoft()
-                            withAnimation {
-                                self.backcolor = color
-                            }
+            })
+            .scaledToFill()
+            .frame(width: SW * 0.3,height: SW * 0.3)
+            .clipShape(Circle())
+            .onAppear {
+                let uiimage =  WebImage(url: imageurl).asUIImage()
+                getDominantColorsByUIImage(uiimage) { color  in
+                    DispatchQueue.main.async {
+                        madasoft()
+                        withAnimation {
+                            self.backcolor = color
                         }
                     }
                 }
-            
-                
-        }
+            }
         
     }
-   
-        
+    
+    
     
 }
 

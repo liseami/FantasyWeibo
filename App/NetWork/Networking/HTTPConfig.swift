@@ -32,7 +32,7 @@ struct ProjectConfig {
     static let env: Environment = .test
     
     enum Environment {
-    case test, prod
+    case test, mok
     }
     
     static var scheme: String { "https" }
@@ -40,7 +40,7 @@ struct ProjectConfig {
     static var host: String {
         switch env {
         case .test: return "api.weibo.com/2" //
-        case .prod: return "" //
+        case .mok: return "" //
         }
     }
     
@@ -53,7 +53,7 @@ struct ProjectConfig {
     static var firstPath: String? {
         switch env {
         case .test: return ""
-        case .prod: return ""
+        case .mok: return ""
         }
     }
 }
