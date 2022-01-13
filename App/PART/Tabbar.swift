@@ -22,13 +22,17 @@ struct Tabbar: View {
                     let selected = tabitem == uistate.TabbarIndex
                     let iconname = tabitem.iconname
                     Button {
+                        if tabitem == .User{
+                            UserManager.shared.getProfileData(uid: nil)
+                            PostDataCenter.shared.getProFileTimeLine()
+                        }
                         uistate.TabbarIndex = tabitem
                     } label: {
                         Rectangle()
                       .hidden()
                       .overlay(ICON(name: selected ? iconname + ".selected" : iconname,
                                     fcolor: selected ?  .MainColor : .fc1,
-                                    size: 24))
+                                    size: 24).disabled(true))
                     }
                 }
             }

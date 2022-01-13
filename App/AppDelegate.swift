@@ -30,6 +30,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         //微博SDK注册
         WeiboSDK.registerApp("1861925073", universalLink: "/")
         
+        
         return true
     }
 

@@ -25,8 +25,8 @@ struct TimeLineView: View {
             LazyVStack {
                 Spacer().frame(width: 1, height: 1)
                 
-                if !vm.homeTimelinePosts.isEmpty {
-                    ForEach(vm.homeTimelinePosts,id:\.self.id){ post in
+                if !vm.home_timeline.isEmpty {
+                    ForEach(vm.home_timeline,id:\.self.id){ post in
                         PostRaw(post: post)
                     }
                 }else{
@@ -50,7 +50,7 @@ struct TimeLineView: View {
             }
             .onAppear {
                 if isfirstTimeOnAppear {
-                    vm.getTimeLine()
+                    vm.getHomeTimeLine()
                     madasoft()
                     isfirstTimeOnAppear.toggle()
                 }
@@ -64,7 +64,7 @@ struct TimeLineView: View {
             Spacer()
             TextPlaceHolder(text: "暂无数据", subline: "请尝试刷新数据。",style: .inline)
             MainButton(title: "刷新") {
-                vm.getTimeLine()
+                vm.getHomeTimeLine()
             }
             Spacer()
             .padding(.horizontal,32)

@@ -9,16 +9,16 @@ import Foundation
 
 enum TimeLineApi : ApiType{
     
-    case getTimeLinePosts(p:getTimeLineReqMod)
-    case getPostDetail(p:getPostDetailReqMod)
+    case get_home_timeline(p:getTimeLineReqMod)
+    case get_user_timeline(p:getUserTimeLineReqMod)
     
     
     var path: String {
         switch self {
-        case .getTimeLinePosts( _):
+        case .get_home_timeline( _):
             return "statuses/home_timeline.json"
-        case .getPostDetail(_):
-            return "statuses/show.json"
+        case .get_user_timeline(_):
+            return "statuses/user_timeline.json"
         }
         
     }
@@ -29,9 +29,9 @@ enum TimeLineApi : ApiType{
     
     var parameters: [String : Any]?{
         switch self {
-        case .getTimeLinePosts(let p):
+        case .get_home_timeline(let p):
             return p.kj.JSONObject()
-        case .getPostDetail(p: let p):
+        case .get_user_timeline(p: let p):
             return p.kj.JSONObject()
         }
     }

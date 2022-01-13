@@ -65,6 +65,9 @@ struct LoginView: View {
         ZStack{
             ICON(name: "WeiboLogo",fcolor: .Card,size: 32)
                 .ifshow(step == 3)
+                .onAppear {
+                    vm.login()
+                }
             ProgressView()
                 .ifshow(step == 2)
             closeBtn

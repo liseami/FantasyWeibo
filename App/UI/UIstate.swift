@@ -55,9 +55,9 @@ class UIState : ObservableObject{
     
     
     
-    var imageGroup_Height : Float {
+    var imageGroup_Height_V : Float {
         get{
-            let h = userdefult.float(forKey: "imageGroup_Height")
+            let h = userdefult.float(forKey: "imageGroup_Height_V")
             if h != 0 {
                 return h
             }else{
@@ -66,7 +66,23 @@ class UIState : ObservableObject{
         }
         set{
             objectWillChange.send()
-            userdefult.set(newValue, forKey: "imageGroup_Height")
+            userdefult.set(newValue, forKey: "imageGroup_Height_V")
         }
     }
+    
+    var imageGroup_Height_H : Float {
+        get{
+            let h = userdefult.float(forKey: "imageGroup_Height_H")
+            if h != 0 {
+                return h
+            }else{
+                return Float(0)
+            }
+        }
+        set{
+            objectWillChange.send()
+            userdefult.set(newValue, forKey: "imageGroup_Height_H")
+        }
+    }
+    
 }

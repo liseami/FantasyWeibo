@@ -8,26 +8,67 @@
 import SwiftUI
 
 
-class PostDataCenter : ObservableObject{
+class PostDataCenter :NSObject, ObservableObject,WeiboSDKDelegate{
+  
     static let shared = PostDataCenter()
     
     
-    @Published var homeTimelinePosts : [Post] = []
+    @Published var home_timeline : [Post] = []
     @Published var targetPost : Post?
+    @Published var user_timeline : [Post] = []
     
-    
-    func getTimeLine() {
-//        let target = TimeLineApi.getTimeLinePosts(p: .init())
-//        Networking.requestArray(target, modeType: TimeLinePost.self, atKeyPath: "statuses") { r, arr in
-//            if let arr = arr {
-//                self.homeTimelinePosts = arr
-//            }
-//        }
-        
-        if let arr = MockTool.readArray(Post.self, fileName: "timelinedata", atKeyPath: "statuses"){
-            self.homeTimelinePosts = arr
+    func getHomeTimeLine() {
+        switch ProjectConfig.env{
+        case .test :
+            let target = TimeLineApi.get_home_timeline(p: .init())
+            Networking.requestArray(target, modeType: Post.self, atKeyPath: "statuses") { r, arr in
+                if let arr = arr {
+                    self.home_timeline = arr
+                }
+            }
+        case .mok :
+            if let arr = MockTool.readArray(Post.self, fileName: "timelinedata", atKeyPath: "statuses"){
+                self.home_timeline = arr
+            }
         }
+    
         
     }
+    
+    func getProFileTimeLine(){
+        
+        switch ProjectConfig.env{
+        case .test :
+            
+            let target = TimeLineApi.get_user_timeline(p: .init())
+            Networking.requestArray(target, modeType: Post.self,atKeyPath: "statuses") { r , arr  in
+                if let arr = arr {
+                    self.user_timeline = arr
+                }
+            }
+            
+        case .mok:
+            if let arr = MockTool.readArray(Post.self, fileName: "profiletimeline", atKeyPath: "statuses"){
+                self.user_timeline = arr
+            }
+        }
+    
+    }
+    
+    
+    ///个人主页数据
+    func getLocUserTimeLine(){
+        WeiboSDK.linkToProfile()
+    }
+    
+    
+    func didReceiveWeiboResponse(_ response: WBBaseResponse?) {
+        print(response)
+    }
+    
+    func didReceiveWeiboRequest(_ request: WBBaseRequest?) {
+        
+    }
+    
     
 }

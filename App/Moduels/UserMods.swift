@@ -39,7 +39,7 @@ struct User : Convertible{
     var weihao: String? //274300559
     var gender: String? //m
     var followers_count: String = "0" //9517,
-    var followers_count_str: String? //2万
+    var followers_count_str: String = "0"//2万
     var friends_count: String? //4,
     var pagefriends_count: String? //,
     var statuses_count: String = "" //48,

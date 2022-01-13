@@ -28,7 +28,7 @@ struct MockTool {
         
     }
  
-    static func readObject<T: Convertible>(_ type: T.Type, fileName: String, atKeyPath keyPath: String? = "data") -> T? {
+    static func readObject<T: Convertible>(_ type: T.Type, fileName: String, atKeyPath keyPath: String? = nil) -> T? {
         let json =  jsonForFile(fileName)
         
         if let keyPath = keyPath {
@@ -43,7 +43,14 @@ struct MockTool {
         return json?.dictionaryObject?.kj.model(T.self)
     }
     
-    static func readArray<T: Convertible>(_ type: T.Type, fileName: String, atKeyPath keyPath: String? = "data") -> [T]? {
+    static func readObjectNoKeyPath<T: Convertible>(_ type: T.Type, fileName: String) -> T? {
+        let json =  jsonForFile(fileName)
+        
+        return json?.dictionaryObject?.kj.model(T.self)
+        
+    }
+    
+    static func readArray<T: Convertible>(_ type: T.Type, fileName: String, atKeyPath keyPath: String? = nil) -> [T]? {
         let json =  jsonForFile(fileName)
 
         if let keyPath = keyPath {

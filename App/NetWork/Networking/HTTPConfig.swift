@@ -22,14 +22,14 @@ extension ApiType {
     
 
     var headers: [String: String]? {
-        return ["Authorization":"OAuth2" + " " + UserDefaults.standard.string(forKey: "access_token")!]
+        return ["Authorization":"OAuth2" + " " + UserManager.shared.token!]
     }
 
     
 }
 
 struct ProjectConfig {
-    static let env: Environment = .test
+    static let env: Environment = .mok
     
     enum Environment {
     case test, mok
@@ -40,15 +40,14 @@ struct ProjectConfig {
     static var host: String {
         switch env {
         case .test: return "api.weibo.com/2" //
-        case .mok: return "" //
+        case .mok: return "api.weibo.com/2" //
         }
     }
     
     static var port: Int? {
         return nil
     }
-    
-   
+
     
     static var firstPath: String? {
         switch env {

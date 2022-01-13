@@ -17,25 +17,16 @@ struct PostRaw: View {
     var body: some View {
         HStack(alignment: .top,  spacing:12){
         
-            Color.MainColor
-                .frame(width: avatarW, height: avatarW)
-                .overlay(
-                    Group{
-                        if let avatarurl = URL(string: post.user?.avatar_large ?? ""){
-                            WebImage(url: avatarurl)
-                                .resizable()
-                                .scaledToFill()
-                        }
-                    }
-                )
-                .clipShape(Circle())
-            
+         
           
-            
+            UserAvatar(url: URL(string: post.user?.avatar_large ?? ""))
+                .canOpenProfile(uid: post.user?.id)
+                        
             
             VStack(alignment: .leading,spacing:4){
                 
                 userline
+                
                 
                 Text(post.text ?? "")
                     .multilineTextAlignment(.leading)
@@ -43,10 +34,10 @@ struct PostRaw: View {
                     .mFont(style: .Title_17_R,color: .fc1)
             
                 
-                PostPicsView(urls: post.pic_urls.map({ pic_url in
+                
+                PostPicsView(urls: post.pic_urls.compactMap({ pic_url in
                     pic_url.thumbnail_pic!
-                }))
-                    .ifshow(!post.pic_urls.isEmpty)
+                })).ifshow(!post.pic_urls.isEmpty)
              
                 
                 btns
@@ -69,6 +60,7 @@ struct PostRaw: View {
         HStack(alignment: .center, spacing:6){
             Text(post.user?.name ?? "用户名不可见")
                 .mFont(style: .Title_17_B,color: .fc1)
+                .canOpenProfile(uid: post.user?.id)
 //            Text("@" + (post.user?.id ?? ""))
 //                .mFont(style: .Title_17_R,color: .fc2)
             Spacer()
@@ -109,6 +101,7 @@ struct PostRaw: View {
                         }
                     })
                     ,alignment: .leading)
+            
             Spacer()
                 .overlay(
                    
@@ -141,5 +134,25 @@ struct PostRaw_Previews: PreviewProvider {
         }
  
        
+    }
+}
+
+
+
+struct goProfileBtn : ViewModifier{
+    var uid : String?
+    func body(content: Content) -> some View {
+        Button {
+            UserManager.shared.getProfileData(uid: uid)
+            UIState.shared.showProfileView = true
+        } label: {
+            content
+        }
+    }
+}
+
+extension View{
+    func canOpenProfile(uid:String?) -> some View{
+        self.modifier(goProfileBtn(uid: uid))
     }
 }

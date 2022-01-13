@@ -26,12 +26,12 @@ struct ContentView: View {
                         .toolbar {toolbar}
                     }else{
                         mainViews
-                        .navigationBarItems(leading: toolbarLeading, trailing: toolbarTrailing)
+                        .navigationBarItems( trailing: toolbarTrailing)
                     }
                 }
                 .overlay(Tabbar())
                 .overlay(TabbarBtn)
-             
+            
             }
             .PF_Sheet(isPresented: $uistate.showSettingView, backColor: .clear, content: {
                 SettingView()
@@ -106,9 +106,9 @@ struct ContentView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 toolbarTrailing
             }
-            ToolbarItem(placement: .navigationBarLeading) {
-                toolbarLeading
-            }
+//            ToolbarItem(placement: .navigationBarLeading) {
+//                toolbarLeading
+//            }
         }
     }
     
