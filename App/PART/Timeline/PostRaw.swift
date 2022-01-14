@@ -35,7 +35,7 @@ struct PostRaw: View {
             
                 PostPicsView(urls: post.pic_urls.compactMap({ pic_url in
                             getbmiddleImageUrl(urlString: pic_url.thumbnail_pic!)
-                        }))
+                }), h: getimageAreaHeight(urlscount: post.pic_urls.count))
                     .ifshow(!post.pic_urls.isEmpty)
                 
               
@@ -173,3 +173,9 @@ extension String {
     }
 }
 
+
+func getimageAreaHeight(urlscount : Int) -> CGFloat{
+    let w = UIState.shared.showPostDetailView ? UIState.shared.postImageAreaWidth_Detail : UIState.shared.postImageAreaWidth_HomeView
+    let h = CGFloat(urlscount == 1 ? w * 1.4 : w * 0.618)
+    return h
+}

@@ -33,6 +33,14 @@ struct ContentView: View {
                 //                .overlay(TabbarBtn)
                 
             }
+            .onAppear(perform: {
+                guard userManager.locAvatarUrl.isEmpty else {return}
+                //首次登录获取自己的头像等信息
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    userManager.getProfileData(uid: nil)
+                }
+            })
+            
             .PF_Sheet(isPresented: $uistate.showSettingView, backColor: .clear, content: {
                 SettingView()
             })

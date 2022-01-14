@@ -35,7 +35,7 @@ struct PostDetailView: View {
                     
                         PostPicsView(urls: post.pic_urls.compactMap({ pic_url  in
                             getbmiddleImageUrl(urlString: pic_url.thumbnail_pic!)
-                        }))
+                        }), h: getimageAreaHeight(urlscount: post.pic_urls.count))
                             .ifshow(!post.pic_urls.isEmpty)
                         
                         
@@ -82,15 +82,6 @@ struct PostDetailView: View {
             EmptyView()
         }
 
-            
-    
-            
-            
-            
-            
-            
-            
-            
             
             HStack{
                 UserAvatar(url: URL(string: UserManager.shared.locAvatarUrl),frame: GoldenH)

@@ -55,9 +55,10 @@ class UIState : ObservableObject{
     
     
     
-    var imageGroup_Height_V : Float {
+    //首页图片区域宽度
+    var postImageAreaWidth_HomeView : Float {
         get{
-            let h = userdefult.float(forKey: "imageGroup_Height_V")
+            let h = userdefult.float(forKey: "postImageAreaWidth_HomeView")
             if h != 0 {
                 return h
             }else{
@@ -66,38 +67,19 @@ class UIState : ObservableObject{
         }
         set{
             objectWillChange.send()
-            userdefult.set(newValue, forKey: "imageGroup_Height_V")
+            userdefult.set(newValue, forKey: "postImageAreaWidth_HomeView")
         }
     }
     
-    var imageGroup_Height_H : Float {
+    
+    //动态详情图片区域宽度
+    var postImageAreaWidth_Detail : Float {
         get{
-            let h = userdefult.float(forKey: "imageGroup_Height_H")
-            if h != 0 {
-                return h
-            }else{
-                return Float(0)
-            }
+            return userdefult.float(forKey: "postImageAreaWidth_Detail")
         }
         set{
             objectWillChange.send()
-            userdefult.set(newValue, forKey: "imageGroup_Height_H")
+            userdefult.set(newValue, forKey: "postImageAreaWidth_Detail")
         }
     }
-    
-    var postImageAreaWidth : Float {
-        get{
-            let h = userdefult.float(forKey: "postImageAreaWidth")
-            if h != 0 {
-                return h
-            }else{
-                return Float(0)
-            }
-        }
-        set{
-            objectWillChange.send()
-            userdefult.set(newValue, forKey: "postImageAreaWidth")
-        }
-    }
-    
 }
