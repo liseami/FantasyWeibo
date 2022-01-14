@@ -40,21 +40,16 @@ struct TimeLineView: View {
             
         })
             .navigationBarTitleDisplayMode(.inline)
-            .PF_Navitop(style:offset < -5 ? .large : .none) {
+            .PF_Navitop(style: offset < -5 ? .large : .none,showDivider: false, backgroundView: {
                 BlurView()
-            } TopCenterView: {
-                Image("Web3Logo")
-                    .resizable()
-                    .frame(width: 28, height: 28)
-                    .scaledToFit()
-            }
+            }, TopCenterView: {})
             .onAppear {
+                //加载数据
                 if isfirstTimeOnAppear {
                     vm.getHomeTimeLine()
                     madasoft()
                     isfirstTimeOnAppear.toggle()
                 }
-              
             }
         
     }

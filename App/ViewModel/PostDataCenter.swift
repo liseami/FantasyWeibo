@@ -18,9 +18,11 @@ class PostDataCenter :NSObject, ObservableObject,WeiboSDKDelegate{
     @Published var user_timeline : [Post] = []
     
     func getHomeTimeLine() {
+        
         switch ProjectConfig.env{
+            
         case .test :
-            let target = TimeLineApi.get_home_timeline(p: .init())
+            let target = TimeLineApi.get_home_timeline(p: .init(count:57))
             Networking.requestArray(target, modeType: Post.self, atKeyPath: "statuses") { r, arr in
                 if let arr = arr {
                     self.home_timeline = arr
@@ -38,9 +40,10 @@ class PostDataCenter :NSObject, ObservableObject,WeiboSDKDelegate{
     func getProFileTimeLine(){
         
         switch ProjectConfig.env{
+            
         case .test :
             
-            let target = TimeLineApi.get_user_timeline(p: .init())
+            let target = TimeLineApi.get_user_timeline(p: .init(uid:UserManager.shared.targetUserid))
             Networking.requestArray(target, modeType: Post.self,atKeyPath: "statuses") { r , arr  in
                 if let arr = arr {
                     self.user_timeline = arr
@@ -63,12 +66,43 @@ class PostDataCenter :NSObject, ObservableObject,WeiboSDKDelegate{
     
     
     func didReceiveWeiboResponse(_ response: WBBaseResponse?) {
-        print(response)
+//        print(response)
     }
     
     func didReceiveWeiboRequest(_ request: WBBaseRequest?) {
         
     }
+    
+    
+    enum postToolBtn {
+        case comment
+        case repost
+        case attitude
+        var iconname : String{
+            switch self {
+            case .comment:
+                return "message"
+            case .repost:
+                return "enter"
+            case .attitude:
+                return "heart"
+            }
+        }
+        var title : String{
+            switch self {
+            case .comment:
+                return "评论"
+            case .repost:
+                return "转发"
+            case .attitude:
+                return "赞"
+            }
+        }
+    }
+    
+    var posttoolbtns : [postToolBtn] = [.comment,.repost,.attitude]
+    
+    
     
     
 }

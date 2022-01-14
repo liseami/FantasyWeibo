@@ -17,7 +17,7 @@ struct UserAvatar: View {
             WebImage(url: url)
                 .resizable()
                 .placeholder(content: {
-                    ProgressView()
+                    Color.back1
                 })
                 .scaledToFill()
                 .frame(width: frame, height: frame)

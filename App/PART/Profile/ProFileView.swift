@@ -202,19 +202,23 @@ struct ProFileView: View {
             return AnyView(
                 ZStack{
                     
-                    LinearGradient(gradient: Gradient(colors: [backcolor, backcolor.opacity(0.6)]), startPoint: .bottom, endPoint: .topTrailing)
+                 
                     
                     BlurView()
                         .opacity(blurViewOpacity())
                     
                     Color.Card.ignoresSafeArea()
                         .opacity(blurViewOpacity())
+                        
+                    LinearGradient(gradient: Gradient(colors: [backcolor, backcolor.opacity(0.6)]), startPoint: .bottom, endPoint: .topLeading)
+                        .opacity(1 - blurViewOpacity())
+           
                     
                     // Title View...
                     HStack(spacing: 5){
                         
                         // Banner...
-                        WebImage(url: URL(string: vm.targetUser.cover_image ?? ""))
+                        WebImage(url: URL(string: vm.targetUser.avatar_hd ?? ""))
                             .resizable()
                             .placeholder {
                                 ZStack{
@@ -281,9 +285,7 @@ struct ProFileView: View {
     }
     
     func blurViewOpacity()->Double{
-        
         let progress = -(offset + 80) / 150
-        
         return Double(-offset > 80 ? progress : 0)
     }
 }

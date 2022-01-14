@@ -50,14 +50,27 @@ class UserManager : ObservableObject {
     }
     
     //Token
-    var locuid : String? {
+    var locuid : String {
         get {
             let str =  userDefaults.string(forKey: "loc_uid")
-            return str
+            return str ?? ""
         }
         set{
             objectWillChange.send()
             userDefaults.set(newValue, forKey: "loc_uid")
+        }
+    }
+    
+    //LocUserAvatar
+    var locAvatarUrl : String{
+        get{
+            let str =  userDefaults.string(forKey: "locAvatarUrl")
+            return str ?? ""
+        }
+        set{
+            objectWillChange.send()
+     
+            userDefaults.set(newValue, forKey: "locAvatarUrl")
         }
     }
     
@@ -71,27 +84,37 @@ extension UserManager{
     
     func getProfileData(uid : String?){
         
-        ///确认要请求的id，如果为空，则请求自己的profile
-        self.targetUserid = (uid == nil ? self.locuid! : uid!)
-        let requid = uid == nil ? locuid : uid
+        
+        ///清空目标用户数据
         self.targetUser = User.init()
-        
-        
-        
+        ///确认要请求的id，如果为空，则请求自己的profile
+        self.targetUserid = (uid == nil ? self.locuid : uid!)
+      
+
         switch  ProjectConfig.env{
             
-            
         case .test:
-            let target = UserApi.getProfile(p: .init(uid:requid))
+            //根据uid获取用户信息接口
+            let target = UserApi.getProfile(p: .init(uid:targetUserid))
             Networking.requestObject(target, modeType: User.self,atKeyPath: nil) { r , user in
                 if let user = user {
                     self.targetUser = user
+                    //本地用户头像持久化
+                    guard user.avatar_large != self.locAvatarUrl else { return }
+                    self.locAvatarUrl = user.avatar_large ?? ""
+                    
                 }
             }
+            
         case .mok:
             if ismyProfile {
                 if let user = MockTool.readObjectNoKeyPath(User.self, fileName: "locuserprofile"){
+                    
                     self.targetUser = user
+                    //本地用户头像持久化
+                    guard user.avatar_large != self.locAvatarUrl else { return }
+                    self.locAvatarUrl = user.avatar_large ?? ""
+                    
                 }
             }else{
                 if let user = MockTool.readObjectNoKeyPath(User.self, fileName: "remoteuserprofile"){

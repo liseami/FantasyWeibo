@@ -30,11 +30,6 @@ struct SettingView: View {
             
             versionInfo
         }
-        .PF_FullScreen(isPresented: $uistate.showFeedBackView, onDismiss: {
-            
-        }, content: {
-            FeedBackView()
-        })
         .padding(.all,20)
         .background(Color.Card)
         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))

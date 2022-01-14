@@ -99,22 +99,24 @@ struct PostPicsView: View {
                     .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(lineWidth: 1).foregroundColor(.fc3.opacity(0.6)))
                     .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
         }
-        .frame(height :CGFloat(urls.count == 1 ? uistate.imageGroup_Height_V : uistate.imageGroup_Height_H))
+        .frame(height :CGFloat(urls.count == 1 ? uistate.postImageAreaWidth * 1.4 : uistate.postImageAreaWidth * 0.618))
         
     }
     
     func reportHToUistate(w:CGFloat){
-        guard uistate.imageGroup_Height_H == 0 else {return}
-        let vh = w * 1.4
-        let hh = w * 0.618
-        uistate.imageGroup_Height_V = Float(vh)
-        uistate.imageGroup_Height_H = Float(hh)
-        
+        guard uistate.postImageAreaWidth == 0 else {return}
+        uistate.postImageAreaWidth = Float(w)
     }
 }
 
 struct PostPicsView_Previews: PreviewProvider {
     static var previews: some View {
-        PostPicsView(urls: Array(repeating: "http://wx3.sinaimg.cn/large/006Cr5dqly1gyb8iuoaarj30jg0jin0l.jpg",count: 3))
+        
+        let pic1 = ["http://wx3.sinaimg.cn/large/008iCELoly1gxhv8efkp0j30h10mvwgi.jpg"]
+        let pic2 = ["http://wx2.sinaimg.cn/large/008iCELoly1gy31bnhznqg30m80cinpf.gif","http://wx3.sinaimg.cn/large/008iCELoly1gxhv8efkp0j30h10mvwgi.jpg"]
+        let pic3 = ["http://wx3.sinaimg.cn/large/008iCELoly1gy31bt7g67g30m80cix6v.gif","http://wx2.sinaimg.cn/large/008iCELoly1gy31bnhznqg30m80cinpf.gif","http://wx3.sinaimg.cn/large/008iCELoly1gxhv8efkp0j30h10mvwgi.jpg"]
+        let pic4 = ["http://wx2.sinaimg.cn/large/008iCELoly1gy31bpm0n2g30m80ci1l6.gif","http://wx2.sinaimg.cn/large/008iCELoly1gy31bnhznqg30m80cinpf.gif","http://wx3.sinaimg.cn/large/008iCELoly1gxhv8efkp0j30h10mvwgi.jpg"]
+        let pic9 = ["http://wx3.sinaimg.cn/large/008iCELoly1gy31br5vb9g30m80ci4qv.gif","http://wx3.sinaimg.cn/large/008iCELoly1gy31br5vb9g30m80ci4qv.gif","http://wx3.sinaimg.cn/large/008iCELoly1gy31br5vb9g30m80ci4qv.gif","http://wx3.sinaimg.cn/large/008iCELoly1gy31br5vb9g30m80ci4qv.gif","http://wx3.sinaimg.cn/large/008iCELoly1gy31br5vb9g30m80ci4qv.gif","http://wx3.sinaimg.cn/large/008iCELoly1gy31br5vb9g30m80ci4qv.gif","http://wx2.sinaimg.cn/large/008iCELoly1gy31bnhznqg30m80cinpf.gif","http://wx3.sinaimg.cn/large/008iCELoly1gxhv8efkp0j30h10mvwgi.jpg"]
+        PostPicsView(urls: pic1)
     }
 }

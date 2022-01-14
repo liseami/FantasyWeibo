@@ -35,7 +35,7 @@ class UIState : ObservableObject{
             case .Search:
                 return "search"
             case .Message:
-                return "email"
+                return "notiheart"
             case .User :
                 return "user"
             }
@@ -82,6 +82,21 @@ class UIState : ObservableObject{
         set{
             objectWillChange.send()
             userdefult.set(newValue, forKey: "imageGroup_Height_H")
+        }
+    }
+    
+    var postImageAreaWidth : Float {
+        get{
+            let h = userdefult.float(forKey: "postImageAreaWidth")
+            if h != 0 {
+                return h
+            }else{
+                return Float(0)
+            }
+        }
+        set{
+            objectWillChange.send()
+            userdefult.set(newValue, forKey: "postImageAreaWidth")
         }
     }
     
