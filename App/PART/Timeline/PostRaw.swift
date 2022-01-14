@@ -8,45 +8,137 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
+
 struct PostRaw: View {
- 
-    
+
     let post : Post
-    let avatarW = SW * 0.14
+    
+    var avatarW = SW * 0.14
+    var style : styleEnum = .post
+    var avatarImageUrl : URL? = nil
+    var username : String = ""
+    var repost_user_name : String = ""
+    var text : String = ""
+    var pic_urls : [String] = []
+    var comments_count : String = ""
+    var reposts_count : String = ""
+    var attitudes_count : String = ""
+    var repost_user_avatarImageUrl : URL? = nil
+    var repost_text : String = ""
+    
+    
+    
+    enum styleEnum {
+        case post
+        case repost_wihtouttext
+        case repost_wihttext
+    }
+    
+    
+    init(post:Post){
+        self.post = post
+        if let repost = post.retweeted_status{
+            if repost.text == "" || post.text == "转发微博"{
+                //快转微博
+                self.style = .repost_wihtouttext
+                self.text = repost.text
+                if !repost.pic_urls.isEmpty{
+                    self.pic_urls = repost.pic_urls.map({ postpicurl in
+                        getbmiddleImageUrl(urlString: postpicurl.thumbnail_pic!)
+                    })
+                }
+                self.comments_count = repost.comments_count ?? ""
+                self.reposts_count = repost.reposts_count ?? ""
+                self.attitudes_count = repost.attitudes_count ?? ""
+                self.avatarImageUrl = URL(string: repost.user?.avatar_large ?? "")
+                self.repost_user_name = post.user?.name ?? ""
+                self.username = repost.user?.name ?? ""
+                
+            }else{
+                //带文字转发微博
+                self.style = .repost_wihttext
+                //主体
+                self.text = post.text ?? ""
+                self.avatarImageUrl = URL(string: post.user?.avatar_large ?? "")
+                self.username = post.user?.name ?? ""
+                
+                self.comments_count = post.comments_count
+                self.reposts_count = post.reposts_count
+                self.attitudes_count = post.attitudes_count
+                //被转发的post
+                self.repost_user_name = repost.user?.name ?? ""
+                self.repost_user_avatarImageUrl = URL(string: repost.user?.avatar_large ?? "")
+                self.repost_text = repost.text
+                if !repost.pic_urls.isEmpty{
+                    self.pic_urls = repost.pic_urls.map({ postpicurl in
+                        getbmiddleImageUrl(urlString: postpicurl.thumbnail_pic!)
+                    })
+                }
+            }
+        }else{
+            //原创微博
+            self.style = .post
+            self.avatarImageUrl = URL(string: post.user?.avatar_large ?? "")
+            self.username = post.user?.name ?? ""
+            self.text = post.text ?? ""
+            if !post.pic_urls.isEmpty{
+                self.pic_urls = post.pic_urls.map({ postpicurl in
+                    getbmiddleImageUrl(urlString: postpicurl.thumbnail_pic!)
+                })
+            }
+            self.comments_count = post.comments_count
+            self.reposts_count = post.reposts_count
+            self.attitudes_count = post.attitudes_count
+        }
+    }
+    
+  
     
     var body: some View {
-        HStack(alignment: .top,  spacing:12){
         
-         
-          
-            UserAvatar(url: URL(string: post.user?.avatar_large ?? ""))
-                .canOpenProfile(uid: post.user?.id)
-                        
+
+
+        
+        VStack{
+            HStack{
+                Text(repost_user_name)
+                ICON(name:"enter",fcolor: .fc1,size: 16)
+            }
+                .mFont(style: .Body_15_B,color: .fc1)
+                .padding(.horizontal,12)
+                .padding(.vertical,4)
+                .background(Color.fc1.opacity(0.06))
+                .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
+                .PF_Leading()
+                .ifshow(style == .repost_wihtouttext)
             
-            VStack(alignment: .leading,spacing:4){
+            HStack(alignment: .top,  spacing:12){
                 
-                userline
+                UserAvatar(url:self.avatarImageUrl)
+                    .canOpenProfile(uid: post.user?.id  ?? "")
+                            
                 
+                VStack(alignment: .leading,spacing:4){
+                    
+                    userline
+                    
+                    Text(self.text)
+                        .multilineTextAlignment(.leading)
+                        .PF_Leading()
+                        .mFont(style: .Title_17_R,color: .fc1)
                 
-                Text(post.text ?? "")
-                    .multilineTextAlignment(.leading)
-                    .PF_Leading()
-                    .mFont(style: .Title_17_R,color: .fc1)
-            
-                PostPicsView(urls: post.pic_urls.compactMap({ pic_url in
-                            getbmiddleImageUrl(urlString: pic_url.thumbnail_pic!)
-                }), h: getimageAreaHeight(urlscount: post.pic_urls.count))
-                    .ifshow(!post.pic_urls.isEmpty)
-                
-              
-             
-                
-                btns
-              
-                
-                
+                    PostPicsView(urls: self.pic_urls, h: getimageAreaHeight(urlscount: post.pic_urls.count))
+                        .ifshow(!pic_urls.isEmpty)
+                    
+
+                    btns
+                  
+                    
+                    
+                }
             }
         }
+     
         .padding(.all,12)
         .background(Color.Card)
         .onTapGesture {
@@ -57,11 +149,13 @@ struct PostRaw: View {
     }
     
     
+    @ViewBuilder
     var userline : some View {
+        
         HStack(alignment: .center, spacing:6){
-            Text(post.user?.name ?? "用户名不可见")
+            Text(self.username)
                 .mFont(style: .Title_17_B,color: .fc1)
-                .canOpenProfile(uid: post.user?.id)
+                .canOpenProfile(uid: post.user?.id ?? "")
 //            Text("@" + (post.user?.id ?? ""))
 //                .mFont(style: .Title_17_R,color: .fc2)
             Spacer()
@@ -79,7 +173,9 @@ struct PostRaw: View {
         }
     }
     
+    @ViewBuilder
     var btns : some View{
+     
         HStack(spacing:12){
             ForEach(PostDataCenter.shared.posttoolbtns,id :\.self){ btn in
                 Spacer()
@@ -90,7 +186,8 @@ struct PostRaw: View {
                         }, label: {
                             HStack(spacing:8){
                                 ICON(name: btn.iconname,fcolor:.fc2,size: 16)
-                                Text(btn == .comment ? post.comments_count : btn == .repost ? post.reposts_count : post.attitudes_count)
+                                
+                                Text(btn == .comment ? comments_count : btn == .repost ? reposts_count : attitudes_count)
                             }
                         })
                         ,alignment: .leading)
@@ -108,18 +205,16 @@ struct PostRaw_Previews: PreviewProvider {
             .previewLayout(.sizeThatFits)
         ZStack{
             Color.BackGround.ignoresSafeArea()
-            PostRaw(post: Post.init())
-                .padding(.all,12)
+            ContentView()
         }
  
-       
     }
 }
 
 
 
 struct goProfileBtn : ViewModifier{
-    var uid : String?
+    var uid : String
     func body(content: Content) -> some View {
         Button {
             UserManager.shared.getProfileData(uid: uid)
@@ -132,7 +227,7 @@ struct goProfileBtn : ViewModifier{
 }
 
 extension View{
-    func canOpenProfile(uid:String?) -> some View{
+    func canOpenProfile(uid:String) -> some View{
         self.modifier(goProfileBtn(uid: uid))
     }
 }
@@ -145,7 +240,7 @@ func getbmiddleImageUrl(urlString:String) -> String {
     let http = urlString.match(#"http://.*\.cn/"#).first?.first
 //    "bmiddle/"
 //    "008iCELoly1gy31bnhznqg30m80cinpf"
-    let imagename = urlString.match(#"\w{32}"#).first?.first
+    let imagename = urlString.match(#"\w{20,40}"#).first?.first
     let fileformat = urlString.match(#"\.jpg|\.png|\.gif|\.jpeg"#).first?.first
     result = http! + "bmiddle/" + imagename! + fileformat!
     return result
@@ -157,7 +252,7 @@ func getblargeImageUrl(urlString:String) -> String {
     let http = urlString.match(#"http://.*\.cn/"#).first?.first
 //    "bmiddle/"
 //    "008iCELoly1gy31bnhznqg30m80cinpf"
-    let imagename = urlString.match(#"\w{32}"#).first?.first
+    let imagename = urlString.match(#"\w{20,40}"#).first?.first
     let fileformat = urlString.match(#"\.jpg|\.png|\.gif|\.jpeg"#).first?.first
     result = http! + "large/" + imagename! + fileformat!
     return result

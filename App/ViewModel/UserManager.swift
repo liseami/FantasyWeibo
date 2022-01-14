@@ -25,6 +25,7 @@ class UserManager : ObservableObject {
     //是否登录
     var logged : Bool {
         get{
+            guard ProjectConfig.env != .mok else {return true}
             if let _ =  userDefaults.string(forKey: "access_token"){
                 return true
             }else{

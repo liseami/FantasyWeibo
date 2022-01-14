@@ -12,15 +12,11 @@ struct TimeLineView: View {
     @State private var offset : CGFloat = 0
     @ObservedObject var uistate = UIState.shared
     @ObservedObject var vm = PostDataCenter.shared
-    
-    let str = randomString(Int.random(in: 12...140))
-    
     @State private var isfirstTimeOnAppear : Bool = true
     var body: some View {
         
         
         PF_OffsetScrollView(offset: $offset, content: {
-            
             
             LazyVStack {
                 Spacer().frame(width: 1, height: 1)
