@@ -34,7 +34,8 @@ struct TweetCard: View {
     @State private var showPostDeatilView : Bool = false
     @State private var showProfileView : Bool = false
     
-    @State private var targetPost : Post?
+    @State private var targetPost : Post = Post.init()
+    @State private var targetUser : User = User.init()
     
     enum styleEnum {
         case post
@@ -63,7 +64,7 @@ struct TweetCard: View {
                     //主要文字
                     mainText
                     //主要图片
-                    mainPics
+                    mainMediaArea
                     //被转发微博
                     forwarded_post
                     //按钮 + 数据
@@ -81,10 +82,12 @@ struct TweetCard: View {
             showPostDeatilView.toggle()
         })
         .PF_Navilink(isPresented: $showProfileView) {
-            ProFileView()
+            //个人主页
+            ProFileView(self.targetUser)
         }
         .PF_Navilink(isPresented: $showPostDeatilView) {
-            PostDetailView(post : self.targetPost ?? Post.init())
+            //Post详情
+            PostDetailView(post : self.targetPost)
         }
         
     }
@@ -98,32 +101,45 @@ struct TweetCard: View {
     
     var mainAvatar : some View {
         Button {
+            self.targetUser = (style == .repost_fast ? post.retweeted_status?.user : post.user) ?? User.init()
             showProfileView.toggle()
         } label: {
             UserAvatar(url: style == .repost_fast ? forwarded_user_avatarImageUrl : avatarImageUrl)
         }
     }
     
-    var mainPics : some View{
-        TweetPicView(urls: self.pic_urls)
-            .ifshow(!pic_urls.isEmpty)
-            .ifshow(style != .repost)
+    var mainMediaArea : some View{
+        
+        //传递图片，或者寻找text中的视频链接进行传递
+        TweetMediaView(urls: !self.pic_urls.isEmpty ? self.pic_urls : [getVideoUrlInText(text: text) ?? ""])
+            .ifshow(!pic_urls.isEmpty || getVideoUrlInText(text: text) != nil)
+            .ifshow(style == .post)
             .padding(.top,8)
+        
     }
+    
+    
     
     var forwarded_post : some View{
         ///被正常转发的微博
         VStack(spacing:0){
             VStack(alignment: .leading, spacing:12){
-                HStack(spacing:6){
-                    UserAvatar(url: forwarded_user_avatarImageUrl,frame:SW * 0.06)
-                    Text(forwarded_user_name)
-                        .mFont(style: .Title_17_B,color: .fc1)
-                    ICON(sysname: "checkmark.seal.fill",fcolor: .MainColor,size: 16)
-                        .padding(.leading,4)
-                        .ifshow(self.forwarded_user_isV)
-                    Spacer()
+                Button {
+                    self.targetUser = post.retweeted_status!.user!
+                    showProfileView.toggle()
+                } label: {
+                    HStack(spacing:6){
+                        UserAvatar(url: forwarded_user_avatarImageUrl,frame:SW * 0.06)
+                        Text(forwarded_user_name)
+                            .mFont(style: .Title_17_B,color: .fc1)
+                        ICON(sysname: "checkmark.seal.fill",fcolor: .MainColor,size: 16)
+                            .padding(.leading,4)
+                            .ifshow(self.forwarded_user_isV)
+                        Spacer()
+                    }
                 }
+
+              
                 
                 Text(forwarded_text)
                     .frame(maxHeight:.infinity)
@@ -132,7 +148,7 @@ struct TweetCard: View {
             }
             .padding(.all,12)
             
-            TweetPicView(urls: pic_urls,cliped: false)
+            TweetMediaView(urls: pic_urls,cliped: false)
             
         }
         .background(Color.Card)
@@ -170,8 +186,7 @@ struct TweetCard: View {
                 .mFont(style: .Title_17_B,color: .fc1)
             ICON(sysname: "checkmark.seal.fill",fcolor: .MainColor,size: 16)
                 .padding(.leading,4)
-                .ifshow(style == .post ? self.user_isV : self.forwarded_user_isV)
-            
+                .ifshow(style == .repost_fast ? self.forwarded_user_isV : self.user_isV)
             
             //   Text("@" + (post.user?.id ?? ""))
             //   .mFont(style: .Title_17_R,color: .fc2)
@@ -329,6 +344,10 @@ func getblargeImageUrl(urlString:String) -> String {
     return result
 }
 
+func getVideoUrlInText(text:String) -> String?{
+    let videourlstr = text.match(#"http://.*"#).first?.first
+    return videourlstr
+}
 
 extension String {
     func match(_ regex: String) -> [[String]] {

@@ -19,163 +19,46 @@ struct ProFileView: View {
     
     // For Dark Mode Adoption..
     @Environment(\.colorScheme) var colorScheme
-    
     // For Smooth Slide Animation...
     @Namespace var animation
-    
     @State var titleOffset: CGFloat = 0
+    
+    let user : User
+    
+    init(_ user : User){
+        self.user = user
+    }
+    
     
     var body: some View {
         
-        let user  = vm.targetUser
-        let wegimage =  WebImage(url: URL(string: user.avatar_large ?? ""))
-            .resizable()
-            .placeholder {
-                ZStack{
-                    Color.Card
-                    ProgressView()
-                }
-                .clipShape(Circle())
-            }
-            .onSuccess { image , data , sd  in
-                getDominantColorsByUIImage(image) { color  in
-                    DispatchQueue.main.async {
-                        guard backcolor == .clear else {return}
-                        self.backcolor = color
-                    }
-                }
-            }
+        
         
         
         ZStack {
             Color.Card.ignoresSafeArea()
             ScrollView(.vertical, showsIndicators: false, content: {
                 
-                VStack(spacing: 15){
+                VStack(spacing: 12){
                     
-                    header
-                    
-                    
+                    banner
                     
                     VStack{
+                        //头像
+                        avatar
+                        
+                        //用户信息
+                        
+                        userinfo
                         
                         
-                        HStack{
-                            
-                            Spacer()
-                            wegimage
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: SW * 0.2, height: SW * 0.2)
-                                .clipShape(Circle())
-                                .padding(3.6)
-                                .background(colorScheme == .dark ? Color.black : Color.white)
-                                .clipShape(Circle())
-                                .offset(y: offset < 0 ? getOffset() - 20 : -20)
-                                .scaleEffect(getScale())
-                        }
-                        .padding(.trailing,16)
-                        .padding(.top,-SW * 0.06)
-                        .padding(.bottom,-SW * 0.16)
-                        
-                        // Profile Data...
-                        
-                        VStack(alignment: .leading, spacing: 8, content: {
-                            
-                            
-                            let firstline = user.followers_count_str + "粉丝 · " +
-                            user.bi_followers_count + " 关注"
-                            Text(firstline)
-                                .mFont(style: .Body_15_R,color: .fc2)
-                            
-                            Text(user.name ?? "未知用户")
-                                .PF_Leading()
-                                .mFont(style: .large32_B,color: .fc1)
-                            
-                            
-                            
-                            Text(user.description ?? "")
-                            
-                            HStack(spacing: 5){
-                                Text(user.location ?? "")
-                                    .mFont(style: .Body_15_B,color: .fc1)
-                                    .padding(.horizontal,12)
-                                    .padding(.vertical,6)
-                                    .background(Color.back1.opacity(0.6))
-                                    .clipShape(Capsule(style: .continuous))
-                                
-                            }
-                            .padding(.top,8)
-                        })
-                            .overlay(
-                                GeometryReader{proxy -> Color in
-                                    let minY = proxy.frame(in: .global).minY
-                                    
-                                    DispatchQueue.main.async {
-                                        self.titleOffset = minY
-                                    }
-                                    return Color.clear
-                                }
-                                    .frame(width: 0, height: 0)
-                                
-                                ,alignment: .top
-                            )
-                            .padding(.horizontal,20)
-                        
-                        
-                        // Custom Segmented Menu...
+                        // tabbar
+                        tabbar
 
-                            HStack(spacing:12){
-                                Text("微博")
-                                Text("照片")
-                                    .mFont(style: .LargeTitle_22_B,color: .fc3)
-                                Spacer()
-                            }
-                            .mFont(style: .LargeTitle_22_B,color: .fc1)
-                            .padding(.leading,20)
-                            .frame(height: GoldenH)
-                            .background(Color.Card)
+                        //微博
+                        posts
                         
-                        
-                        
-                        VStack(spacing: 0){
-
-                            if !postDC.user_timeline.isEmpty{
-                                let posts = postDC.user_timeline
-                                ForEach(posts,id: \.self.id){post in
-                                    
-                                    TweetCard(post: post)
-                                        .padding(.horizontal,6)
-                                        .padding(.vertical,6)
-                                        .overlay(Rectangle().frame( height: 0.5)
-                                                    .foregroundColor(.fc3.opacity(0.3))
-                                                 ,alignment: .bottom
-                                        )
-                                }
-                                
-                            }else{
-                                Text("暂无数据")
-//                                ForEach(0...12,id: \.self){index  in
-//                                    PostRaw(post: Post.init())
-//                                        .padding(.horizontal,20)
-//                                        .padding(.vertical,6)
-//                                        .overlay(Rectangle().frame( height: 0.5)
-//                                                    .foregroundColor(.fc3.opacity(0.3))
-//                                                 ,alignment: .bottom
-//                                        )
-//
-//
-//                                }
-                                
-                            }
-                           
-                            
-                        }
-                        
-                        .padding(.top)
-                        .zIndex(0)
                     }
-                    
-                    
                     // Moving the view back if it goes > 80...
                     .zIndex(-offset > 80 ? 0 : 1)
                 }
@@ -183,17 +66,139 @@ struct ProFileView: View {
             })
                 .ignoresSafeArea(.all, edges: .top)
         }
-        .onAppear {
-            if UIState.shared.TabbarIndex == .User{
-                UserManager.shared.getProfileData(uid: nil)
-                PostDataCenter.shared.getProFileTimeLine()
-            }
-        }
     }
     
     
-    var header : some View {
-     
+    var userinfo : some View {
+        VStack(alignment: .leading, spacing: 12, content: {
+            let firstline = user.followers_count_str + "关注者 · " +
+            user.bi_followers_count + "关注"
+            Text(firstline)
+                .mFont(style: .Body_15_R,color: .fc2)
+            HStack(spacing:12){
+                Text(user.name ?? "未知用户")
+                    .mFont(style: .large32_B,color: .fc1)
+                ICON(sysname: "checkmark.seal.fill",fcolor: .MainColor,size: 24)
+                    .ifshow(user.verified)
+                Spacer()
+            }
+            if let description = user.description{
+                Text(description)
+                    .mFont(style: .Body_15_R,color: .fc1)
+            }
+           
+            
+            //认证，地理位置
+            VStack(alignment: .leading, spacing: 12){
+                if let verified_reason = user.verified_reason,user.verified{
+                    HStack(spacing:4){
+                        ICON(name: "bookmark",size: 16)
+                        Text(verified_reason)
+                            .lineLimit(1)
+                    }
+                        .textTag()
+                        .PF_Leading()
+                }
+                if let location = user.location,((user.location ?? "") != "其他") {
+                    HStack(spacing:4){
+                        ICON(name: "location",size: 16)
+                        Text(location)
+                    }
+                        .textTag()
+                }
+            }
+            .mFont(style: .Body_15_R,color: .fc1)
+           
+                
+            
+        })
+            .overlay(
+                GeometryReader{proxy -> Color in
+                    let minY = proxy.frame(in: .global).minY
+                    DispatchQueue.main.async {
+                        self.titleOffset = minY
+                    }
+                    return Color.clear
+                }
+                    .frame(width: 0, height: 0)
+                ,alignment: .top
+            )
+            .padding(.horizontal,20)
+    }
+    
+    var avatar : some View {
+        HStack{
+            Spacer()
+            WebImage(url: URL(string: user.avatar_large ?? ""))
+                .resizable()
+                .placeholder {
+                    ZStack{
+                        Color.Card
+                        ProgressView()
+                    }
+                    .clipShape(Circle())
+                }
+                .onSuccess { image , data , sd  in
+                    getDominantColorsByUIImage(image) { color  in
+                        DispatchQueue.main.async {
+                            guard backcolor == .clear else {return}
+                            self.backcolor = color
+                        }
+                    }
+                }
+                .aspectRatio(contentMode: .fill)
+                .frame(width: SW * 0.2, height: SW * 0.2)
+                .clipShape(Circle())
+                .padding(3.6)
+                .background(colorScheme == .dark ? Color.black : Color.white)
+                .clipShape(Circle())
+                .offset(y: offset < 0 ? getOffset() - 20 : -20)
+                .scaleEffect(getScale())
+        }
+        .padding(.trailing,16)
+        .padding(.top,-SW * 0.06)
+        .padding(.bottom,-SW * 0.16)
+    }
+    
+    
+    var tabbar : some View {
+        HStack(spacing:12){
+            Text("微博")
+            Text("照片")
+                .mFont(style: .LargeTitle_22_B,color: .fc3)
+            Spacer()
+        }
+        .mFont(style: .LargeTitle_22_B,color: .fc1)
+        .padding(.leading,20)
+        .frame(height: GoldenH)
+        .background(Color.Card)
+        .padding(.top,12)
+        .overlay(  Line(),alignment: .bottom)
+    }
+    
+    var posts : some View{
+        
+        VStack(spacing: 0){
+            if !postDC.user_timeline.isEmpty{
+                let posts = postDC.user_timeline
+                ForEach(posts,id: \.self.id){post in
+                    
+                    TweetCard(post: post)
+                        .padding(.horizontal,6)
+                        .padding(.vertical,6)
+                        .overlay(Rectangle().frame( height: 0.5)
+                                    .foregroundColor(.fc3.opacity(0.3))
+                                 ,alignment: .bottom
+                        )
+                }
+            }else{
+                TextPlaceHolder(text: "暂无微博", subline: "出于第三方Api权限问题，这里最多会显示10条微博。", style: .inline)
+                    .padding(.top,44)
+            }
+        }
+    }
+    var banner : some View {
+        
         // Header View...
         GeometryReader{proxy -> AnyView in
             
@@ -208,23 +213,23 @@ struct ProFileView: View {
             return AnyView(
                 ZStack{
                     
-                 
+                    
                     
                     BlurView()
                         .opacity(blurViewOpacity())
                     
                     Color.Card.ignoresSafeArea()
                         .opacity(blurViewOpacity())
-                        
+                    
                     LinearGradient(gradient: Gradient(colors: [backcolor, backcolor.opacity(0.6)]), startPoint: .bottom, endPoint: .topLeading)
                         .opacity(1 - blurViewOpacity())
-           
+                    
                     
                     // Title View...
                     HStack(spacing: 5){
                         
                         // Banner...
-                        WebImage(url: URL(string: vm.targetUser.avatar_hd ?? ""))
+                        WebImage(url: URL(string: vm.locUser.avatar_hd ?? ""))
                             .resizable()
                             .placeholder {
                                 ZStack{
@@ -238,13 +243,13 @@ struct ProFileView: View {
                             .clipShape(Circle())
                             .overlay(Circle().stroke(lineWidth: 1).foregroundColor(.fc2.opacity(0.2)))
                         
-                        Text(vm.targetUser.name ?? "")
+                        Text(vm.locUser.name ?? "")
                             .mFont(style: .Title_17_B,color: .fc1)
                         Text("150 条微博")
                             .mFont(style: .Body_13_R,color: .fc3)
                         Spacer()
                     }
-                    .padding(.leading,UserManager.shared.ismyProfile ? 16 :  44)
+                    .padding(.leading,44)
                     // to slide from bottom added extra 60..
                     .offset(y: 120)
                     .offset(y: titleOffset > 100 ? 0 : -getTitleTextOffset())
@@ -300,19 +305,12 @@ struct ProFileView: View {
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         
-        NavigationView {
+        let user = MockTool.readObjectNoKeyPath(User.self, fileName: "locuserprofile")!
+        return NavigationView {
             Text("")
                 .PF_Navilink(isPresented: .constant(true)) {
-                    ProFileView()
-                        .onAppear {
-                            if let user = MockTool.readObjectNoKeyPath(User.self, fileName: "remoteuserprofile"){
-                                UserManager.shared.targetUser = user
-                                
-                            }
-                        }
+                    ProFileView(user)
                 }
         }
-        
-        
     }
 }

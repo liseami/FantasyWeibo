@@ -44,6 +44,9 @@ struct Tabbar: View {
                 )
                 .onTapGesture {
                     uistate.TabbarIndex = tabitem
+                    if uistate.TabbarIndex == .User {
+                        UserManager.shared.getlocUser()
+                    }
                 }
                 
             }

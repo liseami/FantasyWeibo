@@ -75,7 +75,7 @@ struct PostDetailView: View {
                             .lineSpacing(4)
                             .mFont(style: .LargeTitle_22_R,color: .fc1)
                     
-                        TweetPicView(urls: post.pic_urls.compactMap({ pic_url  in
+                        TweetMediaView(urls: post.pic_urls.compactMap({ pic_url  in
                             getbmiddleImageUrl(urlString: pic_url.thumbnail_pic!)
                         }))
                             .ifshow(!post.pic_urls.isEmpty)
@@ -97,7 +97,7 @@ struct PostDetailView: View {
                                 Text(forwarded_text)
                                     .mFont(style: .Title_17_R, color:.fc1)
                                     .PF_Leading()
-                                TweetPicView(urls: pic_urls)
+                                TweetMediaView(urls: pic_urls)
                             }
                             .padding(.top,6)
                       

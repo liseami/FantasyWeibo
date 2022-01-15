@@ -55,4 +55,5 @@ class UIState : ObservableObject{
     
     
     @Published var picAreaW : CGFloat = 0
+    
 }

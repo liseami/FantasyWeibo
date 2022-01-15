@@ -37,7 +37,7 @@ struct ContentView: View {
                 guard userManager.locAvatarUrl.isEmpty else {return}
                 //首次登录获取自己的头像等信息
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    userManager.getProfileData(uid: nil)
+                    userManager.getlocUser()
                 }
             })
             .PF_Sheet(isPresented: $uistate.showSettingView, backColor: .clear, content: {
@@ -65,7 +65,7 @@ struct ContentView: View {
             case .Timeline :  TimeLineView()
             case .Search   :  searchView
             case .Message   :  InBoxView()
-            case .User  :  ProFileView()
+            case .User  :  ProFileView(userManager.locUser)
             }
         }
     }
