@@ -23,7 +23,7 @@ struct TimeLineView: View {
                 
                 if !vm.home_timeline.isEmpty {
                     ForEach(vm.home_timeline,id:\.self.id){ post in
-                        PostRaw(post: post)
+                        TweetCard(post: post)
                     }
                 }else{
                     placeHolder
@@ -32,8 +32,6 @@ struct TimeLineView: View {
                 Spacer().frame(width: 1, height: 80)
             }
             .padding(.all,12)
-            
-            
         })
             .navigationBarTitleDisplayMode(.inline)
             .PF_Navitop(style: offset < -5 ? .large : .none,showDivider: false, backgroundView: {
@@ -58,7 +56,7 @@ struct TimeLineView: View {
                 vm.getHomeTimeLine()
             }
             Spacer()
-            .padding(.horizontal,32)
+                .padding(.horizontal,32)
             Spacer()
         }
         .padding(.horizontal,32)

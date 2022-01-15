@@ -143,7 +143,7 @@ struct ProFileView: View {
                                 let posts = postDC.user_timeline
                                 ForEach(posts,id: \.self.id){post in
                                     
-                                    PostRaw(post: post)
+                                    TweetCard(post: post)
                                         .padding(.horizontal,6)
                                         .padding(.vertical,6)
                                         .overlay(Rectangle().frame( height: 0.5)
@@ -182,6 +182,12 @@ struct ProFileView: View {
                 
             })
                 .ignoresSafeArea(.all, edges: .top)
+        }
+        .onAppear {
+            if UIState.shared.TabbarIndex == .User{
+                UserManager.shared.getProfileData(uid: nil)
+                PostDataCenter.shared.getProFileTimeLine()
+            }
         }
     }
     

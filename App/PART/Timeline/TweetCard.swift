@@ -9,10 +9,9 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 
-struct PostRaw: View {
+struct TweetCard: View {
 
     let post : Post
-    
     var avatarW = SW * 0.14
     var style : styleEnum = .post
     var avatarImageUrl : URL? = nil
@@ -37,6 +36,133 @@ struct PostRaw: View {
     
     init(post:Post){
         self.post = post
+        tweetdata_init(post: post)
+    }
+    
+  
+    
+    var body: some View {
+        
+        VStack(alignment: .leading,spacing:12){
+            ///转发人用户名 + 转发推文
+            retweet_userline
+            
+            HStack(alignment: .top,  spacing:12){
+                ///头像
+                UserAvatar(url:self.avatarImageUrl)
+                    .canOpenProfile(uid: post.user?.id  ?? "")
+                
+                ///推文内容
+                tweet_content
+            }
+        }
+        .padding(.all,8)
+        .padding(.vertical,6)
+        .background(Color.Card)
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        
+    }
+    
+    
+    
+    var tweet_content : some View{
+        
+        VStack(alignment: .leading,spacing:4){
+            
+            userline
+            
+            Text(self.text)
+                .multilineTextAlignment(.leading)
+                .PF_Leading()
+                .mFont(style: .Title_17_R,color: .fc1)
+        
+            PostPicsView(urls: self.pic_urls, h: getimageAreaHeight(urlscount: post.pic_urls.count))
+                .ifshow(!pic_urls.isEmpty)
+            
+
+            btns
+          
+            
+            
+        }
+    }
+    var retweet_userline : some View {
+        HStack{
+            Text(repost_user_name + " 转发微博")
+            ICON(name:"enter",fcolor: .fc1,size: 16)
+        }
+            .mFont(style: .Body_15_B,color: .fc1)
+            .padding(.horizontal,12)
+            .padding(.vertical,4)
+            .background(Color.fc1.opacity(0.06))
+            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .PF_Leading()
+            .ifshow(style == .repost_wihtouttext)
+    }
+    @ViewBuilder
+    var userline : some View {
+        
+        HStack(alignment: .center, spacing:6){
+            Text(self.username)
+                .mFont(style: .Title_17_B,color: .fc1)
+                .canOpenProfile(uid: post.user?.id ?? "")
+//            Text("@" + (post.user?.id ?? ""))
+//                .mFont(style: .Title_17_R,color: .fc2)
+            Spacer()
+            
+            Menu {
+                PF_MenuBtn(text: "关注", name: "Like") {
+                }
+            } label: {
+                ICON(sysname: "ellipsis",fcolor: .fc3,size: 16)
+                    .disabled(true)
+                    .padding(.trailing,6)
+                    .background(Color.Card)
+            }
+            
+        }
+    }
+    
+    @ViewBuilder
+    var btns : some View{
+     
+        HStack(spacing:12){
+            ForEach(PostDataCenter.shared.posttoolbtns,id :\.self){ btn in
+                Spacer()
+                    .frame( height: 16)
+                    .overlay(
+                        Button(action: {
+                            madasoft()
+                        }, label: {
+                            HStack(spacing:8){
+                                ICON(name: btn.iconname,fcolor:.fc2,size: 16)
+                                
+                                Text(btn == .comment ? comments_count : btn == .repost ? reposts_count : attitudes_count)
+                            }
+                        })
+                        ,alignment: .leading)
+            }
+        }
+        .mFont(style: .Body_13_R,color: .fc2)
+        .padding(.trailing,SW * 0.1)
+        .padding(.top,12)
+    }
+}
+
+struct PostRaw_Previews: PreviewProvider {
+    static var previews: some View {
+        TweetCard(post: Post.init())
+            .previewLayout(.sizeThatFits)
+        ZStack{
+            Color.BackGround.ignoresSafeArea()
+            ContentView()
+        }
+ 
+    }
+}
+
+extension TweetCard {
+    mutating func tweetdata_init(post:Post){
         if let repost = post.retweeted_status{
             if repost.text == "" || post.text == "转发微博"{
                 //快转微博
@@ -90,124 +216,6 @@ struct PostRaw: View {
             self.reposts_count = post.reposts_count
             self.attitudes_count = post.attitudes_count
         }
-    }
-    
-  
-    
-    var body: some View {
-        
-
-
-        
-        VStack{
-            HStack{
-                Text(repost_user_name)
-                ICON(name:"enter",fcolor: .fc1,size: 16)
-            }
-                .mFont(style: .Body_15_B,color: .fc1)
-                .padding(.horizontal,12)
-                .padding(.vertical,4)
-                .background(Color.fc1.opacity(0.06))
-                .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
-                .PF_Leading()
-                .ifshow(style == .repost_wihtouttext)
-            
-            HStack(alignment: .top,  spacing:12){
-                
-                UserAvatar(url:self.avatarImageUrl)
-                    .canOpenProfile(uid: post.user?.id  ?? "")
-                            
-                
-                VStack(alignment: .leading,spacing:4){
-                    
-                    userline
-                    
-                    Text(self.text)
-                        .multilineTextAlignment(.leading)
-                        .PF_Leading()
-                        .mFont(style: .Title_17_R,color: .fc1)
-                
-                    PostPicsView(urls: self.pic_urls, h: getimageAreaHeight(urlscount: post.pic_urls.count))
-                        .ifshow(!pic_urls.isEmpty)
-                    
-
-                    btns
-                  
-                    
-                    
-                }
-            }
-        }
-     
-        .padding(.all,12)
-        .background(Color.Card)
-        .onTapGesture {
-            PostDataCenter.shared.targetPost = post
-            UIState.shared.showPostDetailView = true
-        }
-        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-    }
-    
-    
-    @ViewBuilder
-    var userline : some View {
-        
-        HStack(alignment: .center, spacing:6){
-            Text(self.username)
-                .mFont(style: .Title_17_B,color: .fc1)
-                .canOpenProfile(uid: post.user?.id ?? "")
-//            Text("@" + (post.user?.id ?? ""))
-//                .mFont(style: .Title_17_R,color: .fc2)
-            Spacer()
-            
-            Menu {
-                PF_MenuBtn(text: "关注", name: "Like") {
-                }
-            } label: {
-                ICON(sysname: "ellipsis",fcolor: .fc3,size: 16)
-                    .disabled(true)
-                    .padding(.trailing,6)
-                    .background(Color.Card)
-            }
-            
-        }
-    }
-    
-    @ViewBuilder
-    var btns : some View{
-     
-        HStack(spacing:12){
-            ForEach(PostDataCenter.shared.posttoolbtns,id :\.self){ btn in
-                Spacer()
-                    .frame( height: 16)
-                    .overlay(
-                        Button(action: {
-                            madasoft()
-                        }, label: {
-                            HStack(spacing:8){
-                                ICON(name: btn.iconname,fcolor:.fc2,size: 16)
-                                
-                                Text(btn == .comment ? comments_count : btn == .repost ? reposts_count : attitudes_count)
-                            }
-                        })
-                        ,alignment: .leading)
-            }
-        }
-        .mFont(style: .Body_13_R,color: .fc2)
-        .padding(.trailing,SW * 0.1)
-        .padding(.top,12)
-    }
-}
-
-struct PostRaw_Previews: PreviewProvider {
-    static var previews: some View {
-        PostRaw(post: Post.init())
-            .previewLayout(.sizeThatFits)
-        ZStack{
-            Color.BackGround.ignoresSafeArea()
-            ContentView()
-        }
- 
     }
 }
 

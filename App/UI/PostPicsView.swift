@@ -111,7 +111,6 @@ struct PostPicsView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
         }
         .frame(height :h)
-        .animation(.spring(), value: uistate.showPostDetailView)
         
     }
     

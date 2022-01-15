@@ -32,7 +32,7 @@
 		A20801BB27896D00008461DA /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208019B27896D00008461DA /* SettingView.swift */; };
 		A20801BC27896D00008461DA /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208019D27896D00008461DA /* PostDetailView.swift */; };
 		A20801BD27896D00008461DA /* TimeLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208019E27896D00008461DA /* TimeLineView.swift */; };
-		A20801BE27896D00008461DA /* PostRaw.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208019F27896D00008461DA /* PostRaw.swift */; };
+		A20801BE27896D00008461DA /* TweetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208019F27896D00008461DA /* TweetCard.swift */; };
 		A20801BF27896D00008461DA /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20801A127896D00008461DA /* LoginView.swift */; };
 		A20801C027896D00008461DA /* LacunchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20801A327896D00008461DA /* LacunchManager.swift */; };
 		A20801C127896D00008461DA /* MT_PageSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20801A527896D00008461DA /* MT_PageSegmentView.swift */; };
@@ -107,7 +107,7 @@
 		A208019B27896D00008461DA /* SettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		A208019D27896D00008461DA /* PostDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
 		A208019E27896D00008461DA /* TimeLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineView.swift; sourceTree = "<group>"; };
-		A208019F27896D00008461DA /* PostRaw.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostRaw.swift; sourceTree = "<group>"; };
+		A208019F27896D00008461DA /* TweetCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCard.swift; sourceTree = "<group>"; };
 		A20801A127896D00008461DA /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A20801A327896D00008461DA /* LacunchManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LacunchManager.swift; sourceTree = "<group>"; };
 		A20801A527896D00008461DA /* MT_PageSegmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MT_PageSegmentView.swift; sourceTree = "<group>"; };
@@ -325,7 +325,7 @@
 			children = (
 				A208019D27896D00008461DA /* PostDetailView.swift */,
 				A208019E27896D00008461DA /* TimeLineView.swift */,
-				A208019F27896D00008461DA /* PostRaw.swift */,
+				A208019F27896D00008461DA /* TweetCard.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -540,7 +540,7 @@
 			files = (
 				A299A11F278FD46400EF9F13 /* PostPicsView.swift in Sources */,
 				A20801B327896D00008461DA /* PolularView.swift in Sources */,
-				A20801BE27896D00008461DA /* PostRaw.swift in Sources */,
+				A20801BE27896D00008461DA /* TweetCard.swift in Sources */,
 				A2066918278ECBBE00384380 /* UserManager.swift in Sources */,
 				A20199BD278D330300599C29 /* ApiTest.swift in Sources */,
 				A20801C727896D00008461DA /* Comps.swift in Sources */,

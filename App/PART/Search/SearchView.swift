@@ -62,7 +62,7 @@ struct SearchView: View {
             
                 VStack(spacing:12){
                     ForEach(0..<12){index in
-                        PostRaw(post: Post.init())
+                        TweetCard(post: Post.init())
                     }
                 }
                 .padding(.horizontal,8)

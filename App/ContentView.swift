@@ -40,7 +40,6 @@ struct ContentView: View {
                     userManager.getProfileData(uid: nil)
                 }
             })
-            
             .PF_Sheet(isPresented: $uistate.showSettingView, backColor: .clear, content: {
                 SettingView()
             })
@@ -69,15 +68,6 @@ struct ContentView: View {
             case .User  :  ProFileView()
             }
         }
-        ///Navilink
-        ///个人主页
-        .PF_Navilink(isPresented: $uistate.showProfileView) {
-            ProFileView()
-        }
-        ///Post详情
-        .PF_Navilink(isPresented: $uistate.showPostDetailView, content: {
-            PostDetailView()
-        })
     }
     
     @ViewBuilder
