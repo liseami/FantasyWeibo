@@ -94,7 +94,7 @@ struct Post : Convertible {
 
 struct repostPost : Convertible{
     var created_at:  String? //Thu Jan 13 22:29:48 +0800 2022",
-    var id:  String?
+    var id:  Int?
     var idstr:  String? //4725305929896095",
     var mid:  String? //4725305929896095",
     var can_edit: Bool = false
@@ -136,7 +136,7 @@ struct repostPost : Convertible{
     var content_auth:  String? //,
     var gif_ids:  String? //",
     var is_show_bulletin:  String?
-    var pic_num:  String? //,
+    var pic_num:  Int? //,
     var fid:  String?
     var reprint_type:  String? //,
     var can_reprint: Bool = false

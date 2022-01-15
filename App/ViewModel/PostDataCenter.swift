@@ -14,7 +14,6 @@ class PostDataCenter :NSObject, ObservableObject,WeiboSDKDelegate{
     
     
     @Published var home_timeline : [Post] = []
-    @Published var targetPost : Post?
     @Published var user_timeline : [Post] = []
     
     func getHomeTimeLine() {

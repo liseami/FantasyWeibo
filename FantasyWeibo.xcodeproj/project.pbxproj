@@ -53,7 +53,7 @@
 		A299A115278FB34C00EF9F13 /* timelineposts.json in Sources */ = {isa = PBXBuildFile; fileRef = A299A114278FB34C00EF9F13 /* timelineposts.json */; };
 		A299A11C278FC3BE00EF9F13 /* UserMods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299A11B278FC3BE00EF9F13 /* UserMods.swift */; };
 		A299A11D278FC8A400EF9F13 /* locuserprofile.json in Resources */ = {isa = PBXBuildFile; fileRef = A299A11A278FC36E00EF9F13 /* locuserprofile.json */; };
-		A299A11F278FD46400EF9F13 /* PostPicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299A11E278FD46400EF9F13 /* PostPicsView.swift */; };
+		A299A11F278FD46400EF9F13 /* TweetPicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299A11E278FD46400EF9F13 /* TweetPicView.swift */; };
 		A299A12F278FEEFB00EF9F13 /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299A12E278FEEFB00EF9F13 /* SearchManager.swift */; };
 		A299A131278FF19500EF9F13 /* UserAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299A130278FF19500EF9F13 /* UserAvatar.swift */; };
 		A299A134278FFD3800EF9F13 /* remoteuserprofile.json in Resources */ = {isa = PBXBuildFile; fileRef = A299A132278FFC7500EF9F13 /* remoteuserprofile.json */; };
@@ -129,7 +129,7 @@
 		A299A114278FB34C00EF9F13 /* timelineposts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = timelineposts.json; sourceTree = "<group>"; };
 		A299A11A278FC36E00EF9F13 /* locuserprofile.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = locuserprofile.json; sourceTree = "<group>"; };
 		A299A11B278FC3BE00EF9F13 /* UserMods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMods.swift; sourceTree = "<group>"; };
-		A299A11E278FD46400EF9F13 /* PostPicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPicsView.swift; sourceTree = "<group>"; };
+		A299A11E278FD46400EF9F13 /* TweetPicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetPicView.swift; sourceTree = "<group>"; };
 		A299A12E278FEEFB00EF9F13 /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
 		A299A130278FF19500EF9F13 /* UserAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAvatar.swift; sourceTree = "<group>"; };
 		A299A132278FFC7500EF9F13 /* remoteuserprofile.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = remoteuserprofile.json; sourceTree = "<group>"; };
@@ -362,7 +362,7 @@
 		A20801AA27896D00008461DA /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				A299A11E278FD46400EF9F13 /* PostPicsView.swift */,
+				A299A11E278FD46400EF9F13 /* TweetPicView.swift */,
 				A20801AB27896D00008461DA /* Buttons.swift */,
 				A20801AC27896D00008461DA /* UIConfig */,
 				A20801B027896D00008461DA /* UIstate.swift */,
@@ -538,7 +538,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A299A11F278FD46400EF9F13 /* PostPicsView.swift in Sources */,
+				A299A11F278FD46400EF9F13 /* TweetPicView.swift in Sources */,
 				A20801B327896D00008461DA /* PolularView.swift in Sources */,
 				A20801BE27896D00008461DA /* TweetCard.swift in Sources */,
 				A2066918278ECBBE00384380 /* UserManager.swift in Sources */,

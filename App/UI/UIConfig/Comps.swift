@@ -115,6 +115,6 @@ struct EmoText: View {
 
 struct Line : View{
     var body: some View{
-        Rectangle().frame(height: 0.5).foregroundColor(.fc3.opacity(0.2))
+        Rectangle().frame(height: 0.5).foregroundColor(.back2)
     }
 }

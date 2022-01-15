@@ -54,32 +54,5 @@ class UIState : ObservableObject{
     @Published var showFeedBackView : Bool = false
     
     
-    
-    //首页图片区域宽度
-    var postImageAreaWidth_HomeView : Float {
-        get{
-            let h = userdefult.float(forKey: "postImageAreaWidth_HomeView")
-            if h != 0 {
-                return h
-            }else{
-                return Float(0)
-            }
-        }
-        set{
-            objectWillChange.send()
-            userdefult.set(newValue, forKey: "postImageAreaWidth_HomeView")
-        }
-    }
-    
-    
-    //动态详情图片区域宽度
-    var postImageAreaWidth_Detail : Float {
-        get{
-            return userdefult.float(forKey: "postImageAreaWidth_Detail")
-        }
-        set{
-            objectWillChange.send()
-            userdefult.set(newValue, forKey: "postImageAreaWidth_Detail")
-        }
-    }
+    @Published var picAreaW : CGFloat = 0
 }
