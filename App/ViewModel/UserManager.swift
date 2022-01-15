@@ -83,7 +83,7 @@ extension UserManager{
         switch  ProjectConfig.env{
         case .test :
             //根据uid获取用户信息接口
-            let target = UserApi.getProfile(p: .init())
+            let target = UserApi.getProfile(p: .init(uid: locuid))
             Networking.requestObject(target, modeType: User.self,atKeyPath: nil) { r , user in
                 if let user = user {
                     self.locUser = user
