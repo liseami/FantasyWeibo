@@ -19,12 +19,12 @@ struct TweetCard: View {
     var username : String = ""
     var avatarImageUrl : URL? = nil
     var text : String = ""
-
+    
     var forwarded_user_isV : Bool = false
     var forwarded_user_name : String = ""
     var forwarded_user_avatarImageUrl : URL? = nil
     var forwarded_text : String = ""
-
+    
     var pic_urls : [String] = []
     
     var comments_count : String = ""
@@ -52,8 +52,8 @@ struct TweetCard: View {
     var body: some View {
         
         VStack(alignment: .leading,spacing:12){
-                ///转发人用户名 + 转发推文
-                retweet_userline
+            ///转发人用户名 + 转发推文
+            retweet_userline
             HStack(alignment: .top,  spacing:12){
                 ///头像
                 mainAvatar
@@ -77,7 +77,7 @@ struct TweetCard: View {
         .background(Color.Card)
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .onTapGesture(perform: {
-           
+            //点击微博卡片，如果是快转，直接进被转发微博
             targetPost = style == .repost_fast ? convertPost(post: post.retweeted_status ?? repostPost.init()) : post
             showPostDeatilView.toggle()
         })
@@ -92,11 +92,24 @@ struct TweetCard: View {
         
     }
     
+    
+    @ViewBuilder
     var mainText : some View {
+        
+        
+//        let w = UIState.shared.picArea
+//        AttributedText(text: self.text,fixedWidth:w)
+//            .scaledToFit()
+//            .clipped()
+//            .overlay(Color.red.opacity(0.3))
+        
         Text(self.text)
-            .multilineTextAlignment(.leading)
-            .PF_Leading()
             .mFont(style: .Title_17_R,color: .fc1)
+
+        
+    
+            
+            
     }
     
     var mainAvatar : some View {
@@ -138,13 +151,13 @@ struct TweetCard: View {
                         Spacer()
                     }
                 }
-
-              
+                
+                
                 
                 Text(forwarded_text)
                     .frame(maxHeight:.infinity)
                     .mFont(style: .Title_17_R,color: .fc1)
-                  
+                
             }
             .padding(.all,12)
             
@@ -161,7 +174,7 @@ struct TweetCard: View {
             showPostDeatilView.toggle()
         })
         .padding(.top,8)
-    
+        
     }
     
     var retweet_userline : some View {
@@ -235,16 +248,16 @@ struct PostRaw_Previews: PreviewProvider {
         var post = Post()
         if let posts = MockTool.readArray(Post.self, fileName: "timelinedata", atKeyPath: "statuses"){
             post = posts.first(where: { somepost in
-                somepost.retweeted_status?.user?.name == "BOBO口口"
+                somepost.user?.name == "黑历史打脸bot"
             })!
         }
         
-       return  TweetCard(post: post)
-               .previewLayout(.sizeThatFits)
-//        ZStack{
-//            Color.BackGround.ignoresSafeArea()
-//            ContentView()
-//        }
+        return  TweetCard(post: post)
+            .previewLayout(.sizeThatFits)
+        //        ZStack{
+        //            Color.BackGround.ignoresSafeArea()
+        //            ContentView()
+        //        }
         
     }
 }
@@ -255,7 +268,7 @@ extension TweetCard {
             if repost.text == "" || post.text == "转发微博"{
                 //快转微博
                 self.style = .repost_fast
-               
+                
                 self.username = post.user?.name ?? ""
                 
                 self.text = repost.text
@@ -319,48 +332,34 @@ extension TweetCard {
 
 
 
-
+//通过缩略图获得中等图片地址
 func getbmiddleImageUrl(urlString:String) -> String {
     var result = ""
-    //    "http://wx2.sinaimg.cn/"
-    let http = urlString.match(#"http://.*\.cn/"#).first?.first
-    //    "bmiddle/"
-    //    "008iCELoly1gy31bnhznqg30m80cinpf"
-    let imagename = urlString.match(#"\w{20,40}"#).first?.first
-    let fileformat = urlString.match(#"\.jpg|\.png|\.gif|\.jpeg"#).first?.first
+    let fileformat = urlString.regex(regex: #"\.jpg|\.png|\.gif|\.jpeg"#)?.first
+    let imagename = urlString.regex(regex: #"\w{32}"#)?.first
+    let http = urlString.regex(regex: #"http://.*\.cn/"#)?.first
     result = http! + "bmiddle/" + imagename! + fileformat!
     return result
 }
 
-func getblargeImageUrl(urlString:String) -> String {
+//通过缩略图获得高清原图地址
+func getlargeImageUrl(urlString:String) -> String? {
     var result = ""
-    //    "http://wx2.sinaimg.cn/"
-    let http = urlString.match(#"http://.*\.cn/"#).first?.first
-    //    "bmiddle/"
-    //    "008iCELoly1gy31bnhznqg30m80cinpf"
-    let imagename = urlString.match(#"\w{20,40}"#).first?.first
-    let fileformat = urlString.match(#"\.jpg|\.png|\.gif|\.jpeg"#).first?.first
+    let fileformat = urlString.regex(regex: #"\.jpg|\.png|\.gif|\.jpeg"#)?.first
+    let imagename = urlString.regex(regex: #"\w{32}"#)?.first
+    let http = urlString.regex(regex: #"http://.*\.cn/"#)?.first
     result = http! + "large/" + imagename! + fileformat!
     return result
 }
 
 func getVideoUrlInText(text:String) -> String?{
-    let videourlstr = text.match(#"http://.*"#).first?.first
+    let videourlstr = text.regex(regex : #"http://.*"#)?.first
     return videourlstr
 }
 
-extension String {
-    func match(_ regex: String) -> [[String]] {
-        let nsString = self as NSString
-        return (try? NSRegularExpression(pattern: regex, options: []))?.matches(in: self, options: [], range: NSMakeRange(0, nsString.length)).map { match in
-            (0..<match.numberOfRanges).map { match.range(at: $0).location == NSNotFound ? "" : nsString.substring(with: match.range(at: $0)) }
-        } ?? []
-    }
-}
 
 
-
- func convertPost(post: repostPost) -> Post{
+func convertPost(post: repostPost) -> Post{
     
     let result = Post.init(created_at: post.created_at, id: post.id, idstr: post.idstr, mid: post.mid, can_edit: post.can_edit, show_additional_indication: post.show_additional_indication, text: post.text, textLength: post.textLength, source_allowclick: post.source_allowclick, source_type: post.source_type, source: post.source, favorited: post.favorited, truncated: post.truncated, in_reply_to_status_id: post.in_reply_to_status_id, in_reply_to_user_id: post.in_reply_to_user_id, in_reply_to_screen_name: post.in_reply_to_screen_name, pic_urls: post.pic_urls, bmiddle_pic: nil, original_pic: nil, geo: nil, is_paid: post.is_paid, mblog_vip_type: post.mblog_vip_type, user: post.user, retweeted_status: nil, picStatus: nil, reposts_count: post.reposts_count ?? "", comments_count: post.comments_count ?? "", reprint_cmt_count: post.reprint_cmt_count ?? "", attitudes_count: post.attitudes_count ?? "", pending_approval_count: post.pending_approval_count, isLongText: post.isLongText, reward_exhibition_type: post.reward_exhibition_type, hide_flag: post.hide_flag, mlevel: post.mlevel, biz_feature: post.biz_feature, hasActionTypeCard: post.hasActionTypeCard, positive_recom_flag: post.positive_recom_flag, enable_comment_guide: false, content_auth: post.content_auth, gif_ids: post.gif_ids, is_show_bulletin: post.is_show_bulletin, pic_num: post.pic_num ?? 0, reprint_type: post.reprint_type, can_reprint: post.can_reprint, new_comment_style: post.new_comment_style)
     

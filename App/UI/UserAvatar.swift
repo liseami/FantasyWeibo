@@ -22,6 +22,7 @@ struct UserAvatar: View {
                 .scaledToFill()
                 .frame(width: frame, height: frame)
                 .clipShape(Circle())
+                .overlay(Circle().stroke(lineWidth: 0.5).foregroundColor(.back1))
 
     }
 }

@@ -17,7 +17,6 @@ class UIState : ObservableObject{
         
     }
     
-    
     // Tabar
     @Published var TabbarIndex : tabbarItemEnum = .Timeline
     @Published var TabbarProgress : Double = 0
@@ -53,7 +52,32 @@ class UIState : ObservableObject{
     ///Setting
     @Published var showFeedBackView : Bool = false
     
-    
+    //媒体区域宽度，实时上报，实时更新
     @Published var picAreaW : CGFloat = 0
+    
+    //
+    
+}
+
+extension UIState{
+    func getWeiboEmoji() {
+        let target = UIApi.getEmoji
+        Networking.request(target) { result in
+            
+        }
+    }
+}
+
+
+enum UIApi : ApiType{
+    
+    case getEmoji
+    var path: String{
+        return "emotions.json"
+    }
+    
+    var method: HTTPMethod{
+        .get
+    }
     
 }

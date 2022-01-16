@@ -11,7 +11,7 @@ enum TimeLineApi : ApiType{
     
     case get_home_timeline(p:getTimeLineReqMod)
     case get_user_timeline(p:getUserTimeLineReqMod)
-    
+    case get_post_comments(p:getPostCommentsReqMod)
     
     var path: String {
         switch self {
@@ -19,6 +19,8 @@ enum TimeLineApi : ApiType{
             return "statuses/home_timeline.json"
         case .get_user_timeline(_):
             return "statuses/user_timeline.json"
+        case .get_post_comments( _):
+            return  "comments/show.json"
         }
         
     }
@@ -32,6 +34,8 @@ enum TimeLineApi : ApiType{
         case .get_home_timeline(let p):
             return p.kj.JSONObject()
         case .get_user_timeline(p: let p):
+            return p.kj.JSONObject()
+        case .get_post_comments(p: let p):
             return p.kj.JSONObject()
         }
     }

@@ -1,5 +1,6 @@
 ${PODS_ROOT}/Target Support Files/Pods-FantasyWeibo (iOS)/Pods-FantasyWeibo (iOS)-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/AttributedString/AttributedString.framework
 ${BUILT_PRODUCTS_DIR}/CropViewController/CropViewController.framework
 ${BUILT_PRODUCTS_DIR}/FloatingPanel/FloatingPanel.framework
 ${BUILT_PRODUCTS_DIR}/Introspect/Introspect.framework

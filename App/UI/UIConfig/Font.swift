@@ -11,9 +11,6 @@ import SwiftUI
 public struct MFont : ViewModifier{
     
     enum  Style {
-       
-        
-        
         case large32_R,large32_B
         case largeTitle_24_B,LargeTitle_22_B
         case Title_19_B,Title_17_B,Title_16_B
@@ -103,6 +100,55 @@ public struct MFont : ViewModifier{
         case .Caption_9_R:
             return content
                 .font(.custom("MiSans-Normal", size: 9))
+        }
+    }
+    
+    public func getUIFont() -> UIFont {
+        switch self.style{
+        case .large32_R:
+              return UIFont(name: "MiSans-Normal", size: 32)!
+        case .large32_B:
+            return  UIFont(name: "MiSans-Semibold", size: 32)!
+        case .largeTitle_24_B:
+            return  UIFont(name: "MiSans-Semibold", size: 24)!
+        case .LargeTitle_22_B:
+            return  UIFont(name: "MiSans-Semibold", size: 22)!
+        case .Title_19_B:
+            return  UIFont(name: "MiSans-Semibold", size: 19)!
+        case .Title_17_B:
+            return  UIFont(name: "MiSans-Semibold", size: 17)!
+        case .Title_16_B:
+            return  UIFont(name: "MiSans-Semibold", size: 16)!
+        case .Body_15_B:
+            return  UIFont(name: "MiSans-Semibold", size: 15)!
+        case .Body_13_B:
+            return  UIFont(name: "MiSans-Semibold", size: 13)!
+        case .Body_12_B:
+            return  UIFont(name: "MiSans-Semibold", size: 12)!
+        case .Caption_10_B:
+            return  UIFont(name: "MiSans-Semibold", size: 10)!
+        case .Caption_9_B:
+            return  UIFont(name: "MiSans-Semibold", size: 9)!
+        case .largeTitle_24_R:
+            return  UIFont(name: "MiSans-Normal", size: 24)!
+        case .LargeTitle_22_R:
+            return  UIFont(name: "MiSans-Normal", size: 22)!
+        case .Title_19_R:
+            return  UIFont(name: "MiSans-Normal", size: 19)!
+        case .Title_17_R:
+            return  UIFont(name: "MiSans-Normal", size: 17)!
+        case .Title_16_R:
+            return  UIFont(name: "MiSans-Normal", size: 16)!
+        case .Body_15_R:
+            return  UIFont(name: "MiSans-Normal", size: 15)!
+        case .Body_13_R:
+            return  UIFont(name: "MiSans-Normal", size: 13)!
+        case .Body_12_R:
+            return  UIFont(name: "MiSans-Normal", size: 12)!
+        case .Caption_10_R:
+            return  UIFont(name: "MiSans-Normal", size: 10)!
+        case .Caption_9_R:
+            return  UIFont(name: "MiSans-Normal", size: 9)!
         }
     }
 }
