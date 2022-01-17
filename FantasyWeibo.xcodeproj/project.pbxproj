@@ -47,8 +47,6 @@
 		A20801CA27896D00008461DA /* UIstate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20801B027896D00008461DA /* UIstate.swift */; };
 		A208025C27896FF2008461DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208025A27896FF1008461DA /* AppDelegate.swift */; };
 		A208025D27896FF2008461DA /* DefultStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208025B27896FF1008461DA /* DefultStore.swift */; };
-		A2080260278974D1008461DA /* MiSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A208022C27896D23008461DA /* MiSans-Semibold.ttf */; };
-		A20802622789771A008461DA /* MiSans-Normal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A20802612789771A008461DA /* MiSans-Normal.ttf */; };
 		A27C61F72793119400BF188F /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C61F62793119400BF188F /* ViewModifiers.swift */; };
 		A27C61F92793C5C600BF188F /* comments.json in Sources */ = {isa = PBXBuildFile; fileRef = A27C61F82793C5C600BF188F /* comments.json */; };
 		A27C61FB2793C61A00BF188F /* NewMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C61FA2793C61A00BF188F /* NewMod.swift */; };
@@ -58,6 +56,8 @@
 		A27C62022793F26300BF188F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C62012793F26300BF188F /* Extensions.swift */; };
 		A27C62052794F9D700BF188F /* ActiveLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C62042794F9D700BF188F /* ActiveLabel.swift */; };
 		A27C620C279531E000BF188F /* BSTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C620B279531E000BF188F /* BSTextView.swift */; };
+		A27C620D279558C000BF188F /* MiSans-Normal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A20802612789771A008461DA /* MiSans-Normal.ttf */; };
+		A27C620E279558C000BF188F /* MiSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A208022C27896D23008461DA /* MiSans-Semibold.ttf */; };
 		A299A113278FAE5D00EF9F13 /* timelinedata.json in Resources */ = {isa = PBXBuildFile; fileRef = A299A112278FAE5D00EF9F13 /* timelinedata.json */; };
 		A299A115278FB34C00EF9F13 /* timelineposts.json in Sources */ = {isa = PBXBuildFile; fileRef = A299A114278FB34C00EF9F13 /* timelineposts.json */; };
 		A299A11C278FC3BE00EF9F13 /* UserMods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299A11B278FC3BE00EF9F13 /* UserMods.swift */; };
@@ -486,14 +486,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A27C620D279558C000BF188F /* MiSans-Normal.ttf in Resources */,
+				A27C620E279558C000BF188F /* MiSans-Semibold.ttf in Resources */,
 				A27C61FC2793CA5100BF188F /* comments.json in Resources */,
 				A299A13A279020DA00EF9F13 /* profiletimeline.json in Resources */,
 				A299A135278FFD6200EF9F13 /* timelineposts.json in Resources */,
 				A299A134278FFD3800EF9F13 /* remoteuserprofile.json in Resources */,
 				A299A11D278FC8A400EF9F13 /* locuserprofile.json in Resources */,
 				A299A113278FAE5D00EF9F13 /* timelinedata.json in Resources */,
-				A2080260278974D1008461DA /* MiSans-Semibold.ttf in Resources */,
-				A20802622789771A008461DA /* MiSans-Normal.ttf in Resources */,
 				A208017E27896B62008461DA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

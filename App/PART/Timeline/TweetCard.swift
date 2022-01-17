@@ -148,6 +148,7 @@ struct TweetCard: View {
                             .ifshow(self.forwarded_user_isV)
                     }
                 }
+                .buttonStyle(.plain)
                 .PF_Leading()
                 
                 
@@ -166,15 +167,15 @@ struct TweetCard: View {
             TweetMediaView(urls: pic_urls,cliped: false)
             
         }
-        .background(Color.Card.onTapGesture(perform: {
-            //点击卡片中被转发的微博，进入被转发的微博详情
-            self.targetPost = convertPost(post: post.retweeted_status!)
-            showPostDeatilView.toggle()
-        }))
         .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(lineWidth: 1).foregroundColor(.fc3.opacity(0.6)))
         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
         .ifshow(style == .repost)
         .padding(.top,8)
+        .onTapGesture(perform: {
+            //点击卡片中被转发的微博，进入被转发的微博详情
+            self.targetPost = convertPost(post: post.retweeted_status!)
+            showPostDeatilView.toggle()
+        })
         
     }
     
@@ -230,7 +231,6 @@ struct TweetCard: View {
                         }, label: {
                             HStack(spacing:8){
                                 ICON(name: btn.iconname,fcolor:.fc2,size: 16)
-                                
                                 Text(btn == .comment ? comments_count : btn == .repost ? reposts_count : attitudes_count)
                             }
                         })

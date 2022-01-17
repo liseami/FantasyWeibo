@@ -67,52 +67,38 @@ struct PostDetailView: View {
                 Group{
                     
                     VStack(alignment: .leading, spacing:24){
-                        
-                        //快转人
-                        retweet_userline
-                            .ifshow(style == .repost_fast)
-
-
-                        topUserInfoLine
-
-                        //文字
-                        maincontent
-
-                        //图片视频
-                        mediaArea
-
-                        //被转发微博
-                        retweetView
-                        
-                        
-                        toolbar
-                        
-                        ForEach(self.comments,id:\.self.id){comment in
+                        Group{
+                            //快转人
+                            retweet_userline
+                                .ifshow(style == .repost_fast)
                             
-                            HStack(alignment: .top, spacing: 12) {
-                                UserAvatar(url: URL(string: comment.user?.avatar_large ?? ""))
-                                VStack(spacing:6){
-                                    HStack{
-                                        Text(comment.user?.name ?? "")
-                                            .mFont(style: .Body_15_B,color: .fc1)
-                                            Spacer()
-                                    }
-                                  
-                                    Text(comment.text ?? "")
-                                        .PF_Leading()
-                                        .mFont(style: .Title_16_R,color: .fc1)
-                                    
-                                    Text(stringDateToDate(datestr: comment.created_at!, dateFormat: "EE MMM d hh:mm:ss Z yyyy").toString(dateFormat: "MMM d hh:mm"))
-                                        .PF_Leading()
-                                        .mFont(style: .Body_12_R,color: .fc2)
-                                }
-                            }
-                        }
+                            topUserInfoLine
+                            
+                            //文字
+                            maincontent
+                            
+                            //图片视频
+                            mediaArea
+                            
+                            //被转发微博
+                            retweetView
+                            
+                            //数据栏
+                            databar
+                            
+                            //工具栏
+                            toolbtns
+                            
+                        }  .padding(.horizontal,16)
+                    
                         
+                        Line()
+                        //评论列表
+                        commentslist
                         
                         Spacer()
                     }
-                    .padding(.all,16)
+                  
                     
                 }
             }
@@ -143,6 +129,38 @@ struct PostDetailView: View {
     }
     
     
+    @ViewBuilder
+    var commentslist : some View{
+        ForEach(self.comments,id:\.self.id){comment in
+            HStack(alignment: .top, spacing: 12) {
+                UserAvatar(url: URL(string: comment.user?.avatar_large ?? ""))
+                VStack(spacing:6){
+                    HStack{
+                        Text(comment.user?.name ?? "")
+                            .mFont(style: .Body_15_B,color: .fc1)
+                        Spacer()
+                    }
+                    
+                    if let text = comment.text{
+                        PF_TapTextArea(text: text,font: MFont(style: .Title_17_R).getUIFont()) {username in
+                        } taptopic: {topicname in
+                            
+                        } tapshorturl: {shorturl in
+                            
+                        }
+                    }
+                    
+                    Text(comment.created_at!.toDate(dateFormat: "EE MMM d hh:mm:ss Z yyyy").toString(dateFormat: "MMM d hh:mm"))
+                        .PF_Leading()
+                        .mFont(style: .Body_12_R,color: .fc2)
+                }
+            }
+            .padding(.horizontal,16)
+            .padding(.bottom,12)
+            .overlay(Line(),alignment:.bottom)
+            
+        }
+    }
     var commentBar : some View {
         
         HStack{
@@ -161,19 +179,36 @@ struct PostDetailView: View {
         
     }
     
-    var toolbar : some View {
-        HStack(spacing:20){
-            ForEach(vm.posttoolbtns,id :\.self){ tool in
-                HStack(spacing:6){
-                    Text(tool == .comment ? comments_count : tool == .repost ? reposts_count : attitudes_count)
-                        .mFont(style: .Title_17_B,color: .fc1)
-                    Text(tool.title)
-                        .mFont(style: .Body_15_R,color: .fc2)
+    var databar : some View {
+        VStack(spacing:12){
+            Line()
+            HStack(spacing:20){
+                ForEach(vm.posttoolbtns,id :\.self){ tool in
+                    HStack(spacing:6){
+                        Text(tool == .comment ? comments_count : tool == .repost ? reposts_count : attitudes_count)
+                            .mFont(style: .Title_17_B,color: .fc1)
+                        Text(tool.title)
+                            .mFont(style: .Body_15_R,color: .fc2)
+                    }
                 }
+                Spacer()
             }
-            Spacer()
+            Line()
         }
     }
+    
+    var toolbtns : some View {
+        HStack{
+            ForEach(vm.posttoolbtns,id :\.self){ tool in
+                
+                    ICON(name: tool.iconname,fcolor:.fc2)
+                    .frame(maxWidth:.infinity)
+            }
+        }
+        
+    }
+    
+    
     var retweetView : some View {
         HStack(alignment:.top,spacing:12) {
             UserAvatar(url: forwarded_user_avatarImageUrl,frame:SW * 0.1)
@@ -187,7 +222,7 @@ struct PostDetailView: View {
                     Spacer()
                 }
                 
-                PF_TapTextArea(text: forwarded_text,font: MFont(style: .Title_17_R).getUIFont()) {username in
+                PF_TapTextArea(text: forwarded_text,font: MFont(style: .Title_19_R).getUIFont()) {username in
                     
                 } taptopic: {topicname in
                     
@@ -294,7 +329,6 @@ struct PostDetailView: View {
 struct PostDetailView_Previews: PreviewProvider {
     
     static var previews: some View {
-        
         var post = Post()
         if let posts = MockTool.readArray(Post.self, fileName: "timelinedata", atKeyPath: "statuses"){
             post = posts.first(where: { somepost in
@@ -303,7 +337,6 @@ struct PostDetailView_Previews: PreviewProvider {
             post = convertPost(post: post.retweeted_status!)
             
         }
-        
         return  NavigationView {
             Text("")
                 .PF_Navilink(isPresented: .constant(true)) {
@@ -385,11 +418,3 @@ extension PostDetailView{
     }
 }
 
-
-func stringDateToDate(datestr : String,dateFormat: String) -> Date{
-    let dateFormatter = DateFormatter()
-    dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
-    dateFormatter.dateFormat = dateFormat
-    let date = dateFormatter.date(from:datestr) ?? Date()
-    return date
-}
