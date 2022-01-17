@@ -66,7 +66,7 @@ struct PostDetailView: View {
             PF_OffsetScrollView(offset: $offset) {
                 Group{
                     
-                    VStack(spacing:24){
+                    VStack(alignment: .leading, spacing:24){
                         
                         //快转人
                         retweet_userline
@@ -214,11 +214,14 @@ struct PostDetailView: View {
             .ifshow(style != .repost)
     }
     var maincontent : some View {
-        Text(text)
-            .multilineTextAlignment(.leading)
-            .PF_Leading()
-            .lineSpacing(4)
-            .mFont(style: .LargeTitle_22_R,color: .fc1)
+        
+        PF_TapTextArea(text: text,font: MFont(style: .LargeTitle_22_R).getUIFont()) {
+            
+        } taptopic: {
+            
+        } tapshorturl: {
+            
+        }
     }
     var retweet_userline : some View {
         HStack{

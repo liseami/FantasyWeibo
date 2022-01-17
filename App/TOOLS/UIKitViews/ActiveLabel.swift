@@ -54,6 +54,7 @@ struct Testtt_Previews: PreviewProvider {
 struct ActiveLabelTest : UIViewRepresentable {
     
     let str : String
+    var font : UIFont = MFont(style: .Title_17_R).getUIFont()
     let tapuser : ()->()
     let taptopic : ()->()
     let tapshorturl : ()->()
@@ -78,7 +79,7 @@ struct ActiveLabelTest : UIViewRepresentable {
             //颜色
             label.textColor = UIColor(Color.fc1)
             //字体
-            label.font = MFont(style: .Title_17_R).getUIFont()
+            label.font = font
             label.lineSpacing = 2
             //可点击文字颜色
             label.customColor[usertype] = UIColor(Color.MainColor)
@@ -118,6 +119,7 @@ struct ActiveLabelTest : UIViewRepresentable {
 struct PF_TapTextArea : View {
     
     var text : String
+    var font : UIFont = MFont(style: .Title_17_R).getUIFont()
     let tapuser : ()->()
     let taptopic : ()->()
     let tapshorturl : ()->()
@@ -126,10 +128,13 @@ struct PF_TapTextArea : View {
     var body: some View{
         
         Text(text)
+            .frame(maxWidth:.infinity,alignment: .leading)
+            .multilineTextAlignment(.leading)
             .lineSpacing(2)
-            .mFont(style: .Title_17_R,color: .Card)
+            .font(Font(font))
+            .foregroundColor(.Card)
             .overlay(
-                ActiveLabelTest(str: self.text) {
+                ActiveLabelTest(str: self.text,font: font) {
                     //点击用户
                     tapuser()
                 } taptopic: {
