@@ -13,6 +13,8 @@ extension Color  {
     
     
     static var MainColor = Color("MainColor")
+    static var MainColorSelected = Color("MainColorSelected")
+    
     static var SecondaryColor = Color.red
     
 
@@ -27,7 +29,7 @@ extension Color  {
     static let BackGround = Color("BackGround")
     static let Card = Color("Card")
     
-    static let Danger = Color("Danger")
+    
     static let Success = Color("Success")
     static let Warning = Color("Warning")
     

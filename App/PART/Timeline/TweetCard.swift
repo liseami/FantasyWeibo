@@ -74,13 +74,12 @@ struct TweetCard: View {
         }
         .padding(.all,8)
         .padding(.vertical,6)
-        .background(Color.Card)
+        .background(Color.Card.onTapGesture(perform: {
+            //点击微博卡片，如果是快转，直接进被转发微博
+            targetPost = style == .repost_fast ? convertPost(post: post.retweeted_status ?? repostPost.init()) : post
+            showPostDeatilView.toggle()
+        }))
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-        //        .onTapGesture(perform: {
-        //            //点击微博卡片，如果是快转，直接进被转发微博
-        //            targetPost = style == .repost_fast ? convertPost(post: post.retweeted_status ?? repostPost.init()) : post
-        //            showPostDeatilView.toggle()
-        //        })
         .PF_Navilink(isPresented: $showProfileView) {
             //个人主页
             ProFileView(self.targetUser)
@@ -95,7 +94,7 @@ struct TweetCard: View {
     
     @ViewBuilder
     var mainText : some View {
-        
+
         PF_TapTextArea(text: self.text) {
             //点击用户
             showProfileView.toggle()
@@ -104,6 +103,7 @@ struct TweetCard: View {
         } tapshorturl: {
             //点击短链接
         }
+//        .overlay(Color.blue)
         
     }
     
@@ -132,6 +132,8 @@ struct TweetCard: View {
         ///被正常转发的微博
         VStack(spacing:0){
             VStack(alignment: .leading, spacing:12){
+                
+            
                 Button {
                     self.targetUser = post.retweeted_status!.user!
                     showProfileView.toggle()
@@ -143,10 +145,12 @@ struct TweetCard: View {
                         ICON(sysname: "checkmark.seal.fill",fcolor: .MainColor,size: 16)
                             .padding(.leading,4)
                             .ifshow(self.forwarded_user_isV)
-                        Spacer()
                     }
                 }
+//                .overlay(Color.red)
+                .PF_Leading()
                 
+
                 PF_TapTextArea(text: forwarded_text) {
                     //点击用户
                     showProfileView.toggle()
@@ -155,8 +159,7 @@ struct TweetCard: View {
                 } tapshorturl: {
                     //点击短链接
                 }
-                .frame(maxHeight:.infinity)
-                .mFont(style: .Title_17_R,color: .fc1)
+//                .overlay(Color.yellow)
                 
             }
             .padding(.all,12)
@@ -164,15 +167,14 @@ struct TweetCard: View {
             TweetMediaView(urls: pic_urls,cliped: false)
             
         }
-        .background(Color.Card)
-        .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(lineWidth: 1).foregroundColor(.fc3.opacity(0.6)))
-        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-        .ifshow(style == .repost)
-        .onTapGesture(perform: {
+        .background(Color.Card.onTapGesture(perform: {
             //点击卡片中被转发的微博，进入被转发的微博详情
             self.targetPost = convertPost(post: post.retweeted_status!)
             showPostDeatilView.toggle()
-        })
+        }))
+        .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(lineWidth: 1).foregroundColor(.fc3.opacity(0.6)))
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .ifshow(style == .repost)
         .padding(.top,8)
         
     }

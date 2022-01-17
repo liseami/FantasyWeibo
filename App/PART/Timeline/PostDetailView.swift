@@ -68,21 +68,21 @@ struct PostDetailView: View {
                     
                     VStack(spacing:24){
                         
-//                        //快转人
-//                        retweet_userline
-//                            .ifshow(style == .repost_fast)
-//
-//
-//                        topUserInfoLine
-//
-//                        //文字
-//                        maincontent
-//
-//                        //图片视频
-//                        mediaArea
-//
-//                        //被转发微博
-//                        retweetView
+                        //快转人
+                        retweet_userline
+                            .ifshow(style == .repost_fast)
+
+
+                        topUserInfoLine
+
+                        //文字
+                        maincontent
+
+                        //图片视频
+                        mediaArea
+
+                        //被转发微博
+                        retweetView
                         
                         
                         toolbar
