@@ -76,11 +76,11 @@ struct TweetCard: View {
         .padding(.vertical,6)
         .background(Color.Card)
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .onTapGesture(perform: {
-            //点击微博卡片，如果是快转，直接进被转发微博
-            targetPost = style == .repost_fast ? convertPost(post: post.retweeted_status ?? repostPost.init()) : post
-            showPostDeatilView.toggle()
-        })
+        //        .onTapGesture(perform: {
+        //            //点击微博卡片，如果是快转，直接进被转发微博
+        //            targetPost = style == .repost_fast ? convertPost(post: post.retweeted_status ?? repostPost.init()) : post
+        //            showPostDeatilView.toggle()
+        //        })
         .PF_Navilink(isPresented: $showProfileView) {
             //个人主页
             ProFileView(self.targetUser)
@@ -96,26 +96,15 @@ struct TweetCard: View {
     @ViewBuilder
     var mainText : some View {
         
+        PF_TapTextArea(text: self.text) {
+            //点击用户
+            showProfileView.toggle()
+        } taptopic: {
+            //点击话题标签
+        } tapshorturl: {
+            //点击短链接
+        }
         
-//        let w = UIState.shared.picAreaW
-////        AttributedText(text: self.text,fixedWidth:w)
-////
-        Text(self.text)
-            .overlay(Color.Card.overlay(GeometryReader { geo  in
-                ActiveLabelTest(str: self.text,width: geo.size.width)
-            },alignment: .top),alignment: .top)
-        
-        
-       
-            
-        
-//        Text(self.text)
-//            .mFont(style: .Title_17_R,color: .fc1)
-
-        
-    
-            
-            
     }
     
     var mainAvatar : some View {
@@ -158,11 +147,16 @@ struct TweetCard: View {
                     }
                 }
                 
-                
-                
-                Text(forwarded_text)
-                    .frame(maxHeight:.infinity)
-                    .mFont(style: .Title_17_R,color: .fc1)
+                PF_TapTextArea(text: forwarded_text) {
+                    //点击用户
+                    showProfileView.toggle()
+                } taptopic: {
+                    //点击话题标签
+                } tapshorturl: {
+                    //点击短链接
+                }
+                .frame(maxHeight:.infinity)
+                .mFont(style: .Title_17_R,color: .fc1)
                 
             }
             .padding(.all,12)

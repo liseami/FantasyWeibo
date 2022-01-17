@@ -1,7 +1,6 @@
 PODS:
   - ActiveLabel (1.1.0)
   - Alamofire (5.5.0)
-  - AttributedString (2.2.2)
   - CropViewController (2.6.0)
   - FantasyUI (1.0.11):
     - FantasyUI/Networking (= 1.0.11)
@@ -36,7 +35,6 @@ PODS:
 
 DEPENDENCIES:
   - ActiveLabel
-  - AttributedString
   - CropViewController
   - FantasyUI (from `./FantasyUI`)
   - FloatingPanel
@@ -52,7 +50,6 @@ SPEC REPOS:
   trunk:
     - ActiveLabel
     - Alamofire
-    - AttributedString
     - CropViewController
     - FloatingPanel
     - Introspect
@@ -80,7 +77,6 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   ActiveLabel: 5e3f4de79a1952d4604b845a0610d4776e4b82b3
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
-  AttributedString: 320bb12ef89a666cee4a2f79e3cee36748a63145
   CropViewController: 7093b39ec3cb508531b22d35773e06cecd7378d8
   FantasyUI: 32d42d714ae9ba0e03cc196f77f91d3e97b94413
   FloatingPanel: 523cb50f490f151fc03fabf24a8322e44d22f65f
@@ -96,6 +92,6 @@ SPEC CHECKSUMS:
   UMDevice: 04948a92184e8d25f1369b635dff5490c1f063e0
   Weibo_SDK: 13a4e9b78db64f56eb68bfe4badde82750bb292f
 
-PODFILE CHECKSUM: 786ace7475c2072d86c08f70968fed3772f68c55
+PODFILE CHECKSUM: 7481d971d86cb5fb03f1ab718646f8fb372f2b7c
 
 COCOAPODS: 1.11.2
