@@ -97,14 +97,20 @@ struct TweetCard: View {
     var mainText : some View {
         
         
-//        let w = UIState.shared.picArea
-//        AttributedText(text: self.text,fixedWidth:w)
-//            .scaledToFit()
-//            .clipped()
-//            .overlay(Color.red.opacity(0.3))
-        
+//        let w = UIState.shared.picAreaW
+////        AttributedText(text: self.text,fixedWidth:w)
+////
         Text(self.text)
-            .mFont(style: .Title_17_R,color: .fc1)
+            .overlay(Color.Card.overlay(GeometryReader { geo  in
+                ActiveLabelTest(str: self.text,width: geo.size.width)
+            },alignment: .top),alignment: .top)
+        
+        
+       
+            
+        
+//        Text(self.text)
+//            .mFont(style: .Title_17_R,color: .fc1)
 
         
     

@@ -14,10 +14,12 @@ import FantasyUI
 
 struct AttributedTextView: View {
     var body: some View {
-        GeometryReader { geo  in
-            let w = geo.size.width
-            AttributedText(fixedWidth: w)
-        }
+       
+                AttributedText(fixedWidth: SW * 0.8)
+                    .overlay(Color.red.opacity(0.3))
+                    .scaledToFit()
+                
+            
     
     }
 }
@@ -34,7 +36,7 @@ struct AttributedTextView_Previews: PreviewProvider {
 
 struct AttributedText : UIViewRepresentable {
     
-    var text : String =  "今田美樱"
+    var text : String =  "//@当时我就震惊了:耳朵怀孕了[泪]//@我有一个超酷的微博名：这个翻译也很绝//@派大星inside:卧槽，好听！//@搭令哒：爱乐之城的感觉//@晕尼格格鹿：和音好棒！"
     var font : UIFont = MFont(style: .Title_17_R).getUIFont()
     
     let textView =  UITextView(frame: .zero)
@@ -65,8 +67,6 @@ struct AttributedText : UIViewRepresentable {
         let regexweibotexts = ":[^/]*"
         //用户名
         let users : [String] = text.regex(regex: regexweibousers) ?? []
-        //用户说的话
-        
         
         //开头的
         let slash : ASAttributedString = .init(string: "//",.font(self.font),.foreground(UIColor(Color.fc1)))
@@ -95,10 +95,9 @@ struct AttributedText : UIViewRepresentable {
         
               textView.isEditable = false
               textView.isScrollEnabled = false
-//              textView.backgroundColor = .cyan // just to make it easier to see
+              textView.backgroundColor = UIColor(named: "Card") // just to make it easier to see
               textView.delegate = context.coordinator
               textView.translatesAutoresizingMaskIntoConstraints = false
-        
               textView.widthAnchor.constraint(equalToConstant: fixedWidth).isActive = true //<--- Here
               
         

@@ -28,6 +28,8 @@ pod "Weibo_SDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git"
 
 pod 'AttributedString'
 
+pod 'ActiveLabel'
+
 end
 
 

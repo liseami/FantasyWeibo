@@ -34,7 +34,7 @@ struct ContentView: View {
                 
             }
             .onAppear(perform: {
-                uistate.getWeiboEmoji()
+//                uistate.getWeiboEmoji()
                 guard userManager.locAvatarUrl.isEmpty else {return}
                 //首次登录获取自己的头像等信息
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

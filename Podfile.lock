@@ -1,4 +1,5 @@
 PODS:
+  - ActiveLabel (1.1.0)
   - Alamofire (5.5.0)
   - AttributedString (2.2.2)
   - CropViewController (2.6.0)
@@ -34,6 +35,7 @@ PODS:
   - Weibo_SDK (3.3.2)
 
 DEPENDENCIES:
+  - ActiveLabel
   - AttributedString
   - CropViewController
   - FantasyUI (from `./FantasyUI`)
@@ -48,6 +50,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - ActiveLabel
     - Alamofire
     - AttributedString
     - CropViewController
@@ -75,6 +78,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
 
 SPEC CHECKSUMS:
+  ActiveLabel: 5e3f4de79a1952d4604b845a0610d4776e4b82b3
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   AttributedString: 320bb12ef89a666cee4a2f79e3cee36748a63145
   CropViewController: 7093b39ec3cb508531b22d35773e06cecd7378d8
@@ -92,6 +96,6 @@ SPEC CHECKSUMS:
   UMDevice: 04948a92184e8d25f1369b635dff5490c1f063e0
   Weibo_SDK: 13a4e9b78db64f56eb68bfe4badde82750bb292f
 
-PODFILE CHECKSUM: 6d6af4e16bd0db7765cac1fddca2327c08bb4470
+PODFILE CHECKSUM: 786ace7475c2072d86c08f70968fed3772f68c55
 
 COCOAPODS: 1.11.2
