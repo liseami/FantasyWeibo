@@ -16,26 +16,18 @@ struct Testtt: View {
     var body: some View {
         let str = "甄 式 英 语》\n\n#甄式英语# http://t.cn/A6JiyW5g ​"
         
-        
-        Text(str)
-            .lineSpacing(2)
-            .mFont(style: .Title_17_R,color: .red)
-            .overlay(Color.red.opacity(0.3))
-            .overlay(
-
-                ActiveLabelTest(str: str) {
-                    //点击用户
-                    
-                } taptopic: {
-                    //点击标签
-                    
-                } tapshorturl: {
-                    //点击短链接
-                    
-                }
-                
-            )
-        
+        PF_TapTextArea(text: str, tapuser: {username in
+            
+        }, taptopic: {topicname in
+            
+        }, tapshorturl: {shorturl in
+            
+        })
+            .overlay(Color.red.opacity(0.1))
+            .padding()
+            .background(Color.Card)
+            .PF_Shadow(color: .fc1, style: .s700)
+            .padding()
         
         
     }
@@ -51,25 +43,28 @@ struct Testtt_Previews: PreviewProvider {
 
 
 
-struct ActiveLabelTest : UIViewRepresentable {
+struct ActiveLabelStack : UIViewRepresentable {
+    
+    
+    @Binding var dynamicHeight: CGFloat
     
     let str : String
     var font : UIFont = MFont(style: .Title_17_R).getUIFont()
-    let tapuser : ()->()
-    let taptopic : ()->()
-    let tapshorturl : ()->()
+    let tapuser : (_ username :String)->()
+    let taptopic : (_ topicname : String)->()
+    let tapshorturl : (_ shorturl : String)->()
+    let label = ActiveLabel()
     
-    func makeUIView(context: Context) -> UILabel {
+    func makeUIView(context: Context) -> ActiveLabel {
         
-        
-        let label = ActiveLabel()
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        
+        label.textAlignment = .left
         
         label.customize { label in
             //高亮正则
+            
             let usertype = ActiveType.custom(pattern: #"@[\u4e00-\u9fa5A-Z0-9a-z_-]{2,30}"#)
             let topictype = ActiveType.custom(pattern: #"#[^@<>#"&'\r\n\t]{1,49}#"#)
             let shorturl = ActiveType.custom(pattern: #"https{0,1}://t.cn/[A-Z0-9a-z]{6,8}[/]{0,1}"#)
@@ -81,6 +76,7 @@ struct ActiveLabelTest : UIViewRepresentable {
             //字体
             label.font = font
             label.lineSpacing = 2
+            
             //可点击文字颜色
             label.customColor[usertype] = UIColor(Color.MainColor)
             label.customColor[topictype] = UIColor(Color.MainColor)
@@ -88,28 +84,37 @@ struct ActiveLabelTest : UIViewRepresentable {
             label.customSelectedColor[usertype] = UIColor(Color.MainColorSelected)
             label.customSelectedColor[topictype] = UIColor(Color.MainColorSelected)
             label.customSelectedColor[shorturl] = UIColor(Color.MainColorSelected)
-          
+            
             label.handleCustomTap(for: usertype) { user  in
                 print("Success. You just tapped the \(user) user")
-                self.tapuser()
+                self.tapuser(user)
             }
             
             label.handleCustomTap(for: topictype) { topic in
                 print("Success. You just tapped the \(topic) user")
-                self.taptopic()
+                self.taptopic(topic)
             }
             
             label.handleCustomTap(for: shorturl) { shorturl in
                 print("Success. You just tapped the \(shorturl) user")
-                self.tapshorturl()
+                self.tapshorturl(shorturl)
             }
-        
-
         }
+        
+       
+      
+      
         
         return label
     }
-    func updateUIView(_ uiView: UILabel, context: Context) {
+    func updateUIView(_ uiView: ActiveLabel, context: Context) {
+        //动态计算文本的高度....每次渲染只计算一次
+        guard self.dynamicHeight == .zero else {return}
+        
+        uiView.text = str
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            dynamicHeight = uiView.sizeThatFits(CGSize(width: uiView.bounds.width, height: CGFloat.greatestFiniteMagnitude)).height
+        }
         
     }
 }
@@ -118,43 +123,26 @@ struct ActiveLabelTest : UIViewRepresentable {
 
 struct PF_TapTextArea : View {
     
+    
     var text : String
     var font : UIFont = MFont(style: .Title_17_R).getUIFont()
-    let tapuser : ()->()
-    let taptopic : ()->()
-    let tapshorturl : ()->()
+    let tapuser : (_ username:String)->()
+    let taptopic : (_ topicname:String)->()
+    let tapshorturl : (_ shorturl:String)->()
+    
+    @State private  var height : CGFloat = .zero
     
     
     var body: some View{
         
-        Text(text)
-            .frame(maxWidth:.infinity,alignment: .leading)
-            .multilineTextAlignment(.leading)
-            .lineSpacing(2)
-            .font(Font(font))
-            .foregroundColor(.Card)
-            .overlay(
-                ActiveLabelTest(str: self.text,font: font) {
-                    //点击用户
-                    tapuser()
-                } taptopic: {
-                    //点击标签
-                    taptopic()
-                } tapshorturl: {
-                    //点击短链接
-                    tapshorturl()
-                }
-                    .clipped()
-                ,alignment : .top
-            )
+        ActiveLabelStack(dynamicHeight: $height, str: text, font: font, tapuser: {username in
+            tapuser(username)
+        }, taptopic: {topicname in
+            taptopic(topicname)
+        }, tapshorturl: {shorturl in
+            tapshorturl(shorturl)
+        })
+        .frame(minHeight: height)
         
     }
 }
-
-
-//
-//struct TapTextConfig {
-//    let type : ActiveType
-//    var color : Color = .MainColor
-//    var action : ()->()
-//}

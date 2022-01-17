@@ -37,6 +37,7 @@ struct TweetCard: View {
     @State private var targetPost : Post = Post.init()
     @State private var targetUser : User = User.init()
     
+    
     enum styleEnum {
         case post
         case repost_fast
@@ -51,7 +52,7 @@ struct TweetCard: View {
     
     var body: some View {
         
-        VStack(alignment: .leading,spacing:12){
+        LazyVStack(alignment: .leading,spacing:12){
             ///转发人用户名 + 转发推文
             retweet_userline
             HStack(alignment: .top,  spacing:12){
@@ -94,17 +95,17 @@ struct TweetCard: View {
     
     @ViewBuilder
     var mainText : some View {
-
-        PF_TapTextArea(text: self.text) {
-            //点击用户
-            showProfileView.toggle()
-        } taptopic: {
-            //点击话题标签
-        } tapshorturl: {
-            //点击短链接
-        }
-//        .overlay(Color.blue)
         
+        PF_TapTextArea(text: text) {username in
+            
+        } taptopic: {topicname in
+            
+        } tapshorturl: {shorturl in
+            
+        }
+
+        
+
     }
     
     var mainAvatar : some View {
@@ -147,19 +148,17 @@ struct TweetCard: View {
                             .ifshow(self.forwarded_user_isV)
                     }
                 }
-//                .overlay(Color.red)
                 .PF_Leading()
                 
-
-                PF_TapTextArea(text: forwarded_text) {
-                    //点击用户
-                    showProfileView.toggle()
-                } taptopic: {
-                    //点击话题标签
-                } tapshorturl: {
-                    //点击短链接
+                
+                PF_TapTextArea(text: forwarded_text) {username in
+                    
+                } taptopic: {topicname in
+                    
+                } tapshorturl: {shorturl in
+                    
                 }
-//                .overlay(Color.yellow)
+
                 
             }
             .padding(.all,12)

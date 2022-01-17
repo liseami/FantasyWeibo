@@ -1,6 +1,8 @@
 PODS:
   - ActiveLabel (1.1.0)
   - Alamofire (5.5.0)
+  - BSText (1.1.2):
+    - YYImage
   - CropViewController (2.6.0)
   - FantasyUI (1.0.11):
     - FantasyUI/Networking (= 1.0.11)
@@ -32,9 +34,13 @@ PODS:
     - UMDevice
   - UMDevice (2.1.0)
   - Weibo_SDK (3.3.2)
+  - YYImage (1.0.4):
+    - YYImage/Core (= 1.0.4)
+  - YYImage/Core (1.0.4)
 
 DEPENDENCIES:
   - ActiveLabel
+  - BSText
   - CropViewController
   - FantasyUI (from `./FantasyUI`)
   - FloatingPanel
@@ -50,6 +56,7 @@ SPEC REPOS:
   trunk:
     - ActiveLabel
     - Alamofire
+    - BSText
     - CropViewController
     - FloatingPanel
     - Introspect
@@ -62,6 +69,7 @@ SPEC REPOS:
     - UMCCommonLog
     - UMCommon
     - UMDevice
+    - YYImage
 
 EXTERNAL SOURCES:
   FantasyUI:
@@ -77,6 +85,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   ActiveLabel: 5e3f4de79a1952d4604b845a0610d4776e4b82b3
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
+  BSText: 70f0da93875c5f1dd6ab9e27fc22b1e50a41b66c
   CropViewController: 7093b39ec3cb508531b22d35773e06cecd7378d8
   FantasyUI: 32d42d714ae9ba0e03cc196f77f91d3e97b94413
   FloatingPanel: 523cb50f490f151fc03fabf24a8322e44d22f65f
@@ -91,7 +100,8 @@ SPEC CHECKSUMS:
   UMCommon: ab4d875ddefe1b06c60b577e4a58bc4d433ee067
   UMDevice: 04948a92184e8d25f1369b635dff5490c1f063e0
   Weibo_SDK: 13a4e9b78db64f56eb68bfe4badde82750bb292f
+  YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
 
-PODFILE CHECKSUM: 7481d971d86cb5fb03f1ab718646f8fb372f2b7c
+PODFILE CHECKSUM: 2f8e832bf90a054ee030b5474d47cfea73e8ea80
 
 COCOAPODS: 1.11.2

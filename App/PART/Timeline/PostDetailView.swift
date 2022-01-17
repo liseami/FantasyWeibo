@@ -186,9 +186,15 @@ struct PostDetailView: View {
                         .ifshow(self.forwarded_user_isV)
                     Spacer()
                 }
-                Text(forwarded_text)
-                    .mFont(style: .Title_17_R, color:.fc1)
-                    .PF_Leading()
+                
+                PF_TapTextArea(text: forwarded_text,font: MFont(style: .Title_17_R).getUIFont()) {username in
+                    
+                } taptopic: {topicname in
+                    
+                } tapshorturl: {shorturl in
+                    
+                }
+                
                 TweetMediaView(urls: pic_urls)
             }
             .padding(.top,6)
@@ -215,13 +221,13 @@ struct PostDetailView: View {
     }
     var maincontent : some View {
         
-        PF_TapTextArea(text: text,font: MFont(style: .LargeTitle_22_R).getUIFont()) {
+        PF_TapTextArea(text: text,font: MFont(style: .LargeTitle_22_R).getUIFont()) {username in
+        } taptopic: {topicname in
             
-        } taptopic: {
-            
-        } tapshorturl: {
+        } tapshorturl: {shorturl in
             
         }
+        
     }
     var retweet_userline : some View {
         HStack{
@@ -384,6 +390,6 @@ func stringDateToDate(datestr : String,dateFormat: String) -> Date{
     let dateFormatter = DateFormatter()
     dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
     dateFormatter.dateFormat = dateFormat
-    let date = dateFormatter.date(from:datestr)!
+    let date = dateFormatter.date(from:datestr) ?? Date()
     return date
 }
