@@ -9,11 +9,50 @@ import SwiftUI
 import FantasyUI
 import SDWebImageSwiftUI
 
+
+class PostDetailViewModel : ObservableObject {
+    
+    @Published var commentlist : [Comment] = []
+    
+    @Published var isloadingcomments : Bool = false
+    
+    func getcommentslist(_ postid : Int) {
+        isloadingcomments = true
+        
+        switch ProjectConfig.env{
+        case .test :
+            DispatchQueue.global().async {
+                let target = TimeLineApi.get_post_comments(p: .init( id: postid, since_id: 0, max_id: 0, count: 20, page: 1, filter_by_author: 0))
+                Networking.requestArray(target, modeType: Comment.self, atKeyPath: "comments") { r, comments  in
+                    DispatchQueue.main.async {
+                        if let comments = comments {
+                            self.commentlist = comments
+                            isloadingcomments = false
+                        }
+                        isloadingcomments = false
+                    }
+                }
+            }
+        case .mok:
+            DispatchQueue.global().async {
+                if let comments = MockTool.readArray(Comment.self, fileName: "comments", atKeyPath: "comments"){
+                    DispatchQueue.main.async {
+                        self.commentlist = comments
+                        isloadingcomments = false
+                    }
+                }
+                isloadingcomments = false
+            }
+        }
+    }
+}
+
+
 struct PostDetailView: View {
     
+    @State private var vm  = PostDetailViewModel()
     @State private var offset : CGFloat = 0
     let avatarW = SW * 0.14
-    @ObservedObject var vm = PostDataCenter.shared
     @State private var comment : String = ""
     @State private var showPostDetailView : Bool = false
     
@@ -67,6 +106,7 @@ struct PostDetailView: View {
                 Group{
                     
                     VStack(alignment: .leading, spacing:24){
+                        
                         Group{
                             //快转人
                             retweet_userline
@@ -118,48 +158,50 @@ struct PostDetailView: View {
         .PF_Navilink(isPresented: $showPostDetailView) {
             PostDetailView(post: convertPost(post:post.retweeted_status ?? repostPost.init()))
         }
-        
-        .onAppear {
-            vm.getComments(postid: self.post.id ?? 0) { comments in
-                if let comments = comments {
-                    self.comments = comments
-                }
-            }
-        }
+        .onAppear {vm.getcommentslist(self.post.id)}
     }
     
     
     @ViewBuilder
     var commentslist : some View{
-        ForEach(self.comments,id:\.self.id){comment in
-            HStack(alignment: .top, spacing: 12) {
-                UserAvatar(url: URL(string: comment.user?.avatar_large ?? ""))
-                VStack(spacing:6){
-                    HStack{
-                        Text(comment.user?.name ?? "")
-                            .mFont(style: .Body_15_B,color: .fc1)
-                        Spacer()
-                    }
-                    
-                    if let text = comment.text{
-                        PF_TapTextArea(text: text,font: MFont(style: .Title_17_R).getUIFont()) {username in
-                        } taptopic: {topicname in
-                            
-                        } tapshorturl: {shorturl in
-                            
+        
+        if let posts = vm.commentlist {
+            ForEach(vm.commentlist,id:\.self.id){comment in
+                HStack(alignment: .top, spacing: 12) {
+                    UserAvatar(url: URL(string: comment.user?.avatar_large ?? ""))
+                    VStack(spacing:6){
+                        HStack{
+                            Text(comment.user?.name ?? "")
+                                .mFont(style: .Body_15_B,color: .fc1)
+                            Spacer()
                         }
+                        
+                        if let text = comment.text{
+                            PF_TapTextArea(text: text,font: MFont(style: .Title_17_R).getUIFont()) {username in
+                            } taptopic: {topicname in
+                                
+                            } tapshorturl: {shorturl in
+                                
+                            }
+                        }
+                        
+                        Text(comment.created_at!.toDate(dateFormat: "EE MMM d hh:mm:ss Z yyyy").toString(dateFormat: "MMM d hh:mm"))
+                            .PF_Leading()
+                            .mFont(style: .Body_12_R,color: .fc2)
                     }
-                    
-                    Text(comment.created_at!.toDate(dateFormat: "EE MMM d hh:mm:ss Z yyyy").toString(dateFormat: "MMM d hh:mm"))
-                        .PF_Leading()
-                        .mFont(style: .Body_12_R,color: .fc2)
                 }
+                .padding(.horizontal,16)
+                .padding(.bottom,12)
+                .overlay(Line(),alignment:.bottom)
             }
-            .padding(.horizontal,16)
-            .padding(.bottom,12)
-            .overlay(Line(),alignment:.bottom)
-            
+        }else{
+            Text("暂无评论")
         }
+            
+        
+
+       
+        
     }
     var commentBar : some View {
         
@@ -200,8 +242,7 @@ struct PostDetailView: View {
     var toolbtns : some View {
         HStack{
             ForEach(vm.posttoolbtns,id :\.self){ tool in
-                
-                    ICON(name: tool.iconname,fcolor:.fc2)
+                ICON(name: tool.iconname,fcolor:.fc2,size:20)
                     .frame(maxWidth:.infinity)
             }
         }
@@ -210,10 +251,11 @@ struct PostDetailView: View {
     
     
     var retweetView : some View {
-        HStack(alignment:.top,spacing:12) {
-            UserAvatar(url: forwarded_user_avatarImageUrl,frame:SW * 0.1)
-            VStack(spacing:12){
+        VStack(alignment:.leading,spacing:12) {
+            
+            VStack(alignment:.leading,spacing:12){
                 HStack(alignment: .center, spacing: 6){
+                    UserAvatar(url: forwarded_user_avatarImageUrl,frame:SW * 0.06)
                     Text(forwarded_user_name)
                         .mFont(style: .Title_17_B, color:.fc1)
                     ICON(sysname: "checkmark.seal.fill",fcolor: .MainColor,size: 16)
@@ -221,26 +263,26 @@ struct PostDetailView: View {
                         .ifshow(self.forwarded_user_isV)
                     Spacer()
                 }
-                
-                PF_TapTextArea(text: forwarded_text,font: MFont(style: .Title_19_R).getUIFont()) {username in
-                    
-                } taptopic: {topicname in
-                    
-                } tapshorturl: {shorturl in
-                    
-                }
-                
-                TweetMediaView(urls: pic_urls)
-            }
-            .padding(.top,6)
             
+            PF_TapTextArea(text: forwarded_text,font: MFont(style: .Title_17_R).getUIFont()) {username in
+            } taptopic: {topicname in
+                
+            } tapshorturl: {shorturl in
+            }
+            
+            }
+            .padding(.horizontal,12)
+            .padding(.top,12)
+           
+            TweetMediaView(urls: pic_urls,cliped: false)
+            .ifshow(!pic_urls.isEmpty)
         }
-        .padding(.all,12)
         .background(Color.Card)
         .overlay(RoundedRectangle(cornerRadius: 20, style:.continuous )
                     .stroke(lineWidth: 0.5)
                     .foregroundColor(.fc1.opacity(0.1))
         )
+        .clipShape(RoundedRectangle(cornerRadius: 20, style:.continuous ))
         .onTapGesture(perform: {
             showPostDetailView.toggle()
         })
@@ -332,9 +374,10 @@ struct PostDetailView_Previews: PreviewProvider {
         var post = Post()
         if let posts = MockTool.readArray(Post.self, fileName: "timelinedata", atKeyPath: "statuses"){
             post = posts.first(where: { somepost in
-                somepost.retweeted_status?.user?.name == "来一杯冰阔乐吗"
+                somepost.text?.last == "]"
             })!
-            post = convertPost(post: post.retweeted_status!)
+            
+//            post = convertPost(post: post.retweeted_status!)
             
         }
         return  NavigationView {

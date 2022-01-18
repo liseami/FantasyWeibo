@@ -18,30 +18,7 @@ class PostDataCenter :NSObject, ObservableObject,WeiboSDKDelegate{
     
     
     
-    
-    func getComments(postid : Int,completion : @escaping ([Comment]?) -> ()){
-        switch ProjectConfig.env{
-        case .test :
-            DispatchQueue.global().async {
-                let target = TimeLineApi.get_post_comments(p: .init( id: postid, since_id: 0, max_id: 0, count: 20, page: 1, filter_by_author: 0))
-                Networking.requestArray(target, modeType: Comment.self, atKeyPath: "comments") { r, comments  in
-                    DispatchQueue.main.async {
-                        completion(comments)
-                    }
-                }
-            }
-            
-        case .mok:
-            DispatchQueue.global().async {
-                if let comments = MockTool.readArray(Comment.self, fileName: "comments", atKeyPath: "comments"){
-                    DispatchQueue.main.async {
-                        completion(comments)
-                    }
-                }
-            }
-        }
-    }
-    
+   
     
     //首页时间线
     func getHomeTimeLine() {

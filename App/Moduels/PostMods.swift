@@ -51,7 +51,7 @@ struct Weibo_ADPost : Convertible{
 
 struct Post : Convertible {
     var created_at : String?
-    var id : Int?
+    var id : Int = 0
     var idstr : String?
     var mid : String?
     var can_edit : Bool = false
