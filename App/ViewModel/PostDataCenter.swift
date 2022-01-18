@@ -24,7 +24,7 @@ class PostDataCenter :NSObject, ObservableObject,WeiboSDKDelegate{
     func getHomeTimeLine() {
         switch ProjectConfig.env{
         case .test :
-            let target = TimeLineApi.get_home_timeline(p: .init(count:57))
+            let target = PostApi.get_home_timeline(p: .init(count:57))
             Networking.requestArray(target, modeType: Post.self, atKeyPath: "statuses") { r, arr in
                 if let arr = arr {
                     self.home_timeline = arr
@@ -41,7 +41,7 @@ class PostDataCenter :NSObject, ObservableObject,WeiboSDKDelegate{
     func getProFileTimeLine(){
         switch ProjectConfig.env{
         case .test :
-            let target = TimeLineApi.get_user_timeline(p: .init(uid:UserManager.shared.locuid))
+            let target = PostApi.get_user_timeline(p: .init(uid:UserManager.shared.locuid))
             Networking.requestArray(target, modeType: Post.self,atKeyPath: "statuses") { r , arr  in
                 if let arr = arr {
                     self.user_timeline = arr

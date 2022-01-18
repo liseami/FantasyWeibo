@@ -14,6 +14,7 @@ struct UserAvatar: View {
     
     var body: some View {
         
+        
             WebImage(url: url)
                 .resizable()
                 .placeholder(content: {
@@ -22,7 +23,7 @@ struct UserAvatar: View {
                 .scaledToFill()
                 .frame(width: frame, height: frame)
                 .clipShape(Circle())
-                .overlay(Circle().stroke(lineWidth: 0.5).foregroundColor(.back1))
+                .overlay(Circle().stroke(lineWidth: 1).foregroundColor(.back1))
 
     }
 }

@@ -122,7 +122,7 @@ struct SearchView: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(uistate: UIState.init(tabbarIndex: .Search))
+        ContentView()
     }
 }
 

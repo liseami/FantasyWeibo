@@ -11,6 +11,8 @@ import SwiftUI
 class InBoxManager : ObservableObject{
     static let shared  = InBoxManager()
     
+    @Published var mentionList : [Post] = []
+    @Published var commentsMentions : [Comment] = []
     
     enum messageSwitch:MTPageSegmentProtocol {
         case like
@@ -30,7 +32,46 @@ class InBoxManager : ObservableObject{
     }
     
     @Published var messageTab : messageSwitch = .like
-    var tabitems : [messageSwitch] = [.like,.comment,.mentions]
+    var tabitems : [messageSwitch] = [.mentions,.comment,.like]
+    
+    
+    func getUserMentions(){
+        switch ProjectConfig.env{
+        case .test :
+            let target =  PostApi.get_user_mentions(p: .init())
+            Networking.requestArray(target, modeType: Post.self, atKeyPath: "statuses") { r , arr  in
+                if let arr = arr {
+                    self.mentionList = arr
+                }
+            }
+        case .mok:
+            if let arr = MockTool.readArray(Post.self, fileName: "mentions", atKeyPath: "statuses"){
+                self.mentionList = arr
+            }
+        }
+    }
+    
+    func getuserCommentsMentions(){
+        switch ProjectConfig.env{
+        case .test :
+            let target =  PostApi.get_user_comments_mentions(p: .init( count: 100))
+            Networking.requestArray(target, modeType: Comment.self, atKeyPath: "comments") { r , arr  in
+                if let arr = arr {
+                    self.commentsMentions = arr
+                }
+            }
+        case .mok:
+//            if let arr = MockTool.readArray(Post.self, fileName: "mentions", atKeyPath: "statuses"){
+//                self.mentionList = arr
+//            }
+            let target =  PostApi.get_user_comments_mentions(p: .init( count: 100))
+            Networking.requestArray(target, modeType: Comment.self, atKeyPath: "comments") { r , arr  in
+                if let arr = arr {
+                    self.commentsMentions = arr
+                }
+            }
+        }
+    }
 }
 
 
@@ -49,8 +90,8 @@ struct InBoxView: View {
          
         ZStack{
             
-            Color.Card.ignoresSafeArea()
-            
+            Color.BackGround.ignoresSafeArea()
+        
             
             VStack(spacing:0){
                 MT_PageSegmentView(titles: vm.tabitems, offset: $offset)
@@ -75,22 +116,28 @@ struct InBoxView: View {
     var mainViews : some View {
         HStack(spacing: 0) {
             Group {
+                
+                //@我
+                mentions
+                
                 ScrollView {
                     LazyVStack(spacing:24){
-                        ForEach(0 ..< 5) { item in
-                            message
+                        ForEach(vm.commentsMentions,id:\.self.id) { comment in
+                            HStack{
+                                UserAvatar(url: URL(string: comment.user?.avatar_large ?? ""))
+                                VStack{
+                                    Text(comment.user?.name ?? "")
+                                        .mFont(style: .Body_15_B,color:.fc1)
+                                    Text(comment.text ?? "")
+                                        .mFont(style: .Body_15_R,color:.fc1)
+                                }
+                            }
                         }
                     }
                     .padding(.all,24)
                 }
-                
-                ScrollView {
-                    LazyVStack(spacing:24){
-                        ForEach(0 ..< 5) { item in
-                            message
-                        }
-                    }
-                    .padding(.all,24)
+                .onAppear {
+                    vm.getuserCommentsMentions()
                 }
                 
                 ScrollView {
@@ -110,6 +157,20 @@ struct InBoxView: View {
         }
     }
     
+    var mentions : some View{
+        ScrollView {
+                LazyVStack(spacing:12){
+                    ForEach(vm.mentionList,id:\.self.id) { post  in
+                        TweetCard(post: post)
+                    }
+                }
+                .padding(.all,12)
+                .onAppear {
+                    vm.getUserMentions()
+                }
+        }
+        .background(Color.BackGround.ignoresSafeArea())
+    }
     
     var tabbar : some View{
         VStack(spacing:12){
@@ -177,6 +238,8 @@ struct InBoxView: View {
 
 struct InBoxView_Previews: PreviewProvider {
     static var previews: some View {
+        
+//        ContentView(uistate: .init(tabbarIndex: .Message, logged: true))
         InBoxView()
     }
 }

@@ -45,7 +45,7 @@ public struct MT_PageScrollowView<Content: View>: UIViewRepresentable {
         
         scrollView.addSubview(hostVc.view)
         scrollView.addConstraints(constraints)
-        
+        scrollView.backgroundColor = UIColor(Color.back1)
         scrollView.delegate = context.coordinator
         return scrollView
     }

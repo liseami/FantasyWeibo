@@ -433,6 +433,9 @@
             "text": "哈哈哈哈哈",
             "disable_reply": 0,
             "restrictOperate": 0,
+            "reply_comment":{
+                "id" : 4726236712535051
+            },
             "user": {
                 "id": 6348877926,
                 "idstr": "6348877926",

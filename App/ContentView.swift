@@ -64,22 +64,22 @@ struct ContentView: View {
             switch uistate.TabbarIndex{
                 ///主页面
             case .Timeline :  TimeLineView()
-            case .Search   :  searchView
+//            case .Search   :  searchView
             case .Message   :  InBoxView()
             case .User  :  ProFileView(userManager.locUser)
             }
         }
     }
     
-    @ViewBuilder
-    var searchView : some View {
-        if uistate.TabbarIndex == .Search {
-            SearchView()
-                .toolbar {toolbarSearchBtn}
-        }else{
-            SearchView()
-        }
-    }
+//    @ViewBuilder
+//    var searchView : some View {
+//        if uistate.TabbarIndex == .Search {
+//            SearchView()
+//                .toolbar {toolbarSearchBtn}
+//        }else{
+//            SearchView()
+//        }
+//    }
     
     
     ///TabbarBtn

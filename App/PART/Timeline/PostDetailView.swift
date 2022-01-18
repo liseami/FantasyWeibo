@@ -12,36 +12,54 @@ import SDWebImageSwiftUI
 
 class PostDetailViewModel : ObservableObject {
     
-    @Published var commentlist : [Comment] = []
-    
+    @Published var mainCommentsList : [Comment] = []
+    @Published var subcomments : [Comment] = []
     @Published var isloadingcomments : Bool = false
+    @Published var targetUser : User = User.init()
+    @Published var showPostDetailView : Bool = false
+    @Published var showProfileView : Bool = false
     
     func getcommentslist(_ postid : Int) {
-        isloadingcomments = true
+        
+        DispatchQueue.main.async {
+            self.isloadingcomments = true
+        }
+        
         
         switch ProjectConfig.env{
         case .test :
-            DispatchQueue.global().async {
-                let target = TimeLineApi.get_post_comments(p: .init( id: postid, since_id: 0, max_id: 0, count: 20, page: 1, filter_by_author: 0))
-                Networking.requestArray(target, modeType: Comment.self, atKeyPath: "comments") { r, comments  in
-                    DispatchQueue.main.async {
-                        if let comments = comments {
-                            self.commentlist = comments
-                            isloadingcomments = false
+            let target = PostApi.get_post_comments(p: .init( id: postid, since_id: 0, max_id: 0, count: 100, page: 1, filter_by_author: 0))
+            Networking.requestArray(target, modeType: Comment.self, atKeyPath: "comments") { r, comments  in
+                DispatchQueue.main.async {
+                    if let comments = comments {
+                        for comment in comments {
+                            //没有 reply_comment 字段的，加入maincomment
+                            if comment.reply_comment == nil{
+                                self.mainCommentsList.append(comment)
+                            }else{
+                                self.subcomments.append(comment)
+                            }
                         }
-                        isloadingcomments = false
                     }
+                    self.isloadingcomments = false
                 }
             }
+            
         case .mok:
             DispatchQueue.global().async {
                 if let comments = MockTool.readArray(Comment.self, fileName: "comments", atKeyPath: "comments"){
                     DispatchQueue.main.async {
-                        self.commentlist = comments
-                        isloadingcomments = false
+                        for comment in comments {
+                            //没有 reply_comment 字段的，加入maincomment
+                            if comment.reply_comment == nil{
+                                self.mainCommentsList.append(comment)
+                            }else{
+                                self.subcomments.append(comment)
+                            }
+                        }
+                        self.isloadingcomments = false
                     }
                 }
-                isloadingcomments = false
             }
         }
     }
@@ -50,14 +68,13 @@ class PostDetailViewModel : ObservableObject {
 
 struct PostDetailView: View {
     
-    @State private var vm  = PostDetailViewModel()
-    @State private var offset : CGFloat = 0
-    let avatarW = SW * 0.14
-    @State private var comment : String = ""
-    @State private var showPostDetailView : Bool = false
+    @StateObject var vm  = PostDetailViewModel()
     
-    //渲染属性
-    let post : Post
+    //UI
+    @State private var offset : CGFloat = 0
+    
+    
+    //类型
     var style : styleEnum = .post
     
     //主体
@@ -73,13 +90,17 @@ struct PostDetailView: View {
     var forwarded_user_avatarImageUrl : URL? = nil
     
     //数据
+    let post : Post
     var comments_count : String = ""
     var reposts_count : String = ""
     var attitudes_count : String = ""
     
     //评论
-    
     @State private var comments : [Comment] = []
+    //添加评论
+    @State private var commentInput : String = ""
+    
+    
     
     
     
@@ -130,16 +151,15 @@ struct PostDetailView: View {
                             toolbtns
                             
                         }  .padding(.horizontal,16)
-                    
+                        
                         
                         Line()
+                        
                         //评论列表
                         commentslist
                         
                         Spacer()
                     }
-                  
-                    
                 }
             }
             
@@ -155,59 +175,63 @@ struct PostDetailView: View {
         } TopCenterView: {
             EmptyView()
         }
-        .PF_Navilink(isPresented: $showPostDetailView) {
+        .PF_Navilink(isPresented: $vm.showPostDetailView) {
             PostDetailView(post: convertPost(post:post.retweeted_status ?? repostPost.init()))
         }
-        .onAppear {vm.getcommentslist(self.post.id)}
+        .PF_Navilink(isPresented: $vm.showProfileView, content: {
+            ProFileView(vm.targetUser)
+        })
+        //        进入页面时，获取页面评论
+        .onAppear {
+            ///防止重复获取
+            DispatchQueue.global().async {
+                print("获取评论列表🐒")
+                guard vm.mainCommentsList.isEmpty && !vm.isloadingcomments else {return}
+                vm.getcommentslist(self.post.id)
+            }
+        }
     }
     
     
     @ViewBuilder
     var commentslist : some View{
         
-        if let posts = vm.commentlist {
-            ForEach(vm.commentlist,id:\.self.id){comment in
-                HStack(alignment: .top, spacing: 12) {
-                    UserAvatar(url: URL(string: comment.user?.avatar_large ?? ""))
-                    VStack(spacing:6){
-                        HStack{
-                            Text(comment.user?.name ?? "")
-                                .mFont(style: .Body_15_B,color: .fc1)
-                            Spacer()
-                        }
-                        
-                        if let text = comment.text{
-                            PF_TapTextArea(text: text,font: MFont(style: .Title_17_R).getUIFont()) {username in
-                            } taptopic: {topicname in
-                                
-                            } tapshorturl: {shorturl in
-                                
-                            }
-                        }
-                        
-                        Text(comment.created_at!.toDate(dateFormat: "EE MMM d hh:mm:ss Z yyyy").toString(dateFormat: "MMM d hh:mm"))
-                            .PF_Leading()
-                            .mFont(style: .Body_12_R,color: .fc2)
+        
+        if vm.isloadingcomments {
+            ProgressView()
+                .frame(maxWidth:.infinity,alignment: .center)
+        }else{
+            if !vm.mainCommentsList.isEmpty {
+                let comments = vm.mainCommentsList
+                VStack(spacing:0){
+                    ForEach(comments,id:\.self.id){comment in
+                        CommentView(comment: comment, subcomments: findsubcomments(maincommentid: comment.id))
+                            .environmentObject(vm)
                     }
                 }
-                .padding(.horizontal,16)
-                .padding(.bottom,12)
-                .overlay(Line(),alignment:.bottom)
+                
+            }else{
+                TextPlaceHolder(text: "", subline: "暂无评论",style: .inline)
+                    .frame(maxWidth:.infinity,alignment: .center)
             }
-        }else{
-            Text("暂无评论")
         }
-            
-        
-
-       
-        
     }
+    //寻找主评论的副评论
+    func findsubcomments(maincommentid : Int)->[Comment]{
+        var subcomments = [Comment]()
+        for comment in vm.subcomments {
+            if comment.reply_comment?.id == maincommentid{
+                subcomments.append(comment)
+            }
+        }
+        return subcomments
+    }
+    
     var commentBar : some View {
         
         HStack{
             UserAvatar(url: URL(string: UserManager.shared.locAvatarUrl),frame: GoldenH)
-            TextField("添加评论...", text: $comment)
+            TextField("添加评论...", text: $commentInput)
                 .mFont(style: .Body_15_R,color: .fc1)
                 .multilineTextAlignment(.leading)
                 .padding(.horizontal,12)
@@ -225,7 +249,7 @@ struct PostDetailView: View {
         VStack(spacing:12){
             Line()
             HStack(spacing:20){
-                ForEach(vm.posttoolbtns,id :\.self){ tool in
+                ForEach(PostDataCenter.shared.posttoolbtns,id :\.self){ tool in
                     HStack(spacing:6){
                         Text(tool == .comment ? comments_count : tool == .repost ? reposts_count : attitudes_count)
                             .mFont(style: .Title_17_B,color: .fc1)
@@ -241,7 +265,7 @@ struct PostDetailView: View {
     
     var toolbtns : some View {
         HStack{
-            ForEach(vm.posttoolbtns,id :\.self){ tool in
+            ForEach(PostDataCenter.shared.posttoolbtns,id :\.self){ tool in
                 ICON(name: tool.iconname,fcolor:.fc2,size:20)
                     .frame(maxWidth:.infinity)
             }
@@ -254,28 +278,35 @@ struct PostDetailView: View {
         VStack(alignment:.leading,spacing:12) {
             
             VStack(alignment:.leading,spacing:12){
-                HStack(alignment: .center, spacing: 6){
-                    UserAvatar(url: forwarded_user_avatarImageUrl,frame:SW * 0.06)
-                    Text(forwarded_user_name)
-                        .mFont(style: .Title_17_B, color:.fc1)
-                    ICON(sysname: "checkmark.seal.fill",fcolor: .MainColor,size: 16)
-                        .padding(.leading,4)
-                        .ifshow(self.forwarded_user_isV)
-                    Spacer()
+                Button {
+                    vm.targetUser = post.retweeted_status!.user!
+                    vm.showProfileView = true
+                } label: {
+                    HStack(alignment: .center, spacing: 6){
+                        UserAvatar(url: forwarded_user_avatarImageUrl,frame:SW * 0.06)
+                        Text(forwarded_user_name)
+                            .mFont(style: .Title_17_B, color:.fc1)
+                        ICON(sysname: "checkmark.seal.fill",fcolor: .MainColor,size: 16)
+                            .padding(.leading,4)
+                            .ifshow(self.forwarded_user_isV)
+                        Spacer()
+                    }
                 }
-            
-            PF_TapTextArea(text: forwarded_text,font: MFont(style: .Title_17_R).getUIFont()) {username in
-            } taptopic: {topicname in
                 
-            } tapshorturl: {shorturl in
-            }
-            
+                
+                
+                PF_TapTextArea(text: forwarded_text,font: MFont(style: .Title_17_R).getUIFont()) {username in
+                } taptopic: {topicname in
+                    
+                } tapshorturl: {shorturl in
+                }
+                
             }
             .padding(.horizontal,12)
             .padding(.top,12)
-           
+            
             TweetMediaView(urls: pic_urls,cliped: false)
-            .ifshow(!pic_urls.isEmpty)
+                .ifshow(!pic_urls.isEmpty)
         }
         .background(Color.Card)
         .overlay(RoundedRectangle(cornerRadius: 20, style:.continuous )
@@ -284,7 +315,7 @@ struct PostDetailView: View {
         )
         .clipShape(RoundedRectangle(cornerRadius: 20, style:.continuous ))
         .onTapGesture(perform: {
-            showPostDetailView.toggle()
+            vm.showPostDetailView.toggle()
         })
         .ifshow(style == .repost)
     }
@@ -324,15 +355,40 @@ struct PostDetailView: View {
     var topUserInfoLine : some View {
         
         HStack(alignment: .center,  spacing:12){
-            UserAvatar(url: style == .repost_fast ? forwarded_user_avatarImageUrl : avatarImageUrl)
+            Button {
+                
+                if style == .repost_fast{
+                    vm.targetUser = post.retweeted_status!.user!
+                }else{
+                    vm.targetUser = post.user!
+                }
+                vm.showProfileView = true
+                
+            } label: {
+                UserAvatar(url: style == .repost_fast ? forwarded_user_avatarImageUrl : avatarImageUrl)
+            }
+
+         
             
             VStack(alignment: .leading, spacing:0){
+                
+                Button {
+                    
+                    if style == .repost_fast{
+                        vm.targetUser = post.retweeted_status!.user!
+                    }else{
+                        vm.targetUser = post.user!
+                    }
+                    vm.showProfileView = true
+                    
+                } label: {
                 HStack(alignment: .center, spacing: 6){
                     Text(style == .repost_fast ? forwarded_user_name : username)
                         .mFont(style: .Body_15_B,color: .fc1)
                     ICON(sysname: "checkmark.seal.fill",fcolor: .MainColor,size: 16)
                         .padding(.leading,4)
                         .ifshow(style == .repost_fast ? self.forwarded_user_isV : user_isV)
+                }
                 }
                 
                 Text(getUserInfoSubLine())
@@ -374,10 +430,10 @@ struct PostDetailView_Previews: PreviewProvider {
         var post = Post()
         if let posts = MockTool.readArray(Post.self, fileName: "timelinedata", atKeyPath: "statuses"){
             post = posts.first(where: { somepost in
-                somepost.text?.last == "]"
+                somepost.user?.name == "黑历史打脸bot"
             })!
             
-//            post = convertPost(post: post.retweeted_status!)
+            //            post = convertPost(post: post.retweeted_status!)
             
         }
         return  NavigationView {
@@ -461,3 +517,63 @@ extension PostDetailView{
     }
 }
 
+
+
+struct CommentView : View {
+    @EnvironmentObject var vm : PostDetailViewModel
+    
+    let comment : Comment
+    let subcomments : [Comment]
+    
+    
+    var body : some View{
+        
+        VStack{
+            self.makecommentLine(user:comment.user!, text: comment.text!)
+            ForEach(subcomments,id: \.self.id){comment in
+                self.makecommentLine(user:comment.user!,text: comment.text!)
+            }
+        }
+        
+        .background(Rectangle().fill(Color.back1).frame(width: 2).padding(.leading,SW * 0.07).padding(.vertical,12 + 4 + (SW * 0.14) ).ifshow(!subcomments.isEmpty),alignment: .leading)
+        .padding(.horizontal,16)
+        .overlay(Line(),alignment:.bottom)
+        
+        
+    }
+    
+    func makecommentLine(user:User,text:String) -> some View{
+        return  HStack(alignment: .top, spacing: 12) {
+            
+            Button {
+                vm.targetUser = user
+                vm.showProfileView = true
+            } label: {
+                UserAvatar(url: URL(string: user.avatar_large ?? ""),frame: SW * 0.14)
+            }
+            
+            
+            
+            VStack(spacing:2){
+                HStack{
+                    Button {
+                        vm.targetUser = user
+                        vm.showProfileView = true
+                    } label: {
+                        Text(user.name ?? "")
+                            .mFont(style: .Body_15_B,color: .fc1)
+                    }
+                    Spacer()
+                }
+                PF_TapTextArea(text: text,font: MFont(style: .Title_17_R).getUIFont()) {username in
+                    
+                } taptopic: {topicname in
+                    
+                } tapshorturl: {shorturl in
+                }
+            }
+        }
+        .padding(.vertical,12)
+        
+    }
+}

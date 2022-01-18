@@ -20,19 +20,19 @@ class UIState : ObservableObject{
     // Tabar
     @Published var TabbarIndex : tabbarItemEnum = .Timeline
     @Published var TabbarProgress : Double = 0
-    var tabbarItem : [tabbarItemEnum] = [.Timeline,.Search ,.Message,.User]
+    var tabbarItem : [tabbarItemEnum] = [.Timeline ,.Message,.User]
     
     enum tabbarItemEnum {
         case Timeline
-        case Search
+//        case Search
         case Message
         case User
         var iconname : String{
             switch self {
             case .Timeline:
                 return "home"
-            case .Search:
-                return "search"
+//            case .Search:
+//                return "search"
             case .Message:
                 return "notiheart"
             case .User :

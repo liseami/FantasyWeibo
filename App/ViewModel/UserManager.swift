@@ -14,8 +14,10 @@ class UserManager : ObservableObject {
     let userDefaults = UserDefaults.standard
     
     @Published var locUser : User = User.init()
-    @Published var targetUserid : String = ""
     
+    
+    
+    @Published var targetuser : User = User.init()
     
     
     //是否登录
@@ -83,7 +85,7 @@ extension UserManager{
         switch  ProjectConfig.env{
         case .test :
             //根据uid获取用户信息接口
-            let target = UserApi.getProfile(p: .init(uid: locuid))
+            let target = UserApi.getLocUser
             Networking.requestObject(target, modeType: User.self,atKeyPath: nil) { r , user in
                 if let user = user {
                     self.locUser = user
@@ -100,16 +102,16 @@ extension UserManager{
     }
     
     
-    func getProfileData(uid : String?){
-
+    func getProfileData(domain : String){
+        
         ///确认要请求的id，如果为空，则请求自己的profile
-        self.targetUserid = (uid == nil ? self.locuid : uid!)
+        
         
         switch  ProjectConfig.env{
             
         case .test:
-            //根据uid获取用户信息接口
-            let target = UserApi.getProfile(p: .init(uid:targetUserid))
+            //根据domain获取用户信息
+            let target = UserApi.getUserinfoByDomain(p: .init(domian: domain))
             Networking.requestObject(target, modeType: User.self,atKeyPath: nil) { r , user in
                 if let user = user {
                     self.locUser = user
@@ -118,10 +120,13 @@ extension UserManager{
                     self.locAvatarUrl = user.avatar_large ?? ""
                 }
             }
-            
         case .mok:
-            if let user = MockTool.readObjectNoKeyPath(User.self, fileName: "remoteuserprofile"){
-                self.locUser = user
+//            if let user = MockTool.readObjectNoKeyPath(User.self, fileName: "remoteuserprofile"){
+//                self.locUser = user
+//            }
+            let target = UserApi.getUserinfoByDomain(p:.init(domian: domain))
+            Networking.request(target) { result in
+                
             }
         }
     }
@@ -131,10 +136,17 @@ extension UserManager{
 
 enum UserApi : ApiType{
     
-    case getProfile(p:getProfileReqMod)
+    case getUserinfoByDomain(p:getProfileReqMod)
+    case getLocUser
     
     var path: String{
-        "users/show.json"
+        switch self {
+        case .getUserinfoByDomain(let _):
+           return "users/show.json"
+        case .getLocUser:
+            return "users/domain_show.json"
+        }
+       
     }
     
     var method:HTTPMethod{
@@ -143,13 +155,16 @@ enum UserApi : ApiType{
     
     var parameters: [String : Any]?{
         switch self {
-        case .getProfile(let p):
+        
+        case .getUserinfoByDomain(let p):
             return p.kj.JSONObject()
+        case .getLocUser:
+            return nil
         }
     }
     
 }
 
 struct getProfileReqMod : Convertible{
-    var uid : String?
+    var domian : String?
 }

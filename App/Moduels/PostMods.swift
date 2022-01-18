@@ -43,6 +43,27 @@ struct getPostCommentsReqMod : Convertible{
     var  filter_by_author      : Int?       //    作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。
 }
 
+struct getUserMentionsReqMod : Convertible{
+    var access_token  : String?   // 采用OAuth授权方式为必填参数，OAuth授权后获得。
+    var since_id    :Int?    //  若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0。
+    var max_id     : Int?      // 若指定此参数，则返回ID小于或等于max_id的微博，默认为0。
+    var count    :Int = 200     //单页返回的记录条数，最大不超过200，默认为20。
+    var page        :Int?   //返回结果的页码，默认为1。
+    var filter_by_author     :Int?   // 作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。
+    var filter_by_source      :Int?    // 来源筛选类型，0：全部、1：来自微博、2：来自微群，默认为0。
+    var filter_by_type         :Int?     //原创筛选类型，0：全部微博、1：原创的微博，默认为0。
+}
+
+struct getUserCommentsMentionsReqMod : Convertible{
+    var  access_token    : String?  //   采用OAuth授权方式为必填参数，OAuth授权后获得。
+    var  since_id    : Int? //    int64    若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。
+   var  max_id    : Int? //   : Int? //     若指定此参数，则返回ID小于或等于max_id的评论，默认为0。
+   var  count    : Int = 100 //     单页返回的记录条数，默认为50。
+   var  page   : Int? //    返回结果的页码，默认为1。
+   var  filter_by_author   : Int? //   作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。
+   var  filter_by_source      : Int? //    来源筛选类型，0：全部、1：来自微博的评论、2：来自微群的评论，默认为0。
+}
+
 
 struct Weibo_ADPost : Convertible{
     var id : String?
@@ -104,7 +125,7 @@ struct Post : Convertible {
 
 struct repostPost : Convertible{
     var created_at:  String? //Thu Jan 13 22:29:48 +0800 2022",
-    var id:  Int?
+    var id:  Int = 0
     var idstr:  String? //4725305929896095",
     var mid:  String? //4725305929896095",
     var can_edit: Bool = false
@@ -182,25 +203,25 @@ struct weiboGEO : Convertible{
 
 
 struct Comment : Convertible{
-  var created_at : String?   //Sun Jan 16 11:06:57 +0800 2022",
-  var id: String?   //4726221247876082,
-  var rootid: String?   //4726221247876082,
-  var rootidstr : String?   //4726221247876082",
-  var floor_number: String?   //131,
-  var text : String?   //尤其当bgm刘宪华唱的It's you 响起时，立马泪崩，我只希望我是你最后一个忘记的人[泪]",
-  var disable_reply: String?   //0,
-  var restrictOperate: String?   //0,
-  var user: User?   //User?,
-  var mid : String?   //4726221247876082",
-  var idstr : String?   //4726221247876082",
-  var status: Post? //Post?,
-  var reply_comment : reply_Comment? //回复的评论
-  var canExplode: String?   //true,
-  var readtimetype : String?   //comment"
+    var created_at : String?   //Sun Jan 16 11:06:57 +0800 2022",
+    var id: Int = 0   //4726221247876082,
+    var rootid: String?   //4726221247876082,
+    var rootidstr : String?   //4726221247876082",
+    var floor_number: String?   //131,
+    var text : String?   //尤其当bgm刘宪华唱的It's you 响起时，立马泪崩，我只希望我是你最后一个忘记的人[泪]",
+    var disable_reply: String?   //0,
+    var restrictOperate: String?   //0,
+    var user: User?   //User?,
+    var mid : String?   //4726221247876082",
+    var idstr : String?   //4726221247876082",
+    var status: Post? //Post?,
+    var reply_comment : reply_Comment? //回复的评论
+    var canExplode: String?   //true,
+    var readtimetype : String?   //comment"
 }
 
 struct reply_Comment: Convertible{
-    var id : String?
+    var id : Int = 0
 }
 
 

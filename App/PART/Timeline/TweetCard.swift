@@ -52,7 +52,7 @@ struct TweetCard: View {
     
     var body: some View {
         
-        LazyVStack(alignment: .leading,spacing:12){
+        VStack(alignment: .leading,spacing:12){
             ///转发人用户名 + 转发推文
             retweet_userline
             HStack(alignment: .top,  spacing:12){
@@ -77,7 +77,9 @@ struct TweetCard: View {
         .padding(.vertical,6)
         .background(Color.Card.onTapGesture(perform: {
             //点击微博卡片，如果是快转，直接进被转发微博
-            targetPost = style == .repost_fast ? convertPost(post: post.retweeted_status ?? repostPost.init()) : post
+            DispatchQueue.main.async {
+                targetPost = style == .repost_fast ? convertPost(post: post.retweeted_status ?? repostPost.init()) : post
+            }
             showPostDeatilView.toggle()
         }))
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
