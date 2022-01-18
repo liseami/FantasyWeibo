@@ -62,7 +62,6 @@ public struct MT_PageScrollowView<Content: View>: UIViewRepresentable {
             }
         }
         
-        
     }
     
     // setting up scrollView

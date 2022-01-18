@@ -55,6 +55,8 @@
 		A23481CD27965766008B8057 /* timelinedata.json in Resources */ = {isa = PBXBuildFile; fileRef = A23481C727965766008B8057 /* timelinedata.json */; };
 		A23481CF2796900D008B8057 /* mentions.json in Sources */ = {isa = PBXBuildFile; fileRef = A23481CE2796900D008B8057 /* mentions.json */; };
 		A23481D027969044008B8057 /* mentions.json in Resources */ = {isa = PBXBuildFile; fileRef = A23481CE2796900D008B8057 /* mentions.json */; };
+		A23481D22796A835008B8057 /* commentsmentions.json in Sources */ = {isa = PBXBuildFile; fileRef = A23481D12796A835008B8057 /* commentsmentions.json */; };
+		A23481D32796A8EB008B8057 /* commentsmentions.json in Resources */ = {isa = PBXBuildFile; fileRef = A23481D12796A835008B8057 /* commentsmentions.json */; };
 		A27C61F72793119400BF188F /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C61F62793119400BF188F /* ViewModifiers.swift */; };
 		A27C61FB2793C61A00BF188F /* NewMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C61FA2793C61A00BF188F /* NewMod.swift */; };
 		A27C61FE2793D84A00BF188F /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C61FD2793D84A00BF188F /* Emoji.swift */; };
@@ -140,6 +142,7 @@
 		A23481C627965765008B8057 /* locuserprofile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = locuserprofile.json; sourceTree = "<group>"; };
 		A23481C727965766008B8057 /* timelinedata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = timelinedata.json; sourceTree = "<group>"; };
 		A23481CE2796900D008B8057 /* mentions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mentions.json; sourceTree = "<group>"; };
+		A23481D12796A835008B8057 /* commentsmentions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = commentsmentions.json; sourceTree = "<group>"; };
 		A27C61F62793119400BF188F /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		A27C61FA2793C61A00BF188F /* NewMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMod.swift; sourceTree = "<group>"; };
 		A27C61FD2793D84A00BF188F /* Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
@@ -235,6 +238,7 @@
 				A23481C527965765008B8057 /* timelineposts.json */,
 				A206691C278FADFD00384380 /* MokTool.swift */,
 				A23481CE2796900D008B8057 /* mentions.json */,
+				A23481D12796A835008B8057 /* commentsmentions.json */,
 			);
 			path = Moks;
 			sourceTree = "<group>";
@@ -487,6 +491,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A23481D32796A8EB008B8057 /* commentsmentions.json in Resources */,
 				A23481D027969044008B8057 /* mentions.json in Resources */,
 				A23481CB27965766008B8057 /* timelineposts.json in Resources */,
 				A23481CC27965766008B8057 /* locuserprofile.json in Resources */,
@@ -578,6 +583,7 @@
 				A27C61F72793119400BF188F /* ViewModifiers.swift in Sources */,
 				A20801B527896D00008461DA /* PolularPost.swift in Sources */,
 				A299A131278FF19500EF9F13 /* UserAvatar.swift in Sources */,
+				A23481D22796A835008B8057 /* commentsmentions.json in Sources */,
 				A2066913278ECB6E00384380 /* PostMods.swift in Sources */,
 				A299A12F278FEEFB00EF9F13 /* SearchManager.swift in Sources */,
 				A20801B627896D00008461DA /* PolularSpace.swift in Sources */,

@@ -110,9 +110,8 @@ struct ActiveLabelStack : UIViewRepresentable {
     func updateUIView(_ uiView: ActiveLabel, context: Context) {
         //动态计算文本的高度....每次渲染只计算一次
         guard self.dynamicHeight == .zero else {return}
-        
         uiView.text = str
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        DispatchQueue.main.async {
             dynamicHeight = uiView.sizeThatFits(CGSize(width: uiView.bounds.width, height: CGFloat.greatestFiniteMagnitude)).height
         }
         

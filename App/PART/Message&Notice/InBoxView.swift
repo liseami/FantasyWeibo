@@ -14,12 +14,12 @@ class InBoxManager : ObservableObject{
     @Published var mentionList : [Post] = []
     @Published var commentsMentions : [Comment] = []
     
-    enum messageSwitch:MTPageSegmentProtocol {
+    enum messageSwitch {
         //        case like
         case comment
         case mentions
         
-        var showText: String{
+        var title: String{
             switch self {
                 //            case .like:
                 //                    return "赞"
@@ -31,46 +31,61 @@ class InBoxManager : ObservableObject{
         }
     }
     
-    @Published var messageTab : messageSwitch = .mentions
+    @Published var messageTab : messageSwitch = .comment
+    
     var tabitems : [messageSwitch] = [.mentions,.comment]
     
     
+    //@我
     func getUserMentions(){
-        switch ProjectConfig.env{
-        case .test :
-            let target =  PostApi.get_user_mentions(p: .init())
-            Networking.requestArray(target, modeType: Post.self, atKeyPath: "statuses") { r , arr  in
-                if let arr = arr {
-                    self.mentionList = arr
+        DispatchQueue.global().async {
+            switch ProjectConfig.env{
+            case .test :
+                let target =  PostApi.get_user_mentions(p: .init())
+                Networking.requestArray(target, modeType: Post.self, atKeyPath: "statuses") { r , arr  in
+                    if let arr = arr {
+                        DispatchQueue.main.async {
+                            self.mentionList = arr
+                        }
+                        
+                    }
+                }
+            case .mok:
+                if let arr = MockTool.readArray(Post.self, fileName: "mentions", atKeyPath: "statuses"){
+                    DispatchQueue.main.async {
+                        self.mentionList = arr
+                    }
                 }
             }
-        case .mok:
-            if let arr = MockTool.readArray(Post.self, fileName: "mentions", atKeyPath: "statuses"){
-                self.mentionList = arr
-            }
         }
+        
     }
     
+    
+    //@我的评论
     func getuserCommentsMentions(){
-        switch ProjectConfig.env{
-        case .test :
-            let target =  PostApi.get_user_comments_mentions(p: .init( count: 100))
-            Networking.requestArray(target, modeType: Comment.self, atKeyPath: "comments") { r , arr  in
-                if let arr = arr {
-                    self.commentsMentions = arr
+        
+        DispatchQueue.global().async {
+            switch ProjectConfig.env{
+            case .test :
+                let target =  PostApi.get_user_comments_mentions(p: .init( count: 100))
+                Networking.requestArray(target, modeType: Comment.self, atKeyPath: "comments") { r , arr  in
+                    if let arr = arr {
+                        DispatchQueue.main.async {
+                            self.commentsMentions = arr
+                        }
+                    }
                 }
-            }
-        case .mok:
-            //            if let arr = MockTool.readArray(Post.self, fileName: "mentions", atKeyPath: "statuses"){
-            //                self.mentionList = arr
-            //            }
-            let target =  PostApi.get_user_comments_mentions(p: .init( count: 100))
-            Networking.requestArray(target, modeType: Comment.self, atKeyPath: "comments") { r , arr  in
-                if let arr = arr {
+            case .mok:
+                if let arr = MockTool.readArray(Comment.self, fileName: "commentsmentions", atKeyPath: "comments"){
+                    DispatchQueue.main.async {
                     self.commentsMentions = arr
+                    }
                 }
+                
             }
         }
+        
     }
 }
 
@@ -81,9 +96,8 @@ struct InBoxView: View {
     
     @ObservedObject var vm = InBoxManager.shared
     @State private var offset : CGFloat = 0
-    @State private var pageIndex : Int = 0
-    
     @Namespace var tabanimation
+    
     var body: some View {
         
         
@@ -94,14 +108,16 @@ struct InBoxView: View {
             
             
             VStack(spacing:0){
-                MT_PageSegmentView(titles: vm.tabitems, offset: $offset)
-                //Text("\(Int(floor(offset + 0.5) / ScreenWidth()))")
-                MT_PageScrollowView(offset: $offset) {
-                    mainViews
-                }
+                
+                tabbar
+                
+                TabView(selection: $vm.messageTab) {
+                    mentions.tag(InBoxManager.messageSwitch.mentions)
+                    commentsmentions.tag(InBoxManager.messageSwitch.comment)
+                }.tabViewStyle(.page(indexDisplayMode: .never))
             }
             .frame(width: SW)
-            .navigationBarTitleDisplayMode(.inline)
+            
             
             
             
@@ -120,40 +136,10 @@ struct InBoxView: View {
                 //@我
                 mentions
                 
-                ScrollView {
-                    LazyVStack(spacing:24){
-                        ForEach(vm.commentsMentions,id:\.self.id) { comment in
-                            HStack{
-                                UserAvatar(url: URL(string: comment.user?.avatar_large ?? ""))
-                                VStack{
-                                    Text(comment.user?.name ?? "")
-                                        .mFont(style: .Body_15_B,color:.fc1)
-                                    Text(comment.text ?? "")
-                                        .mFont(style: .Body_15_R,color:.fc1)
-                                }
-                            }
-                        }
-                    }
-                    .padding(.all,24)
-                }
-                .onAppear {
-                    vm.getuserCommentsMentions()
-                }
                 
-                //                ScrollView {
-                //                    LazyVStack(spacing:24){
-                //                        ForEach(0 ..< 5) { item in
-                //                            message
-                //                        }
-                //                    }
-                //                    .padding(.all,24)
-                //                }
                 
             }
             .frame(width: SW)
-            .onChange(of: offset) { value in
-                self.pageIndex = Int(floor(offset + 0.5) / SW)
-            }
         }
     }
     
@@ -166,74 +152,95 @@ struct InBoxView: View {
             }
             .padding(.all,12)
             .onAppear {
+                guard vm.mentionList.isEmpty else {return}
                 vm.getUserMentions()
             }
         }
         .background(Color.BackGround.ignoresSafeArea())
     }
     
-    var tabbar : some View{
-        VStack(spacing:12){
-            HStack(spacing:24){
-                ForEach(vm.tabitems,id:\.self){item in
-                    let selected = item == vm.messageTab
-                    
-                    VStack(alignment: .center, spacing: 8){
-                        Text(item.showText)
-                            .mFont(style: .Title_17_B,color: selected ? .fc1 : .fc2)
-                        RoundedRectangle(cornerRadius: 2, style: .continuous)
-                            .frame(maxWidth:44, maxHeight: 3)
-                            .foregroundColor(.MainColor)
-                            .ifshow(selected)
-                            .matchedGeometryEffect(id: "tabanimation", in: tabanimation)
-                        RoundedRectangle(cornerRadius: 2, style: .continuous)
-                            .frame(maxWidth:44, maxHeight: 3)
-                            .foregroundColor(.clear)
-                            .ifshow(!selected)
-                        
+    var commentsmentions : some View {
+        ScrollView {
+            LazyVStack(spacing:0){
+                ForEach(vm.commentsMentions,id:\.self.id) { comment in
+                    HStack(spacing:12){
+                        UserAvatar(url: URL(string: comment.user?.avatar_large ?? ""))
+                        VStack(alignment: .leading, spacing: 4){
+                            Text(comment.user?.name ?? "")
+                                .PF_Leading()
+                                .mFont(style: .Title_17_B,color:.fc1)
+                            PF_TapTextArea(text: comment.text ?? "", font: MFont(style: .Title_17_R).getUIFont()) { username in
+                                
+                            } taptopic: { topicname in
+                                
+                            } tapshorturl: { shorturl in
+                                
+                            }
+                        }
                     }
+                    .padding(.horizontal,12)
+                    .padding(.vertical,12)
+                    .overlay(Line(),alignment: .bottom)
+                    
+                }
+            }
+            .padding(.vertical,12)
+        }
+        .onAppear {
+            guard vm.commentsMentions.isEmpty else {return}
+            vm.getuserCommentsMentions()
+        }
+    }
+    
+    var tabbar : some View{
+        HStack{
+            
+            ForEach(vm.tabitems,id:\.self) { item in
+                Color.BackGround
+                    .frame(height: GoldenH)
+                    .overlay( Text(item.title).mFont(style: .Title_17_B,color:.fc1))
                     .onTapGesture {
-                        withAnimation {
+                        withAnimation(.spring()){
                             vm.messageTab = item
                         }
                     }
-                }
-                Spacer()
+                    .overlay(
+                        Capsule(style: .continuous)
+                            .frame( height: 3.5)
+                            .foregroundColor(.MainColor)
+                            .padding(.horizontal,12)
+                            .animation(.spring(), value: vm.messageTab)
+                            .matchedGeometryEffect(id: "tabitem", in: tabanimation)
+                            .ifshow(item.title == vm.messageTab.title)
+                        
+                        ,alignment:.bottom)
+                
             }
-            .padding(.horizontal,24)
-            .padding(.top,24)
-            .background(RoundedRectangle(cornerRadius: 2, style: .continuous)
-                            .frame(maxHeight: 0.5)
-                            .foregroundColor(.fc3.opacity(0.6)),alignment: .bottom)
-            
         }
+        .overlay(Line(),alignment: .bottom)
     }
-    var message : some View {
-        HStack(alignment: .center, spacing: 0) {
-            HStack(alignment: .top,  spacing:12){
-                Image("liseamiAvatar")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: SW * 0.12, height: SW * 0.12)
-                    .clipShape(Circle())
-                
-                VStack(alignment: .leading, spacing: 6){
-                    Text(randomString(3))
-                        .mFont(style: .Title_17_B,color: .fc1)
-                    
-                    Text(randomString(Int.random(in: 0...120)))
-                        .mFont(style: .Title_17_R,color: .fc2)
-                }
-                
-                
-                Spacer()
-            }
-            Text("12:21")
-                .mFont(style: .Body_13_R,color: .fc3)
-        }
-        
-        
-    }
+    //私信
+    //    var message : some View {
+    //        HStack(alignment: .center, spacing: 0) {
+    //            HStack(alignment: .top,  spacing:12){
+    //                Image("liseamiAvatar")
+    //                    .resizable()
+    //                    .scaledToFill()
+    //                    .frame(width: SW * 0.12, height: SW * 0.12)
+    //                    .clipShape(Circle())
+    //                VStack(alignment: .leading, spacing: 6){
+    //                    Text(randomString(3))
+    //                        .mFont(style: .Title_17_B,color: .fc1)
+    //
+    //                    Text(randomString(Int.random(in: 0...120)))
+    //                        .mFont(style: .Title_17_R,color: .fc2)
+    //                }
+    //                Spacer()
+    //            }
+    //            Text("12:21")
+    //                .mFont(style: .Body_13_R,color: .fc3)
+    //        }
+    //    }
 }
 
 struct InBoxView_Previews: PreviewProvider {

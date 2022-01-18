@@ -21,46 +21,60 @@ class PostDetailViewModel : ObservableObject {
     
     func getcommentslist(_ postid : Int) {
         
+        
+        DispatchQueue.global().async {
+            
         DispatchQueue.main.async {
             self.isloadingcomments = true
         }
-        
-        
+            
         switch ProjectConfig.env{
         case .test :
             let target = PostApi.get_post_comments(p: .init( id: postid, since_id: 0, max_id: 0, count: 100, page: 1, filter_by_author: 0))
             Networking.requestArray(target, modeType: Comment.self, atKeyPath: "comments") { r, comments  in
-                DispatchQueue.main.async {
+            
                     if let comments = comments {
                         for comment in comments {
                             //没有 reply_comment 字段的，加入maincomment
-                            if comment.reply_comment == nil{
-                                self.mainCommentsList.append(comment)
-                            }else{
-                                self.subcomments.append(comment)
+                            DispatchQueue.main.async {
+                                if comment.reply_comment == nil{
+                                    self.mainCommentsList.append(comment)
+                                }else{
+                                    self.subcomments.append(comment)
+                                }
                             }
+                         
                         }
                     }
+                DispatchQueue.main.async {
                     self.isloadingcomments = false
                 }
+                
             }
             
         case .mok:
-            DispatchQueue.global().async {
+            
                 if let comments = MockTool.readArray(Comment.self, fileName: "comments", atKeyPath: "comments"){
-                    DispatchQueue.main.async {
+                    
                         for comment in comments {
                             //没有 reply_comment 字段的，加入maincomment
-                            if comment.reply_comment == nil{
-                                self.mainCommentsList.append(comment)
-                            }else{
-                                self.subcomments.append(comment)
+                            DispatchQueue.main.async {
+                                if comment.reply_comment == nil{
+                                    self.mainCommentsList.append(comment)
+                                }else{
+                                    self.subcomments.append(comment)
+                                }
                             }
+                           
                         }
+                    DispatchQueue.main.async {
                         self.isloadingcomments = false
                     }
+                    
                 }
-            }
+            
+        }
+            
         }
     }
 }
@@ -184,11 +198,10 @@ struct PostDetailView: View {
         //        进入页面时，获取页面评论
         .onAppear {
             ///防止重复获取
-            DispatchQueue.global().async {
                 print("获取评论列表🐒")
                 guard vm.mainCommentsList.isEmpty && !vm.isloadingcomments else {return}
                 vm.getcommentslist(self.post.id)
-            }
+            
         }
     }
     
@@ -203,7 +216,7 @@ struct PostDetailView: View {
         }else{
             if !vm.mainCommentsList.isEmpty {
                 let comments = vm.mainCommentsList
-                VStack(spacing:0){
+                LazyVStack(spacing:0){
                     ForEach(comments,id:\.self.id){comment in
                         CommentView(comment: comment, subcomments: findsubcomments(maincommentid: comment.id))
                             .environmentObject(vm)
@@ -217,7 +230,7 @@ struct PostDetailView: View {
         }
     }
     //寻找主评论的副评论
-    func findsubcomments(maincommentid : Int)->[Comment]{
+    func findsubcomments(maincommentid : Int)-> [Comment]{
         var subcomments = [Comment]()
         for comment in vm.subcomments {
             if comment.reply_comment?.id == maincommentid{
@@ -523,21 +536,25 @@ struct CommentView : View {
     @EnvironmentObject var vm : PostDetailViewModel
     
     let comment : Comment
-    let subcomments : [Comment]
+    let subcomments : [Comment]?
     
     
     var body : some View{
         
-        VStack{
-            self.makecommentLine(user:comment.user!, text: comment.text!)
-            ForEach(subcomments,id: \.self.id){comment in
-                self.makecommentLine(user:comment.user!,text: comment.text!)
+        if let subcomments = self.subcomments{
+            VStack{
+                self.makecommentLine(user:comment.user!, text: comment.text!)
+                ForEach(subcomments,id: \.self.id){comment in
+                    self.makecommentLine(user:comment.user!,text: comment.text!)
+                }
             }
+            .background(Rectangle().fill(Color.back1).frame(width: 2).padding(.leading,SW * 0.07).padding(.vertical,12 + 4 + (SW * 0.14) ).ifshow(!subcomments.isEmpty),alignment: .leading)
+            .padding(.horizontal,16)
+            .overlay(Line(),alignment:.bottom)
+        }else{
+            EmptyView()
         }
-        
-        .background(Rectangle().fill(Color.back1).frame(width: 2).padding(.leading,SW * 0.07).padding(.vertical,12 + 4 + (SW * 0.14) ).ifshow(!subcomments.isEmpty),alignment: .leading)
-        .padding(.horizontal,16)
-        .overlay(Line(),alignment:.bottom)
+       
         
         
     }

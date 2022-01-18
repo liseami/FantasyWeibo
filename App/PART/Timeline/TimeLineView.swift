@@ -12,7 +12,7 @@ struct TimeLineView: View {
     @State private var offset : CGFloat = 0
     @ObservedObject var uistate = UIState.shared
     @ObservedObject var vm = PostDataCenter.shared
-    @State private var isfirstTimeOnAppear : Bool = true
+    
     var body: some View {
         
         
@@ -39,11 +39,10 @@ struct TimeLineView: View {
             }, TopCenterView: {})
             .onAppear {
                 //加载数据
-                if isfirstTimeOnAppear {
-                    vm.getHomeTimeLine()
-                    madasoft()
-                    isfirstTimeOnAppear.toggle()
-                }
+                guard vm.home_timeline.isEmpty else {return}
+                vm.getHomeTimeLine()
+                madasoft()
+                
             }
         
     }

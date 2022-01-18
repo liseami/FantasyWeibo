@@ -22,19 +22,26 @@ class PostDataCenter :NSObject, ObservableObject,WeiboSDKDelegate{
     
     //首页时间线
     func getHomeTimeLine() {
-        switch ProjectConfig.env{
-        case .test :
-            let target = PostApi.get_home_timeline(p: .init(count:57))
-            Networking.requestArray(target, modeType: Post.self, atKeyPath: "statuses") { r, arr in
-                if let arr = arr {
-                    self.home_timeline = arr
+        DispatchQueue.global().async {
+            switch ProjectConfig.env{
+            case .test :
+                let target = PostApi.get_home_timeline(p: .init(count:57))
+                Networking.requestArray(target, modeType: Post.self, atKeyPath: "statuses") { r, arr in
+                    if let arr = arr {
+                        DispatchQueue.main.async {
+                            self.home_timeline = arr
+                        }
+                    }
+                }
+            case .mok :
+                if let arr = MockTool.readArray(Post.self, fileName: "timelinedata", atKeyPath: "statuses"){
+                    DispatchQueue.main.async {
+                        self.home_timeline = arr
+                    }
                 }
             }
-        case .mok :
-            if let arr = MockTool.readArray(Post.self, fileName: "timelinedata", atKeyPath: "statuses"){
-                self.home_timeline = arr
-            }
         }
+      
     }
     
     //个人主页时间线

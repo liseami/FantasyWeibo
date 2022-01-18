@@ -47,7 +47,7 @@ struct getUserMentionsReqMod : Convertible{
     var access_token  : String?   // 采用OAuth授权方式为必填参数，OAuth授权后获得。
     var since_id    :Int?    //  若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0。
     var max_id     : Int?      // 若指定此参数，则返回ID小于或等于max_id的微博，默认为0。
-    var count    :Int = 200     //单页返回的记录条数，最大不超过200，默认为20。
+    var count    :Int = 20     //单页返回的记录条数，最大不超过200，默认为20。
     var page        :Int?   //返回结果的页码，默认为1。
     var filter_by_author     :Int?   // 作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。
     var filter_by_source      :Int?    // 来源筛选类型，0：全部、1：来自微博、2：来自微群，默认为0。
