@@ -15,24 +15,24 @@ class InBoxManager : ObservableObject{
     @Published var commentsMentions : [Comment] = []
     
     enum messageSwitch:MTPageSegmentProtocol {
-        case like
+        //        case like
         case comment
         case mentions
-
+        
         var showText: String{
             switch self {
-            case .like:
-                    return "赞"
+                //            case .like:
+                //                    return "赞"
             case .comment:
-                    return "评论"
+                return "评论"
             case .mentions:
-                    return "@提及我"
+                return "@提及我"
             }
         }
     }
     
-    @Published var messageTab : messageSwitch = .like
-    var tabitems : [messageSwitch] = [.mentions,.comment,.like]
+    @Published var messageTab : messageSwitch = .mentions
+    var tabitems : [messageSwitch] = [.mentions,.comment]
     
     
     func getUserMentions(){
@@ -61,9 +61,9 @@ class InBoxManager : ObservableObject{
                 }
             }
         case .mok:
-//            if let arr = MockTool.readArray(Post.self, fileName: "mentions", atKeyPath: "statuses"){
-//                self.mentionList = arr
-//            }
+            //            if let arr = MockTool.readArray(Post.self, fileName: "mentions", atKeyPath: "statuses"){
+            //                self.mentionList = arr
+            //            }
             let target =  PostApi.get_user_comments_mentions(p: .init( count: 100))
             Networking.requestArray(target, modeType: Comment.self, atKeyPath: "comments") { r , arr  in
                 if let arr = arr {
@@ -77,7 +77,7 @@ class InBoxManager : ObservableObject{
 
 struct InBoxView: View {
     
-
+    
     
     @ObservedObject var vm = InBoxManager.shared
     @State private var offset : CGFloat = 0
@@ -87,11 +87,11 @@ struct InBoxView: View {
     var body: some View {
         
         
-         
+        
         ZStack{
             
             Color.BackGround.ignoresSafeArea()
-        
+            
             
             VStack(spacing:0){
                 MT_PageSegmentView(titles: vm.tabitems, offset: $offset)
@@ -103,13 +103,13 @@ struct InBoxView: View {
             .frame(width: SW)
             .navigationBarTitleDisplayMode(.inline)
             
-           
-
+            
+            
         }
-
+        
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(Text("消息"))
-    
+        
     }
     
     @ViewBuilder
@@ -140,15 +140,15 @@ struct InBoxView: View {
                     vm.getuserCommentsMentions()
                 }
                 
-                ScrollView {
-                    LazyVStack(spacing:24){
-                        ForEach(0 ..< 5) { item in
-                            message
-                        }
-                    }
-                    .padding(.all,24)
-                }
-           
+                //                ScrollView {
+                //                    LazyVStack(spacing:24){
+                //                        ForEach(0 ..< 5) { item in
+                //                            message
+                //                        }
+                //                    }
+                //                    .padding(.all,24)
+                //                }
+                
             }
             .frame(width: SW)
             .onChange(of: offset) { value in
@@ -159,15 +159,15 @@ struct InBoxView: View {
     
     var mentions : some View{
         ScrollView {
-                LazyVStack(spacing:12){
-                    ForEach(vm.mentionList,id:\.self.id) { post  in
-                        TweetCard(post: post)
-                    }
+            LazyVStack(spacing:12){
+                ForEach(vm.mentionList,id:\.self.id) { post  in
+                    TweetCard(post: post)
                 }
-                .padding(.all,12)
-                .onAppear {
-                    vm.getUserMentions()
-                }
+            }
+            .padding(.all,12)
+            .onAppear {
+                vm.getUserMentions()
+            }
         }
         .background(Color.BackGround.ignoresSafeArea())
     }
@@ -177,10 +177,10 @@ struct InBoxView: View {
             HStack(spacing:24){
                 ForEach(vm.tabitems,id:\.self){item in
                     let selected = item == vm.messageTab
-            
+                    
                     VStack(alignment: .center, spacing: 8){
                         Text(item.showText)
-                        .mFont(style: .Title_17_B,color: selected ? .fc1 : .fc2)
+                            .mFont(style: .Title_17_B,color: selected ? .fc1 : .fc2)
                         RoundedRectangle(cornerRadius: 2, style: .continuous)
                             .frame(maxWidth:44, maxHeight: 3)
                             .foregroundColor(.MainColor)
@@ -190,7 +190,7 @@ struct InBoxView: View {
                             .frame(maxWidth:44, maxHeight: 3)
                             .foregroundColor(.clear)
                             .ifshow(!selected)
-                            
+                        
                     }
                     .onTapGesture {
                         withAnimation {
@@ -205,7 +205,7 @@ struct InBoxView: View {
             .background(RoundedRectangle(cornerRadius: 2, style: .continuous)
                             .frame(maxHeight: 0.5)
                             .foregroundColor(.fc3.opacity(0.6)),alignment: .bottom)
-                
+            
         }
     }
     var message : some View {
@@ -216,7 +216,7 @@ struct InBoxView: View {
                     .scaledToFill()
                     .frame(width: SW * 0.12, height: SW * 0.12)
                     .clipShape(Circle())
-               
+                
                 VStack(alignment: .leading, spacing: 6){
                     Text(randomString(3))
                         .mFont(style: .Title_17_B,color: .fc1)
@@ -224,14 +224,14 @@ struct InBoxView: View {
                     Text(randomString(Int.random(in: 0...120)))
                         .mFont(style: .Title_17_R,color: .fc2)
                 }
-           
+                
                 
                 Spacer()
             }
             Text("12:21")
                 .mFont(style: .Body_13_R,color: .fc3)
         }
-           
+        
         
     }
 }
@@ -239,7 +239,7 @@ struct InBoxView: View {
 struct InBoxView_Previews: PreviewProvider {
     static var previews: some View {
         
-//        ContentView(uistate: .init(tabbarIndex: .Message, logged: true))
+        // ContentView(uistate: .init(tabbarIndex: .Message, logged: true))
         InBoxView()
     }
 }

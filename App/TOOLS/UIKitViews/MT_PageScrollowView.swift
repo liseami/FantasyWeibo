@@ -22,7 +22,7 @@ public struct MT_PageScrollowView<Content: View>: UIViewRepresentable {
     
     private let scrollView = UIScrollView()
     
-    public init( offset: Binding<CGFloat>, @ViewBuilder content:  () -> Content) {
+    public init( offset: Binding<CGFloat>, @ViewBuilder  content: @escaping () -> Content) {
         self._offset = offset
         self.content = content()
     }
@@ -60,8 +60,9 @@ public struct MT_PageScrollowView<Content: View>: UIViewRepresentable {
                     uiView.delegate = context.coordinator
                 }
             }
-
         }
+        
+        
     }
     
     // setting up scrollView

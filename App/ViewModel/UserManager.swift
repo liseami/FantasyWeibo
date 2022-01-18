@@ -141,7 +141,7 @@ enum UserApi : ApiType{
     
     var path: String{
         switch self {
-        case .getUserinfoByDomain(let _):
+        case .getUserinfoByDomain:
            return "users/show.json"
         case .getLocUser:
             return "users/domain_show.json"
