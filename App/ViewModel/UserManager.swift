@@ -85,7 +85,7 @@ extension UserManager{
         switch  ProjectConfig.env{
         case .test :
             //根据uid获取用户信息接口
-            let target = UserApi.getLocUser
+            let target = UserApi.getLocUser(p: .init(uid: locuid))
             Networking.requestObject(target, modeType: User.self,atKeyPath: nil) { r , user in
                 if let user = user {
                     self.locUser = user
@@ -137,16 +137,18 @@ extension UserManager{
 enum UserApi : ApiType{
     
     case getUserinfoByDomain(p:getProfileReqMod)
-    case getLocUser
+    case getLocUser(p:getLocUserReqMod)
     
     var path: String{
         switch self {
-        case .getUserinfoByDomain:
-           return "users/show.json"
+   
         case .getLocUser:
-            return "users/domain_show.json"
+            return "users/show.json"
+        case .getUserinfoByDomain:
+           return "users/domain_show.json"
+    
         }
-       
+        
     }
     
     var method:HTTPMethod{
@@ -155,11 +157,10 @@ enum UserApi : ApiType{
     
     var parameters: [String : Any]?{
         switch self {
-        
+        case .getLocUser(let p):
+            return p.kj.JSONObject()
         case .getUserinfoByDomain(let p):
             return p.kj.JSONObject()
-        case .getLocUser:
-            return nil
         }
     }
     
@@ -167,4 +168,8 @@ enum UserApi : ApiType{
 
 struct getProfileReqMod : Convertible{
     var domian : String?
+}
+
+struct getLocUserReqMod : Convertible{
+    var uid : String?
 }

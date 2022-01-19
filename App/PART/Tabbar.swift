@@ -26,10 +26,9 @@ struct Tabbar: View {
                     if tabitem == .User{
                         //用户展示头像
                         if UserManager.shared.locAvatarUrl.isEmpty{
-                            Circle()
-                                .stroke(lineWidth: 2)
-                                .foregroundColor(.fc1)
-                                .frame(width: 26, height: 26)
+                            ICON(name: selected ? iconname + ".selected" : iconname,
+                                 fcolor: selected ? .MainColor : .fc2,
+                                 size: 26)
                         }else{
                             let url = URL(string: UserManager.shared.locAvatarUrl)
                             UserAvatar(url: url, frame: 26)

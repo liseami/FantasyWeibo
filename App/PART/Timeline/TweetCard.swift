@@ -59,7 +59,7 @@ struct TweetCard: View {
                 ///头像
                 mainAvatar
                 ///推文内容
-                VStack(alignment: .leading,spacing:4){
+                LazyVStack(alignment: .leading,spacing:4){
                     //主要用户信息
                     mainUserLine
                     //主要文字
@@ -97,6 +97,8 @@ struct TweetCard: View {
     
     @ViewBuilder
     var mainText : some View {
+        
+        
         
         PF_TapTextArea(text: text) {username in
             
@@ -136,7 +138,6 @@ struct TweetCard: View {
         VStack(spacing:0){
             VStack(alignment: .leading, spacing:12){
                 
-            
                 Button {
                     self.targetUser = post.retweeted_status!.user!
                     showProfileView.toggle()

@@ -31,7 +31,7 @@ class InBoxManager : ObservableObject{
         }
     }
     
-    @Published var messageTab : messageSwitch = .comment
+    @Published var messageTab : messageSwitch = .mentions
     
     var tabitems : [messageSwitch] = [.mentions,.comment]
     

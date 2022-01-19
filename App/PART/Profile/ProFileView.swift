@@ -32,9 +32,6 @@ struct ProFileView: View {
     
     var body: some View {
         
-        
-        
-        
         ZStack {
             Color.Card.ignoresSafeArea()
             ScrollView(.vertical, showsIndicators: false, content: {
@@ -179,10 +176,8 @@ struct ProFileView: View {
     var posts : some View{
         
         VStack(spacing: 0){
-            if !postDC.user_timeline.isEmpty{
-                let posts = postDC.user_timeline
+            if let posts = postDC.locuser_profile_posts{
                 ForEach(posts,id: \.self.id){post in
-                    
                     TweetCard(post: post)
                         .padding(.horizontal,6)
                         .padding(.vertical,6)

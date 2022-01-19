@@ -38,11 +38,10 @@ struct TimeLineView: View {
                 BlurView()
             }, TopCenterView: {})
             .onAppear {
-                //加载数据
+                //加载首页数据
                 guard vm.home_timeline.isEmpty else {return}
                 vm.getHomeTimeLine()
                 madasoft()
-                
             }
         
     }

@@ -14,14 +14,15 @@ class PostDataCenter :NSObject, ObservableObject,WeiboSDKDelegate{
     var posttoolbtns : [postToolBtn] = [.comment,.repost,.attitude]
     
     @Published var home_timeline : [Post] = []
-    @Published var user_timeline : [Post] = []
+    @Published var locuser_profile_posts : [Post]?
     
     
+    @Published var homeisloading : Bool = false
     
-   
     
     //首页时间线
     func getHomeTimeLine() {
+        
         DispatchQueue.global().async {
             switch ProjectConfig.env{
             case .test :
@@ -51,12 +52,12 @@ class PostDataCenter :NSObject, ObservableObject,WeiboSDKDelegate{
             let target = PostApi.get_user_timeline(p: .init(uid:UserManager.shared.locuid))
             Networking.requestArray(target, modeType: Post.self,atKeyPath: "statuses") { r , arr  in
                 if let arr = arr {
-                    self.user_timeline = arr
+                    self.locuser_profile_posts = arr
                 }
             }
         case .mok:
             if let arr = MockTool.readArray(Post.self, fileName: "profiletimeline", atKeyPath: "statuses"){
-                self.user_timeline = arr
+                self.locuser_profile_posts = arr
             }
         }
     }

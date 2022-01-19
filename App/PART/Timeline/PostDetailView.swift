@@ -24,15 +24,15 @@ class PostDetailViewModel : ObservableObject {
         
         DispatchQueue.global().async {
             
-        DispatchQueue.main.async {
-            self.isloadingcomments = true
-        }
+            DispatchQueue.main.async {
+                self.isloadingcomments = true
+            }
             
-        switch ProjectConfig.env{
-        case .test :
-            let target = PostApi.get_post_comments(p: .init( id: postid, since_id: 0, max_id: 0, count: 100, page: 1, filter_by_author: 0))
-            Networking.requestArray(target, modeType: Comment.self, atKeyPath: "comments") { r, comments  in
-            
+            switch ProjectConfig.env{
+            case .test :
+                let target = PostApi.get_post_comments(p: .init( id: postid, since_id: 0, max_id: 0, count: 100, page: 1, filter_by_author: 0))
+                Networking.requestArray(target, modeType: Comment.self, atKeyPath: "comments") { r, comments  in
+                    
                     if let comments = comments {
                         for comment in comments {
                             //没有 reply_comment 字段的，加入maincomment
@@ -43,37 +43,37 @@ class PostDetailViewModel : ObservableObject {
                                     self.subcomments.append(comment)
                                 }
                             }
-                         
+                            
                         }
                     }
-                DispatchQueue.main.async {
-                    self.isloadingcomments = false
-                }
-                
-            }
-            
-        case .mok:
-            
-                if let comments = MockTool.readArray(Comment.self, fileName: "comments", atKeyPath: "comments"){
-                    
-                        for comment in comments {
-                            //没有 reply_comment 字段的，加入maincomment
-                            DispatchQueue.main.async {
-                                if comment.reply_comment == nil{
-                                    self.mainCommentsList.append(comment)
-                                }else{
-                                    self.subcomments.append(comment)
-                                }
-                            }
-                           
-                        }
                     DispatchQueue.main.async {
                         self.isloadingcomments = false
                     }
                     
                 }
-            
-        }
+                
+            case .mok:
+                
+                if let comments = MockTool.readArray(Comment.self, fileName: "comments", atKeyPath: "comments"){
+                    
+                    for comment in comments {
+                        //没有 reply_comment 字段的，加入maincomment
+                        DispatchQueue.main.async {
+                            if comment.reply_comment == nil{
+                                self.mainCommentsList.append(comment)
+                            }else{
+                                self.subcomments.append(comment)
+                            }
+                        }
+                        
+                    }
+                    DispatchQueue.main.async {
+                        self.isloadingcomments = false
+                    }
+                    
+                }
+                
+            }
             
         }
     }
@@ -198,9 +198,9 @@ struct PostDetailView: View {
         //        进入页面时，获取页面评论
         .onAppear {
             ///防止重复获取
-                print("获取评论列表🐒")
-                guard vm.mainCommentsList.isEmpty && !vm.isloadingcomments else {return}
-                vm.getcommentslist(self.post.id)
+            print("获取评论列表🐒")
+            guard vm.mainCommentsList.isEmpty && !vm.isloadingcomments else {return}
+            vm.getcommentslist(self.post.id)
             
         }
     }
@@ -315,8 +315,7 @@ struct PostDetailView: View {
                 }
                 
             }
-            .padding(.horizontal,12)
-            .padding(.top,12)
+            .padding(.all,12)
             
             TweetMediaView(urls: pic_urls,cliped: false)
                 .ifshow(!pic_urls.isEmpty)
@@ -380,8 +379,8 @@ struct PostDetailView: View {
             } label: {
                 UserAvatar(url: style == .repost_fast ? forwarded_user_avatarImageUrl : avatarImageUrl)
             }
-
-         
+            
+            
             
             VStack(alignment: .leading, spacing:0){
                 
@@ -395,13 +394,13 @@ struct PostDetailView: View {
                     vm.showProfileView = true
                     
                 } label: {
-                HStack(alignment: .center, spacing: 6){
-                    Text(style == .repost_fast ? forwarded_user_name : username)
-                        .mFont(style: .Body_15_B,color: .fc1)
-                    ICON(sysname: "checkmark.seal.fill",fcolor: .MainColor,size: 16)
-                        .padding(.leading,4)
-                        .ifshow(style == .repost_fast ? self.forwarded_user_isV : user_isV)
-                }
+                    HStack(alignment: .center, spacing: 6){
+                        Text(style == .repost_fast ? forwarded_user_name : username)
+                            .mFont(style: .Body_15_B,color: .fc1)
+                        ICON(sysname: "checkmark.seal.fill",fcolor: .MainColor,size: 16)
+                            .padding(.leading,4)
+                            .ifshow(style == .repost_fast ? self.forwarded_user_isV : user_isV)
+                    }
                 }
                 
                 Text(getUserInfoSubLine())
@@ -554,7 +553,7 @@ struct CommentView : View {
         }else{
             EmptyView()
         }
-       
+        
         
         
     }

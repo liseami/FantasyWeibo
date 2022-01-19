@@ -8,27 +8,35 @@
 import UIKit
 import ActiveLabel
 import SwiftUI
+import FantasyUI
 
 
 
 
 struct Testtt: View {
     var body: some View {
-        let str = "甄 式 英 语》\n\n#甄式英语# http://t.cn/A6JiyW5g ​"
+        let str = "《甄 式 英 语》\n\n#甄式英语# http://t.cn/A6JiyW5g ​"
+//        let str = randomString(140)
         
-        PF_TapTextArea(text: str, tapuser: {username in
-            
-        }, taptopic: {topicname in
-            
-        }, tapshorturl: {shorturl in
-            
-        })
-            .overlay(Color.red.opacity(0.1))
-            .padding()
-            .background(Color.Card)
-            .PF_Shadow(color: .fc1, style: .s700)
-            .padding()
-        
+        ScrollView {
+            ForEach(0..<12){index in
+                
+                PF_TapTextArea(text: str, tapuser: {username in
+                    
+                }, taptopic: {topicname in
+                    
+                }, tapshorturl: {shorturl in
+                    
+                })
+                    .overlay(Color.red.opacity(0.1))
+                    .padding()
+                    .background(Color.Card)
+                    .PF_Shadow(color: .fc1, style: .s700)
+                    .padding()
+                
+            }
+        }
+     
         
     }
 }
@@ -46,7 +54,7 @@ struct Testtt_Previews: PreviewProvider {
 struct ActiveLabelStack : UIViewRepresentable {
     
     
-    @Binding var dynamicHeight: CGFloat
+//    @Binding var dynamicHeight: CGFloat
     
     let str : String
     var font : UIFont = MFont(style: .Title_17_R).getUIFont()
@@ -75,12 +83,12 @@ struct ActiveLabelStack : UIViewRepresentable {
             label.textColor = UIColor(Color.fc1)
             //字体
             label.font = font
-            label.lineSpacing = 2
+            label.lineSpacing = 4
             
             //可点击文字颜色
             label.customColor[usertype] = UIColor(Color.MainColor)
             label.customColor[topictype] = UIColor(Color.MainColor)
-            label.customColor[shorturl] = UIColor(Color.MainColor)
+            label.customColor[shorturl] = UIColor(Color.DeepBlue)
             label.customSelectedColor[usertype] = UIColor(Color.MainColorSelected)
             label.customSelectedColor[topictype] = UIColor(Color.MainColorSelected)
             label.customSelectedColor[shorturl] = UIColor(Color.MainColorSelected)
@@ -109,11 +117,11 @@ struct ActiveLabelStack : UIViewRepresentable {
     }
     func updateUIView(_ uiView: ActiveLabel, context: Context) {
         //动态计算文本的高度....每次渲染只计算一次
-        guard self.dynamicHeight == .zero else {return}
+//        guard self.dynamicHeight == .zero else {return}
         uiView.text = str
-        DispatchQueue.main.async {
-            dynamicHeight = uiView.sizeThatFits(CGSize(width: uiView.bounds.width, height: CGFloat.greatestFiniteMagnitude)).height
-        }
+//        DispatchQueue.main.async {
+//            dynamicHeight = uiView.sizeThatFits(CGSize(width: uiView.bounds.width, height: CGFloat.greatestFiniteMagnitude)).height
+//        }
         
     }
 }
@@ -129,19 +137,29 @@ struct PF_TapTextArea : View {
     let taptopic : (_ topicname:String)->()
     let tapshorturl : (_ shorturl:String)->()
     
-    @State private  var height : CGFloat = .zero
-    
-    
     var body: some View{
         
-        ActiveLabelStack(dynamicHeight: $height, str: text, font: font, tapuser: {username in
-            tapuser(username)
-        }, taptopic: {topicname in
-            taptopic(topicname)
-        }, tapshorturl: {shorturl in
-            tapshorturl(shorturl)
-        })
-        .frame(minHeight: height)
+        
+        Text(text)
+            .lineSpacing(4)
+            .font(Font(font))
+            .foregroundColor(.clear)
+            .multilineTextAlignment(.leading)
+            .frame(maxWidth:.infinity,maxHeight: .infinity, alignment: .leading)
+//            .overlay(Color.red.opacity(0.3))
+            .overlay(
+                ActiveLabelStack( str: text, font: font, tapuser: {username in
+                    tapuser(username)
+                }, taptopic: {topicname in
+                    taptopic(topicname)
+                }, tapshorturl: {shorturl in
+                    tapshorturl(shorturl)
+                })
+                ,alignment: .center
+            )
+        
+   
+       
         
     }
 }

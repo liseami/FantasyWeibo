@@ -15,32 +15,42 @@ let teststr = "//@百变小精-0:妮妮是黑龙江哈尔滨人 来家乡报答�
 
 struct BSTextViewTest : View{
     var body: some View{
-        ScrollView {
-            
-                ForEach(0..<12){ index in
-                    
-                    Text(teststr)
-                        .multilineTextAlignment(.leading)
-                        .PF_Leading()
-            //            .frame(maxHeight : .infinity)
-//                        .mFont(style: .Title_17_R,color: .red)
-                        .foregroundColor(.red)
-                        .lineSpacing(2)
-                        .overlay(BSLabelView(text: teststr))
-                        .padding()
-                        .background(Color.Card)
-                        .PF_Shadow(color: .fc1, style: .s600)
-                        .padding()
+        
+      
+            ScrollView {
+                
+                Text(teststr)
+                    .font(Font.system(size: 17))
+                    .overlay(BSTextViewRep(text: teststr),alignment: .top)
+                
+                
+                    ForEach(0..<12){ index in
+                        
+    //                        BSLabelView(text: teststr)
+    //                            .padding()
+    //                            .background(Color.Card)
+    //                            .PF_Shadow(color: .fc1, style: .s600)
+    //                            .padding()
+                        
+                        BSTextViewRep(text: teststr)
+    //                        .padding()
+    //                        .background(Color.Card)
+    //                        .PF_Shadow(color: .fc1, style: .s600)
+    //                        .padding()
+    //
 
-                }
-        }
+                    }
+            }
+        
+      
+        
     }
 }
 
 struct BSTextViewTest_PreviewProvider : PreviewProvider{
     static var previews: some View{
         BSTextViewTest()
-            .previewLayout(.sizeThatFits)
+//            .previewLayout(.sizeThatFits)
 //        BSTextViewRep()
 //            .previewLayout(.sizeThatFits)
     }
@@ -72,7 +82,6 @@ struct BSLabelView : UIViewRepresentable{
 
         let markdownParser = TextSimpleMarkdownParser()
         markdownParser.setColorWithDarkTheme()
-
         label.textParser = simpleEmoticonParser
     
         
@@ -103,22 +112,24 @@ struct BSLabelView : UIViewRepresentable{
 
 struct BSTextViewRep : UIViewRepresentable{
     
-    let text : String = "//@百变小精-0:妮妮是黑龙江哈尔滨人 来家乡报答父老乡亲的//@重生之麻薯座头鲸:我妮闯东北是吧//@爱捅人的小女孩:这场确实牛，宁宁是惊喜嘉宾//@KIM_GDA:[good]"
+    var text : String = "//@百变小精-0:妮妮是黑龙江哈尔滨人 来家乡报答父老乡亲的//@重生之麻薯座头鲸:我妮闯东北是吧//@爱捅人的小女孩:这场确实牛，宁宁是惊喜嘉宾//@KIM_GDA:[good]"
     
     func makeUIView(context: Context) -> BSTextView {
         
         let textView = BSTextView()
-        
-        textView.frame = .infinite
-        textView.text = text
-        
-
-        
-        
         return textView
     }
     func updateUIView(_ uiView: BSTextView, context: Context) {
+        // 1. Create an attributed string.
+        let atttext = NSMutableAttributedString(string: text)
+            
+        // 2. Set attributes to text, you can use almost all CoreText attributes.
+        atttext.bs_font = UIFont.systemFont(ofSize: 17)
+        atttext.bs_color = UIColor.blue
+        atttext.bs_set(color: UIColor.red, range: NSRange(location: 0, length: 4))
+        atttext.bs_lineSpacing = 0
         
+        uiView.attributedText = atttext
     }
 }
 
