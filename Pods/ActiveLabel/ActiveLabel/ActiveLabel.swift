@@ -9,12 +9,15 @@
 import Foundation
 import UIKit
 
+
 public protocol ActiveLabelDelegate: class {
     func didSelect(_ text: String, type: ActiveType)
 }
 
 public typealias ConfigureLinkAttribute = (ActiveType, [NSAttributedString.Key : Any], Bool) -> ([NSAttributedString.Key : Any])
 typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveType)
+
+
 
 @IBDesignable open class ActiveLabel: UILabel {
     
@@ -510,6 +513,9 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
         }
         elementHandler(element)
     }
+    
+    
+    
 }
 
 extension ActiveLabel: UIGestureRecognizerDelegate {

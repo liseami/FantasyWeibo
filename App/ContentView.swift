@@ -6,33 +6,42 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
+import FantasyUI
 
 struct ContentView: View {
     
     @ObservedObject var uistate = UIState.shared
     @ObservedObject var userManager = UserManager.shared
     
+    
     var body: some View {
-        
         
         if !userManager.logged {
             LoginView()
         }else{
-            NavigationView {
-                Group{
-                    if #available(iOS 15.0, *) {
-                        mainViews
-                        ///Toolbar
-                            .toolbar {toolbar}
-                    }else{
-                        mainViews
-                            .navigationBarItems(leading:toolbarLeading, trailing: toolbarTrailing)
+            
+                NavigationView {
+                    Group{
+                        if #available(iOS 15.0, *) {
+                            mainViews
+                            ///Toolbar
+                                .toolbar {toolbar}
+                        }else{
+                            mainViews
+                                .navigationBarItems(leading:toolbarLeading, trailing: toolbarTrailing)
+                        }
                     }
+                    .overlay(Tabbar())
+                    //                .overlay(TabbarBtn)
+                    
                 }
-                .overlay(Tabbar())
-                //                .overlay(TabbarBtn)
+                .overlay(  //顶层媒体
+                    TopMediaView())
                 
-            }
+                
+            
+            
             .onAppear(perform: {
                 //                uistate.getWeiboEmoji()
                 guard userManager.locAvatarUrl.isEmpty else {return}

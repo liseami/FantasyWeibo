@@ -16,33 +16,33 @@ let teststr = "//@百变小精-0:妮妮是黑龙江哈尔滨人 来家乡报答�
 struct BSTextViewTest : View{
     var body: some View{
         
-      
-            ScrollView {
-                
-                Text(teststr)
-                    .font(Font.system(size: 17))
-                    .overlay(BSTextViewRep(text: teststr),alignment: .top)
-                
-                
-                    ForEach(0..<12){ index in
-                        
-    //                        BSLabelView(text: teststr)
-    //                            .padding()
-    //                            .background(Color.Card)
-    //                            .PF_Shadow(color: .fc1, style: .s600)
-    //                            .padding()
-                        
-                        BSTextViewRep(text: teststr)
-    //                        .padding()
-    //                        .background(Color.Card)
-    //                        .PF_Shadow(color: .fc1, style: .s600)
-    //                        .padding()
-    //
-
-                    }
-            }
         
-      
+        ScrollView {
+            
+            Text(teststr)
+                .font(Font.system(size: 17))
+                .overlay(BSTextViewRep(text: teststr),alignment: .top)
+            
+            
+            ForEach(0..<12){ index in
+                
+                //                        BSLabelView(text: teststr)
+                //                            .padding()
+                //                            .background(Color.Card)
+                //                            .PF_Shadow(color: .fc1, style: .s600)
+                //                            .padding()
+                
+                BSTextViewRep(text: teststr)
+                //                        .padding()
+                //                        .background(Color.Card)
+                //                        .PF_Shadow(color: .fc1, style: .s600)
+                //                        .padding()
+                //
+                
+            }
+        }
+        
+        
         
     }
 }
@@ -50,9 +50,9 @@ struct BSTextViewTest : View{
 struct BSTextViewTest_PreviewProvider : PreviewProvider{
     static var previews: some View{
         BSTextViewTest()
-//            .previewLayout(.sizeThatFits)
-//        BSTextViewRep()
-//            .previewLayout(.sizeThatFits)
+        //            .previewLayout(.sizeThatFits)
+        //        BSTextViewRep()
+        //            .previewLayout(.sizeThatFits)
     }
 }
 
@@ -60,7 +60,7 @@ struct BSTextViewTest_PreviewProvider : PreviewProvider{
 struct BSLabelView : UIViewRepresentable{
     
     
-     var text : String = randomString(44)
+    var text : String = randomString(44)
     
     func makeUIView(context: Context) -> BSLabel {
         
@@ -70,7 +70,7 @@ struct BSLabelView : UIViewRepresentable{
         label.textAlignment = .left
         label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
-      
+        
         // 1. Create a text parser
         let simpleEmoticonParser = TextSimpleEmoticonParser()
         var mapper = [String: UIImage]()
@@ -79,31 +79,31 @@ struct BSLabelView : UIViewRepresentable{
         mapper[":cry:"] = UIImage.init(named: "cry.png")
         mapper[":wink:"] = UIImage.init(named: "wink.png")
         simpleEmoticonParser.emoticonMapper = mapper;
-
+        
         let markdownParser = TextSimpleMarkdownParser()
         markdownParser.setColorWithDarkTheme()
         label.textParser = simpleEmoticonParser
-    
+        
         
         return label
     }
     func updateUIView(_ uiView: BSLabel, context: Context) {
         
-//        uiView.text = text
+        //        uiView.text = text
         
         // 1. Create an attributed string.
         let atttext = NSMutableAttributedString(string: text)
-            
+        
         // 2. Set attributes to text, you can use almost all CoreText attributes.
-//        atttext.bs_font = MFont(style: .Title_17_R).getUIFont()
+        //        atttext.bs_font = MFont(style: .Title_17_R).getUIFont()
         atttext.bs_color = UIColor(Color.fc1)
         atttext.bs_font = .systemFont(ofSize: 17)
-//        atttext.bs_set(color: UIColor.red, range: NSRange(location: 0, length: 4))
+        //        atttext.bs_set(color: UIColor.red, range: NSRange(location: 0, length: 4))
         atttext.bs_lineSpacing = 0
         atttext.bs_alignment = .left
         atttext.bs_lineBreakMode = .byWordWrapping
         
-     
+        
         
         uiView.attributedText = atttext
         
@@ -122,7 +122,7 @@ struct BSTextViewRep : UIViewRepresentable{
     func updateUIView(_ uiView: BSTextView, context: Context) {
         // 1. Create an attributed string.
         let atttext = NSMutableAttributedString(string: text)
-            
+        
         // 2. Set attributes to text, you can use almost all CoreText attributes.
         atttext.bs_font = UIFont.systemFont(ofSize: 17)
         atttext.bs_color = UIColor.blue

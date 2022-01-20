@@ -48,6 +48,7 @@ struct TweetCard: View {
         self.post = post
         self.targetPost = post
         tweetdata_init(post: post)
+        
     }
     
     var body: some View {
@@ -59,7 +60,7 @@ struct TweetCard: View {
                 ///头像
                 mainAvatar
                 ///推文内容
-                LazyVStack(alignment: .leading,spacing:4){
+                VStack(alignment: .leading,spacing:4){
                     //主要用户信息
                     mainUserLine
                     //主要文字
@@ -98,15 +99,24 @@ struct TweetCard: View {
     @ViewBuilder
     var mainText : some View {
         
-        
-        
-        PF_TapTextArea(text: text) {username in
-            
-        } taptopic: {topicname in
-            
-        } tapshorturl: {shorturl in
-            
+        let att = AttributedString
+        if #available(iOS 15.0, *) {
+            Text(att)
+        } else {
+            // Fallback on earlier versions
         }
+        
+//        PF_TapTextArea(text: text) { username in
+//
+//        } taptopic: { topicname in
+//
+//        } tapshorturl: { shorturl in
+//            UIState.shared.topImageUrl = []
+//            print("🦒🦒🦒🦒🦒" + shorturl)
+//            UIState.shared.topImageUrl.append(shorturl)
+//            print("🐘🐘🐘🐘🐘" + UIState.shared.topImageUrl.first!)
+//            UIState.shared.showTopMediaArea =  true
+//        }
 
         
 
@@ -126,7 +136,7 @@ struct TweetCard: View {
         //传递图片，或者寻找text中的视频链接进行传递
         TweetMediaView(urls: !self.pic_urls.isEmpty ? self.pic_urls : [getVideoUrlInText(text: text) ?? ""])
             .ifshow(!pic_urls.isEmpty || getVideoUrlInText(text: text) != nil)
-            .ifshow(style == .post)
+            .ifshow(style != .repost)
             .padding(.top,8)
         
     }
@@ -163,7 +173,6 @@ struct TweetCard: View {
                     
                 }
 
-                
             }
             .padding(.all,12)
             
@@ -307,6 +316,7 @@ extension TweetCard {
                 self.forwarded_user_name = repost.user?.name ?? ""
                 self.forwarded_user_avatarImageUrl = URL(string: repost.user?.avatar_large ?? "")
                 self.forwarded_text = repost.text
+                
                 if !repost.pic_urls.isEmpty{
                     self.pic_urls = repost.pic_urls.map({ postpicurl in
                         getbmiddleImageUrl(urlString: postpicurl.thumbnail_pic!)

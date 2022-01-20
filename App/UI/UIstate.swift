@@ -12,9 +12,10 @@ class UIState : ObservableObject{
     static let shared = UIState()
     let userdefult = UserDefaults.standard
    
-    init(tabbarIndex : tabbarItemEnum = .Timeline,logged : Bool = false){
+    init(tabbarIndex : tabbarItemEnum = .Timeline,logged : Bool = false,topMediaUrl : [String] = [],showTopMediaArea : Bool = false){
         self.TabbarIndex = tabbarIndex
-        
+        self.topImageUrl = topMediaUrl
+        self.showTopMediaArea = showTopMediaArea
     }
     
     // Tabar
@@ -54,8 +55,20 @@ class UIState : ObservableObject{
     
     //媒体区域宽度，实时上报，实时更新
     @Published var picAreaW : CGFloat = 0
-    
     //
+    
+    
+    
+    
+    
+    //顶层图片
+    @Published var topImageUrl : [String] = []
+    @Published var showTopMediaArea : Bool = false
+    
+    
+    
+    
+    
     
 }
 
@@ -66,6 +79,10 @@ extension UIState{
             
         }
     }
+    
+    
+    
+    
 }
 
 

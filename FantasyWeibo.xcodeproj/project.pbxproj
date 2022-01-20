@@ -58,6 +58,8 @@
 		A23481D22796A835008B8057 /* commentsmentions.json in Sources */ = {isa = PBXBuildFile; fileRef = A23481D12796A835008B8057 /* commentsmentions.json */; };
 		A23481D32796A8EB008B8057 /* commentsmentions.json in Resources */ = {isa = PBXBuildFile; fileRef = A23481D12796A835008B8057 /* commentsmentions.json */; };
 		A23481D627979DB1008B8057 /* ShortUrlTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23481D527979DB1008B8057 /* ShortUrlTool.swift */; };
+		A23481E92797EB1E008B8057 /* TopMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23481E82797EB1E008B8057 /* TopMediaView.swift */; };
+		A23481EB27980432008B8057 /* UITextViewCC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23481EA27980431008B8057 /* UITextViewCC.swift */; };
 		A27C61F72793119400BF188F /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C61F62793119400BF188F /* ViewModifiers.swift */; };
 		A27C61FB2793C61A00BF188F /* NewMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C61FA2793C61A00BF188F /* NewMod.swift */; };
 		A27C61FE2793D84A00BF188F /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C61FD2793D84A00BF188F /* Emoji.swift */; };
@@ -145,6 +147,8 @@
 		A23481CE2796900D008B8057 /* mentions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mentions.json; sourceTree = "<group>"; };
 		A23481D12796A835008B8057 /* commentsmentions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = commentsmentions.json; sourceTree = "<group>"; };
 		A23481D527979DB1008B8057 /* ShortUrlTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortUrlTool.swift; sourceTree = "<group>"; };
+		A23481E82797EB1E008B8057 /* TopMediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMediaView.swift; sourceTree = "<group>"; };
+		A23481EA27980431008B8057 /* UITextViewCC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewCC.swift; sourceTree = "<group>"; };
 		A27C61F62793119400BF188F /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		A27C61FA2793C61A00BF188F /* NewMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMod.swift; sourceTree = "<group>"; };
 		A27C61FD2793D84A00BF188F /* Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
@@ -298,6 +302,7 @@
 				A208019827896D00008461DA /* Profile */,
 				A208019A27896D00008461DA /* Setting */,
 				A208019C27896D00008461DA /* Timeline */,
+				A23481E82797EB1E008B8057 /* TopMediaView.swift */,
 			);
 			path = PART;
 			sourceTree = "<group>";
@@ -384,9 +389,10 @@
 				A20801A627896D00008461DA /* WebView.swift */,
 				A20801A727896D00008461DA /* MT_PageScrollowView.swift */,
 				A20801A827896D00008461DA /* PF_TextField.swift */,
-				A27C61FF2793D9B700BF188F /* AttributedText.swift */,
 				A27C62042794F9D700BF188F /* ActiveLabel.swift */,
 				A27C620B279531E000BF188F /* BSTextView.swift */,
+				A27C61FF2793D9B700BF188F /* AttributedText.swift */,
+				A23481EA27980431008B8057 /* UITextViewCC.swift */,
 			);
 			path = UIKitViews;
 			sourceTree = "<group>";
@@ -607,6 +613,7 @@
 				A206691D278FADFD00384380 /* MokTool.swift in Sources */,
 				A299A11C278FC3BE00EF9F13 /* UserMods.swift in Sources */,
 				A20801B927896D00008461DA /* SearchInputView.swift in Sources */,
+				A23481EB27980432008B8057 /* UITextViewCC.swift in Sources */,
 				A27C620C279531E000BF188F /* BSTextView.swift in Sources */,
 				A208018A27896CD5008461DA /* FantasyWeibo(iOS)-Bridging-Header.m in Sources */,
 				A208017A27896B62008461DA /* FantasyWeiboApp.swift in Sources */,
@@ -621,6 +628,7 @@
 				A206691A278ED44B00384380 /* FeedBackView.swift in Sources */,
 				A20801B127896D00008461DA /* Tabbar.swift in Sources */,
 				A20801C827896D00008461DA /* Font.swift in Sources */,
+				A23481E92797EB1E008B8057 /* TopMediaView.swift in Sources */,
 				A27C62022793F26300BF188F /* Extensions.swift in Sources */,
 				A20801B827896D00008461DA /* SearchView.swift in Sources */,
 				A20801BD27896D00008461DA /* TimeLineView.swift in Sources */,

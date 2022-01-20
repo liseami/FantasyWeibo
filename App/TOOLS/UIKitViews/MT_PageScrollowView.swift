@@ -17,7 +17,7 @@ import SwiftUI
 
 public struct MT_PageScrollowView<Content: View>: UIViewRepresentable {
     @Binding var offset: CGFloat
-
+    
     var content: Content
     
     private let scrollView = UIScrollView()
@@ -36,7 +36,7 @@ public struct MT_PageScrollowView<Content: View>: UIViewRepresentable {
         let constraints = [
             hostVc.view.topAnchor.constraint(equalTo: scrollView.topAnchor),
             hostVc.view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-
+            
             hostVc.view.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             hostVc.view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             
@@ -52,7 +52,7 @@ public struct MT_PageScrollowView<Content: View>: UIViewRepresentable {
     
     public func updateUIView(_ uiView: UIScrollView, context: Context) {
         if uiView.contentOffset.x != offset {
-             uiView.delegate = nil
+            uiView.delegate = nil
             UIView.animate(withDuration: 0.25) {
                 uiView.contentOffset.x = offset
             } completion: { isCompletion in
@@ -72,7 +72,7 @@ public struct MT_PageScrollowView<Content: View>: UIViewRepresentable {
         scrollView.showsHorizontalScrollIndicator = false
     }
     
-  
+    
     
     public func makeCoordinator() -> Coordinator {
         Coordinator(parent: self)

@@ -9,6 +9,7 @@ import UIKit
 import ActiveLabel
 import SwiftUI
 import FantasyUI
+import Alamofire
 
 
 
@@ -54,9 +55,7 @@ struct Testtt_Previews: PreviewProvider {
 struct ActiveLabelStack : UIViewRepresentable {
     
     
-//    @Binding var dynamicHeight: CGFloat
-    
-    let str : String
+    let text : String
     var font : UIFont = MFont(style: .Title_17_R).getUIFont()
     let tapuser : (_ username :String)->()
     let taptopic : (_ topicname : String)->()
@@ -64,21 +63,19 @@ struct ActiveLabelStack : UIViewRepresentable {
     let label = ActiveLabel()
     
     func makeUIView(context: Context) -> ActiveLabel {
-        
-        label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.byWordWrapping
-        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        label.textAlignment = .left
-        
         label.customize { label in
+            //样式设置
+            label.numberOfLines = 0
+            label.lineBreakMode = NSLineBreakMode.byWordWrapping
+            label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+            label.textAlignment = .left
+
             //高亮正则
-            
             let usertype = ActiveType.custom(pattern: #"@[\u4e00-\u9fa5A-Z0-9a-z_-]{2,30}"#)
             let topictype = ActiveType.custom(pattern: #"#[^@<>#"&'\r\n\t]{1,49}#"#)
             let shorturl = ActiveType.custom(pattern: #"https{0,1}://t.cn/[A-Z0-9a-z]{6,8}[/]{0,1}"#)
             label.enabledTypes = [usertype,topictype,shorturl]
-            //文字
-            label.text = str
+
             //颜色
             label.textColor = UIColor(Color.fc1)
             //字体
@@ -86,9 +83,10 @@ struct ActiveLabelStack : UIViewRepresentable {
             label.lineSpacing = 4
             
             //可点击文字颜色
+            
             label.customColor[usertype] = UIColor(Color.MainColor)
             label.customColor[topictype] = UIColor(Color.MainColor)
-            label.customColor[shorturl] = UIColor(Color.DeepBlue)
+            label.customColor[shorturl] = UIColor(Color.Success)
             label.customSelectedColor[usertype] = UIColor(Color.MainColorSelected)
             label.customSelectedColor[topictype] = UIColor(Color.MainColorSelected)
             label.customSelectedColor[shorturl] = UIColor(Color.MainColorSelected)
@@ -109,20 +107,48 @@ struct ActiveLabelStack : UIViewRepresentable {
             }
         }
         
-       
-      
-      
+        let regexweibousers = #"https{0,1}://t.cn/[A-Z0-9a-z]{6,8}[/]{0,1}"#
+        if let shorturls = text.regex(regex: regexweibousers){
+            //拿到文字中的图片地址
+            
+        }
         
+            
+        label.text = text
         return label
     }
     func updateUIView(_ uiView: ActiveLabel, context: Context) {
-        //动态计算文本的高度....每次渲染只计算一次
-//        guard self.dynamicHeight == .zero else {return}
-        uiView.text = str
-//        DispatchQueue.main.async {
-//            dynamicHeight = uiView.sizeThatFits(CGSize(width: uiView.bounds.width, height: CGFloat.greatestFiniteMagnitude)).height
-//        }
         
+       
+
+    }
+}
+
+protocol ShortUrlApiType: CustomTargetType {
+    
+}
+
+extension ShortUrlApiType {
+    var scheme: String { "http" }
+    var host: String { "t.cn"}
+    var port: Int? { nil }
+    var firstPath: String? { nil}
+    var headers: [String: String]? {
+        return ["Authorization":"OAuth2" + " " + UserManager.shared.token!]
+    }
+}
+
+enum ShortUrlApi : ShortUrlApiType{
+    case getshorturl(p:String)
+    var path: String{
+        switch self {
+        case .getshorturl(let p):
+            return p
+        }
+    }
+
+    var method: HTTPMethod{
+        .get
     }
 }
 
@@ -140,23 +166,27 @@ struct PF_TapTextArea : View {
     var body: some View{
         
         
-        Text(text)
-            .lineSpacing(4)
-            .font(Font(font))
-            .foregroundColor(.clear)
-            .multilineTextAlignment(.leading)
-            .frame(maxWidth:.infinity,maxHeight: .infinity, alignment: .leading)
-//            .overlay(Color.red.opacity(0.3))
-            .overlay(
-                ActiveLabelStack( str: text, font: font, tapuser: {username in
-                    tapuser(username)
-                }, taptopic: {topicname in
-                    taptopic(topicname)
-                }, tapshorturl: {shorturl in
-                    tapshorturl(shorturl)
-                })
-                ,alignment: .center
-            )
+        LazyVStack(alignment: .leading, spacing: 0) {
+            //知道自己有多高的Text
+            Text(text)
+                .lineSpacing(4)
+                .font(Font(font))
+                .foregroundColor(.clear) // ---- 👈
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth:.infinity,maxHeight: .infinity, alignment: .leading)
+                .overlay( // ---- 👈
+                    //不知道自己有多高的  ActiveLabel
+                    ActiveLabelStack( text: text, font: font, tapuser: {username in
+                        tapuser(username)
+                    }, taptopic: {topicname in
+                        taptopic(topicname)
+                    }, tapshorturl: {shorturl in
+                        tapshorturl(shorturl)
+                    })
+                    ,alignment: .center
+                )
+        }
+      
         
    
        
