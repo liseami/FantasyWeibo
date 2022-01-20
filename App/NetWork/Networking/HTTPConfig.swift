@@ -29,7 +29,8 @@ extension ApiType {
 }
 
 struct ProjectConfig {
-    static let env: Environment = .mok
+    static let env: Environment = .test
+    
     
     
     enum Environment {

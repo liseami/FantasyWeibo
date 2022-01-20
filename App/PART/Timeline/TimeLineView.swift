@@ -16,8 +16,12 @@ struct TimeLineView: View {
     var body: some View {
         
         
-        PF_OffsetScrollView(offset: $offset, content: {
-            
+        PF_OffsetScrollView(offset: $offset, refreshAction: { endrefresh in
+            //刷新逻辑
+            vm.getHomeTimeLine { isSuccess in
+                endrefresh(isSuccess ? .success : .error)
+            }
+        }, content: {
             LazyVStack {
                 Spacer().frame(width: 1, height: 1)
                 
@@ -40,7 +44,8 @@ struct TimeLineView: View {
             .onAppear {
                 //加载首页数据
                 guard vm.home_timeline.isEmpty else {return}
-                vm.getHomeTimeLine()
+                vm.getHomeTimeLine { isSuccess in
+                }
                 madasoft()
             }
         
@@ -51,7 +56,8 @@ struct TimeLineView: View {
             Spacer()
             TextPlaceHolder(text: "暂无数据", subline: "请尝试刷新数据。",style: .inline)
             MainButton(title: "刷新") {
-                vm.getHomeTimeLine()
+                vm.getHomeTimeLine { isSuccess in
+                }
             }
             Spacer()
                 .padding(.horizontal,32)

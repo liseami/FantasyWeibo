@@ -21,17 +21,20 @@ class PostDataCenter :NSObject, ObservableObject,WeiboSDKDelegate{
     
     
     //首页时间线
-    func getHomeTimeLine() {
+    func getHomeTimeLine(complete : @escaping (_ isSuccess : Bool)->Void) {
         
         DispatchQueue.global().async {
             switch ProjectConfig.env{
             case .test :
                 let target = PostApi.get_home_timeline(p: .init(count:57))
                 Networking.requestArray(target, modeType: Post.self, atKeyPath: "statuses") { r, arr in
+                    DispatchQueue.main.async {
                     if let arr = arr {
-                        DispatchQueue.main.async {
-                            self.home_timeline = arr
-                        }
+                        self.home_timeline = arr
+                        complete(true)
+                    }else{
+                        complete(false)
+                    }
                     }
                 }
             case .mok :

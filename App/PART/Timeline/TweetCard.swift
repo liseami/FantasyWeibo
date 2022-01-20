@@ -99,24 +99,24 @@ struct TweetCard: View {
     @ViewBuilder
     var mainText : some View {
         
-        let att = AttributedString
-        if #available(iOS 15.0, *) {
-            Text(att)
-        } else {
-            // Fallback on earlier versions
-        }
-        
-//        PF_TapTextArea(text: text) { username in
-//
-//        } taptopic: { topicname in
-//
-//        } tapshorturl: { shorturl in
-//            UIState.shared.topImageUrl = []
-//            print("🦒🦒🦒🦒🦒" + shorturl)
-//            UIState.shared.topImageUrl.append(shorturl)
-//            print("🐘🐘🐘🐘🐘" + UIState.shared.topImageUrl.first!)
-//            UIState.shared.showTopMediaArea =  true
+//        let att = AttributedString
+//        if #available(iOS 15.0, *) {
+//            Text(att)
+//        } else {
+//            // Fallback on earlier versions
 //        }
+        
+        PF_TapTextArea(text: text) { username in
+
+        } taptopic: { topicname in
+
+        } tapshorturl: { shorturl in
+            UIState.shared.topImageUrl = []
+            print("🦒🦒🦒🦒🦒" + shorturl)
+            UIState.shared.topImageUrl.append(shorturl)
+            print("🐘🐘🐘🐘🐘" + UIState.shared.topImageUrl.first!)
+            UIState.shared.showTopMediaArea =  true
+        }
 
         
 
