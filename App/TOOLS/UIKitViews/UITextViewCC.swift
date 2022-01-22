@@ -22,12 +22,12 @@ struct TextViewCCView: View {
     
     var body: some View {
         let str = "http://t.cn/A6JitJdF //@鸡老师的肉身:awsl//@月刊勇者KuMa君:http://t.cn/A6JitJdF //@LatteKuroba://@月见冥://@魔剑#士达纳托斯的#苦痛:我恋爱了//@妖幺漆_并不努力: 大写的无敌[抱一抱]"
-        //        let str = randomString(140)
+        //  let str = randomString(140)
         
         
         
         VStack{
-
+            
             GeometryReader { geo in
                 let w = geo.size.width
                 ScrollView {
@@ -35,11 +35,11 @@ struct TextViewCCView: View {
                         
                         
                         uitextViewCC(text: str, fixedWidth: w - 24 * 2)
-//                            .frame( minHeight: h)
+                        //                            .frame( minHeight: h)
                             .padding(.all,12)
                             .background(Color.Card    .shadow(color: .fc1.opacity(0.1), radius: 24, x: 0, y: 0))
                             .padding(.all,12)
-                       
+                        
                         
                         
                         //
@@ -47,9 +47,9 @@ struct TextViewCCView: View {
                     }
                 }
             }
-         
+            
         }
-   
+        
         
         
     }
@@ -75,39 +75,52 @@ struct uitextViewCC : UIViewRepresentable {
     
     let text : String
     let textView = UITextView(frame: .zero)
-//    @Binding var height : CGFloat
+    //    @Binding var height : CGFloat
     var fixedWidth: CGFloat
     
     class Coordinator: NSObject, UITextViewDelegate {
-           var parent: uitextViewCC
-           init(_ parent: uitextViewCC) {
-               self.parent = parent
-           }
-       }
+        var parent: uitextViewCC
+        init(_ parent: uitextViewCC) {
+            self.parent = parent
+        }
+        
+        func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+            if let str = URL.scheme?.utf8CString{
+                print("🐼🐼🐼🐼")
+                print(str)
+                print("🐼🐼🐼🐼")
+                return true
+            }
+            else{
+                return false
+            }
+            
+        }
+    }
     
     func makeCoordinator() -> Coordinator {
-           return Coordinator(self)
-       }
+        return Coordinator(self)
+    }
     
     func makeUIView(context: Context) -> UITextView {
         
-             let padding = textView.textContainer.lineFragmentPadding
-             textView.textContainerInset =  UIEdgeInsets(top: 0, left: -padding, bottom: 0, right: -padding)
-             textView.isScrollEnabled = false
-             textView.backgroundColor = .clear // just to make it easier to see
-             textView.delegate = context.coordinator
-             textView.translatesAutoresizingMaskIntoConstraints = false
-             textView.widthAnchor.constraint(equalToConstant: fixedWidth).isActive = true //<--- Here
-             textView.isEditable = false
+        textView.widthAnchor.constraint(equalToConstant: fixedWidth).isActive = true //<--- Here
+        let padding = textView.textContainer.lineFragmentPadding
+        textView.textContainerInset =  UIEdgeInsets(top: 0, left: -padding, bottom: 0, right: -padding)
+        textView.isScrollEnabled = false
+        textView.backgroundColor = .clear // just to make it easier to see
+        textView.delegate = context.coordinator
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.isEditable = false
         
-             return textView
+        return textView
         
     }
     
     func updateUIView(_ uiView: UITextView, context: Context) {
         DispatchQueue.main.async {
             let res = matchesResultOfTitle(text: text, expan: false)
-//            self.height = res.height
+            //            self.height = res.height
             textView.attributedText = res.attributedString
         }
     }
@@ -115,14 +128,14 @@ struct uitextViewCC : UIViewRepresentable {
     func matchesResultOfTitle(text : String,expan : Bool) -> (attributedString : NSMutableAttributedString ,height : CGFloat){
         
         
-        let userRegex =  #"@[\u4e00-\u9fa5A-Z0-9a-z_-]{2,30}"#
+        _ =  #"@[\u4e00-\u9fa5A-Z0-9a-z_-]{2,30}"#
         let topicRegex =  #"#[^@<>#"&'\r\n\t]{1,49}#"#
         let shorturlRegex =  #"https{0,1}://t.cn/[A-Z0-9a-z]{6,8}[/]{0,1}"#
         
         //富文本
-        var attributedString:NSMutableAttributedString = NSMutableAttributedString(string: text)
+        let attributedString:NSMutableAttributedString = NSMutableAttributedString(string: text)
         //富文本范围
-        var textRange = NSRange(location: 0, length: attributedString.length)
+        let textRange = NSRange(location: 0, length: attributedString.length)
         //最大字符 截取位置
         var cutoffLocation = text.length
         
@@ -141,8 +154,8 @@ struct uitextViewCC : UIViewRepresentable {
                 
                 replaceStr.append(NSAttributedString.init(string: "查看图片"))
                 
-                replaceStr.addAttributes([NSAttributedString.Key.link : "http://img.wxcha.com/file/201811/21/afe8559b5e.gif"], range: NSRange.init(location: 0, length: replaceStr.length))
-            
+                replaceStr.addAttributes([NSAttributedString.Key.link : "httpdsafsjdfjasjdf"], range: NSRange.init(location: 0, length: replaceStr.length))
+                
                 let newLocation = range.location - (textRange.length - attributedString.length)
                 
                 //图标+描述 替换HTTP链接字符
@@ -155,26 +168,26 @@ struct uitextViewCC : UIViewRepresentable {
         }
         
         
-        if  let topicRanges:[NSRange] = getRangesByRegex(regex: topicRegex, text: attributedString.string) {
+        if let topicRanges:[NSRange] = getRangesByRegex(regex: topicRegex, text: attributedString.string) {
             for range in topicRanges {
-            attributedString.addAttributes([NSAttributedString.Key.link :"https://github.com/wsl2ls"], range: range)
+                attributedString.addAttributes([NSAttributedString.Key.link :"https://github.com/wsl2ls"], range: range)
                 //如果最多字符个数会截断高亮字符，则舍去高亮字符
                 if cutoffLocation >= range.location && cutoffLocation <= range.location + range.length {
                     cutoffLocation = range.location
                 }
             }
         }
-          
         
         
-         let style = NSMutableParagraphStyle()
-         style.lineSpacing = 4
-         let length = attributedString.string.length
+        
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 4
+        let length = attributedString.string.length
         
         attributedString.addAttributes(
             [
-             NSAttributedString.Key.font : MFont(style: .Title_17_R).getUIFont(),
-             NSAttributedString.Key.paragraphStyle : style
+                NSAttributedString.Key.font : MFont(style: .Title_17_R).returnUIFont(),
+                NSAttributedString.Key.paragraphStyle : style
             ],
             
             range: NSRange(location: 0, length: length))

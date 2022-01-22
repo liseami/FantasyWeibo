@@ -147,7 +147,7 @@ struct InBoxView: View {
         ScrollView {
             LazyVStack(spacing:12){
                 ForEach(vm.mentionList,id:\.self.id) { post  in
-                    TweetCard(post: post)
+//                    TweetCard(post: post)
                 }
             }
             .padding(.all,12)
@@ -169,11 +169,11 @@ struct InBoxView: View {
                             Text(comment.user?.name ?? "")
                                 .PF_Leading()
                                 .mFont(style: .Title_17_B,color:.fc1)
-                            PF_TapTextArea(text: comment.text ?? "", font: MFont(style: .Title_17_R).getUIFont()) { username in
+                            PF_TapTextArea(text: comment.text ?? "", font: MFont(style: .Title_17_R).returnUIFont()) { username in
                                 
                             } taptopic: { topicname in
                                 
-                            } tapshorturl: { shorturl in
+                            } tapimage: { shorturl in
                                 
                             }
                         }

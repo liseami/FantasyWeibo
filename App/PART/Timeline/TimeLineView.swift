@@ -16,41 +16,50 @@ struct TimeLineView: View {
     var body: some View {
         
         
-        PF_OffsetScrollView(offset: $offset, refreshAction: { endrefresh in
-            //刷新逻辑
-            vm.getHomeTimeLine { isSuccess in
-                endrefresh(isSuccess ? .success : .error)
-            }
-        }, content: {
-            LazyVStack {
-                Spacer().frame(width: 1, height: 1)
-                
-                if !vm.home_timeline.isEmpty {
-                    ForEach(vm.home_timeline,id:\.self.id){ post in
-                        TweetCard(post: post)
-                    }
-                }else{
-                    placeHolder
-                }
-                
-                Spacer().frame(width: 1, height: 80)
-            }
-            .padding(.all,12)
-        })
-            .navigationBarTitleDisplayMode(.inline)
-            .PF_Navitop(style: offset < -5 ? .large : .none,showDivider: false, backgroundView: {
-                BlurView()
-            }, TopCenterView: {})
-            .onAppear {
-                //加载首页数据
-                guard vm.home_timeline.isEmpty else {return}
+            
+            PF_OffsetScrollView(offset: $offset,refreshingenable: true, refreshAction: { endrefresh in
+                //刷新逻辑
                 vm.getHomeTimeLine { isSuccess in
+                    endrefresh(isSuccess ? .success : .error)
                 }
-                madasoft()
+            }, content: {
+
+                LazyVStack {
+                    Spacer().frame(width: 1, height: 1)
+
+                    if !vm.home_timeline.isEmpty {
+                        //TweetCard 列表
+                        ForEach(vm.home_timeline,id:\.self.id){ post in
+
+                            TweetCard(post: post)
+
+                        }
+                    }else{
+                        placeHolder
+                    }
+
+                    Spacer().frame(width: 1, height: 80)
+                }
+                .padding(.all,12)
+            })
+        
+//        TestTest()
+     
+     
+        .navigationBarTitleDisplayMode(.inline)
+        .PF_Navitop(style: offset < -5 ? .large : .none,showDivider: false, backgroundView: {
+            BlurView()
+        }, TopCenterView: {})
+        .onAppear {
+            //加载首页数据
+            guard vm.home_timeline.isEmpty else {return}
+            vm.getHomeTimeLine { isSuccess in
             }
+            madasoft()
+        }
         
     }
-    
+
     var placeHolder : some View {
         VStack{
             Spacer()

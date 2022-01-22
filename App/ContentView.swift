@@ -18,28 +18,24 @@ struct ContentView: View {
     var body: some View {
         
         if !userManager.logged {
+            
             LoginView()
+            
         }else{
             
-                NavigationView {
-                    Group{
-                        if #available(iOS 15.0, *) {
-                            mainViews
-                            ///Toolbar
-                                .toolbar {toolbar}
-                        }else{
-                            mainViews
-                                .navigationBarItems(leading:toolbarLeading, trailing: toolbarTrailing)
-                        }
-                    }
-                    .overlay(Tabbar())
-                    //                .overlay(TabbarBtn)
-                    
+            NavigationView {
+                Group{
+                    mainViews
+                        .toolbar {toolbar}
                 }
-                .overlay(  //顶层媒体
-                    TopMediaView())
+                .overlay(Tabbar())
+                //                .overlay(TabbarBtn)
                 
-                
+            }
+            .overlay(  //顶层媒体
+                TopMediaView())
+            
+            
             
             
             .onAppear(perform: {

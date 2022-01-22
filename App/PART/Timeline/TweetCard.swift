@@ -38,6 +38,8 @@ struct TweetCard: View {
     @State private var targetUser : User = User.init()
     
     
+    
+    
     enum styleEnum {
         case post
         case repost_fast
@@ -65,10 +67,11 @@ struct TweetCard: View {
                     mainUserLine
                     //主要文字
                     mainText
+                    
                     //主要图片
                     mainMediaArea
                     //被转发微博
-                    forwarded_post
+//                    forwarded_post
                     //按钮 + 数据
                     btns
                 }
@@ -93,33 +96,23 @@ struct TweetCard: View {
             PostDetailView(post : self.targetPost)
         }
         
+        .padding(.horizontal,12)
+        .padding(.vertical,6)
+        
+        
+        
+        
     }
+    
+    
     
     
     @ViewBuilder
     var mainText : some View {
         
-//        let att = AttributedString
-//        if #available(iOS 15.0, *) {
-//            Text(att)
-//        } else {
-//            // Fallback on earlier versions
-//        }
+        Text(text)
+        //        PF_TextArea(text: text)
         
-        PF_TapTextArea(text: text) { username in
-
-        } taptopic: { topicname in
-
-        } tapshorturl: { shorturl in
-            UIState.shared.topImageUrl = []
-            print("🦒🦒🦒🦒🦒" + shorturl)
-            UIState.shared.topImageUrl.append(shorturl)
-            print("🐘🐘🐘🐘🐘" + UIState.shared.topImageUrl.first!)
-            UIState.shared.showTopMediaArea =  true
-        }
-
-        
-
     }
     
     var mainAvatar : some View {
@@ -129,6 +122,7 @@ struct TweetCard: View {
         } label: {
             UserAvatar(url: style == .repost_fast ? forwarded_user_avatarImageUrl : avatarImageUrl)
         }
+        .buttonStyle(.plain)
     }
     
     var mainMediaArea : some View{
@@ -138,6 +132,8 @@ struct TweetCard: View {
             .ifshow(!pic_urls.isEmpty || getVideoUrlInText(text: text) != nil)
             .ifshow(style != .repost)
             .padding(.top,8)
+            .frame(width: SW * 0.86 - 24 - 16 - 12)
+            .clipped()
         
     }
     
@@ -164,15 +160,10 @@ struct TweetCard: View {
                 .buttonStyle(.plain)
                 .PF_Leading()
                 
+                Text(text)
+//                PF_TextArea(text: forwarded_text)
                 
-                PF_TapTextArea(text: forwarded_text) {username in
-                    
-                } taptopic: {topicname in
-                    
-                } tapshorturl: {shorturl in
-                    
-                }
-
+                
             }
             .padding(.all,12)
             
@@ -209,6 +200,7 @@ struct TweetCard: View {
     var mainUserLine : some View {
         
         HStack(alignment: .center, spacing:6){
+            
             Text(style != .repost_fast ? username : forwarded_user_name)
                 .mFont(style: .Title_17_B,color: .fc1)
             ICON(sysname: "checkmark.seal.fill",fcolor: .MainColor,size: 16)
@@ -380,3 +372,5 @@ func convertPost(post: repostPost) -> Post{
     return result
     
 }
+
+

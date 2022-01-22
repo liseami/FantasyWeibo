@@ -57,17 +57,7 @@ struct TopMediaView : View{
     //                        .indicator(.activity(style: .medium))
                         .scaledToFit()
                         .frame(width: SW)
-                        .animation(.spring())
                         .offset(y:offset)
-                        .onAppear {
-                            let url = url.subString(from: 12)
-                            Networking.request(ShortUrlApi.getshorturl(p: url )) { result in
-                                print(result.rawReponse)
-                                print(result.rawData)
-                                print(result.dataJson )
-                            }
-                        }
-//                        .overlay(Text(url).mFont(style: .LargeTitle_22_B,color: .red))
                 }
             }
             .gesture(getgesture())

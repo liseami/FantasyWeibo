@@ -47,11 +47,7 @@ struct SearchInputView: View {
             .padding(.horizontal,12)
             
             VStack(spacing:0){
-                MT_PageSegmentView(titles: vm.tabitems, offset: $offset)
-                //Text("\(Int(floor(offset + 0.5) / ScreenWidth()))")
-                MT_PageScrollowView(offset: $offset) {
-                    mainViews
-                }
+            
             }
             .frame(width: SW)
 

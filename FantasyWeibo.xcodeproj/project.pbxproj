@@ -35,9 +35,7 @@
 		A20801BE27896D00008461DA /* TweetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208019F27896D00008461DA /* TweetCard.swift */; };
 		A20801BF27896D00008461DA /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20801A127896D00008461DA /* LoginView.swift */; };
 		A20801C027896D00008461DA /* LacunchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20801A327896D00008461DA /* LacunchManager.swift */; };
-		A20801C127896D00008461DA /* MT_PageSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20801A527896D00008461DA /* MT_PageSegmentView.swift */; };
 		A20801C227896D00008461DA /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20801A627896D00008461DA /* WebView.swift */; };
-		A20801C327896D00008461DA /* MT_PageScrollowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20801A727896D00008461DA /* MT_PageScrollowView.swift */; };
 		A20801C427896D00008461DA /* PF_TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20801A827896D00008461DA /* PF_TextField.swift */; };
 		A20801C527896D00008461DA /* PublicFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20801A927896D00008461DA /* PublicFuncs.swift */; };
 		A20801C627896D00008461DA /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20801AB27896D00008461DA /* Buttons.swift */; };
@@ -63,7 +61,6 @@
 		A27C61F72793119400BF188F /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C61F62793119400BF188F /* ViewModifiers.swift */; };
 		A27C61FB2793C61A00BF188F /* NewMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C61FA2793C61A00BF188F /* NewMod.swift */; };
 		A27C61FE2793D84A00BF188F /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C61FD2793D84A00BF188F /* Emoji.swift */; };
-		A27C62002793D9B700BF188F /* AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C61FF2793D9B700BF188F /* AttributedText.swift */; };
 		A27C62022793F26300BF188F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C62012793F26300BF188F /* Extensions.swift */; };
 		A27C62052794F9D700BF188F /* ActiveLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C62042794F9D700BF188F /* ActiveLabel.swift */; };
 		A27C620C279531E000BF188F /* BSTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C620B279531E000BF188F /* BSTextView.swift */; };
@@ -74,6 +71,8 @@
 		A299A12F278FEEFB00EF9F13 /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299A12E278FEEFB00EF9F13 /* SearchManager.swift */; };
 		A299A131278FF19500EF9F13 /* UserAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299A130278FF19500EF9F13 /* UserAvatar.swift */; };
 		A299A13727900CA500EF9F13 /* ProFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299A13627900CA500EF9F13 /* ProFileView.swift */; };
+		A2F9B493279A9B9000FE2BF7 /* AttTextVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F9B492279A9B9000FE2BF7 /* AttTextVIew.swift */; };
+		A2F9B495279BCF8E00FE2BF7 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F9B494279BCF8D00FE2BF7 /* FeedView.swift */; };
 		C0AE95AB62543DD693B05D06 /* Pods_FantasyWeibo__iOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF88F2E2428E944BAA7434CC /* Pods_FantasyWeibo__iOS_.framework */; };
 /* End PBXBuildFile section */
 
@@ -123,9 +122,7 @@
 		A208019F27896D00008461DA /* TweetCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCard.swift; sourceTree = "<group>"; };
 		A20801A127896D00008461DA /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A20801A327896D00008461DA /* LacunchManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LacunchManager.swift; sourceTree = "<group>"; };
-		A20801A527896D00008461DA /* MT_PageSegmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MT_PageSegmentView.swift; sourceTree = "<group>"; };
 		A20801A627896D00008461DA /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
-		A20801A727896D00008461DA /* MT_PageScrollowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MT_PageScrollowView.swift; sourceTree = "<group>"; };
 		A20801A827896D00008461DA /* PF_TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PF_TextField.swift; sourceTree = "<group>"; };
 		A20801A927896D00008461DA /* PublicFuncs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicFuncs.swift; sourceTree = "<group>"; };
 		A20801AB27896D00008461DA /* Buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
@@ -152,7 +149,6 @@
 		A27C61F62793119400BF188F /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		A27C61FA2793C61A00BF188F /* NewMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMod.swift; sourceTree = "<group>"; };
 		A27C61FD2793D84A00BF188F /* Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
-		A27C61FF2793D9B700BF188F /* AttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedText.swift; sourceTree = "<group>"; };
 		A27C62012793F26300BF188F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A27C62042794F9D700BF188F /* ActiveLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLabel.swift; sourceTree = "<group>"; };
 		A27C620B279531E000BF188F /* BSTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSTextView.swift; sourceTree = "<group>"; };
@@ -161,6 +157,8 @@
 		A299A12E278FEEFB00EF9F13 /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
 		A299A130278FF19500EF9F13 /* UserAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAvatar.swift; sourceTree = "<group>"; };
 		A299A13627900CA500EF9F13 /* ProFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProFileView.swift; sourceTree = "<group>"; };
+		A2F9B492279A9B9000FE2BF7 /* AttTextVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttTextVIew.swift; sourceTree = "<group>"; };
+		A2F9B494279BCF8D00FE2BF7 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		AF88F2E2428E944BAA7434CC /* Pods_FantasyWeibo__iOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FantasyWeibo__iOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -237,13 +235,13 @@
 		A206691B278FADEF00384380 /* Moks */ = {
 			isa = PBXGroup;
 			children = (
+				A206691C278FADFD00384380 /* MokTool.swift */,
 				A23481C327965765008B8057 /* comments.json */,
 				A23481C627965765008B8057 /* locuserprofile.json */,
 				A23481C427965765008B8057 /* profiletimeline.json */,
 				A23481C227965765008B8057 /* remoteuserprofile.json */,
 				A23481C727965766008B8057 /* timelinedata.json */,
 				A23481C527965765008B8057 /* timelineposts.json */,
-				A206691C278FADFD00384380 /* MokTool.swift */,
 				A23481CE2796900D008B8057 /* mentions.json */,
 				A23481D12796A835008B8057 /* commentsmentions.json */,
 			);
@@ -273,10 +271,10 @@
 				A208016C27896B62008461DA /* Assets.xcassets */,
 				A208018927896CD5008461DA /* FantasyWeibo(iOS)-Bridging-Header.m */,
 				A208018827896CD4008461DA /* FantasyWeibo (iOS)-Bridging-Header.h */,
+				A208018B27896D00008461DA /* PART */,
 				A2066911278ECB4600384380 /* Moduels */,
 				A206690E278ECB0900384380 /* ViewModel */,
 				A20199B9278D32B500599C29 /* NetWork */,
-				A208018B27896D00008461DA /* PART */,
 				A20801A227896D00008461DA /* TOOLS */,
 				A20801AA27896D00008461DA /* UI */,
 			);
@@ -385,14 +383,13 @@
 		A20801A427896D00008461DA /* UIKitViews */ = {
 			isa = PBXGroup;
 			children = (
-				A20801A527896D00008461DA /* MT_PageSegmentView.swift */,
 				A20801A627896D00008461DA /* WebView.swift */,
-				A20801A727896D00008461DA /* MT_PageScrollowView.swift */,
 				A20801A827896D00008461DA /* PF_TextField.swift */,
 				A27C62042794F9D700BF188F /* ActiveLabel.swift */,
-				A27C620B279531E000BF188F /* BSTextView.swift */,
-				A27C61FF2793D9B700BF188F /* AttributedText.swift */,
+				A2F9B492279A9B9000FE2BF7 /* AttTextVIew.swift */,
 				A23481EA27980431008B8057 /* UITextViewCC.swift */,
+				A27C620B279531E000BF188F /* BSTextView.swift */,
+				A2F9B494279BCF8D00FE2BF7 /* FeedView.swift */,
 			);
 			path = UIKitViews;
 			sourceTree = "<group>";
@@ -581,6 +578,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A27C61FE2793D84A00BF188F /* Emoji.swift in Sources */,
+				A2F9B493279A9B9000FE2BF7 /* AttTextVIew.swift in Sources */,
 				A299A11F278FD46400EF9F13 /* TweetMediaView.swift in Sources */,
 				A20801B327896D00008461DA /* PolularView.swift in Sources */,
 				A20801BE27896D00008461DA /* TweetCard.swift in Sources */,
@@ -599,7 +597,6 @@
 				A20801B627896D00008461DA /* PolularSpace.swift in Sources */,
 				A20199C9278E971400599C29 /* SceneDelegate.swift in Sources */,
 				A20801CA27896D00008461DA /* UIstate.swift in Sources */,
-				A20801C327896D00008461DA /* MT_PageScrollowView.swift in Sources */,
 				A20801BB27896D00008461DA /* SettingView.swift in Sources */,
 				A20801C227896D00008461DA /* WebView.swift in Sources */,
 				A20801C927896D00008461DA /* Color.swift in Sources */,
@@ -617,11 +614,9 @@
 				A27C620C279531E000BF188F /* BSTextView.swift in Sources */,
 				A208018A27896CD5008461DA /* FantasyWeibo(iOS)-Bridging-Header.m in Sources */,
 				A208017A27896B62008461DA /* FantasyWeiboApp.swift in Sources */,
-				A27C62002793D9B700BF188F /* AttributedText.swift in Sources */,
 				A20801B427896D00008461DA /* PolularVideo.swift in Sources */,
 				A208025C27896FF2008461DA /* AppDelegate.swift in Sources */,
 				A20801BF27896D00008461DA /* LoginView.swift in Sources */,
-				A20801C127896D00008461DA /* MT_PageSegmentView.swift in Sources */,
 				A20801B727896D00008461DA /* PolularPhoto.swift in Sources */,
 				A20801C527896D00008461DA /* PublicFuncs.swift in Sources */,
 				A20801C627896D00008461DA /* Buttons.swift in Sources */,
@@ -632,6 +627,7 @@
 				A27C62022793F26300BF188F /* Extensions.swift in Sources */,
 				A20801B827896D00008461DA /* SearchView.swift in Sources */,
 				A20801BD27896D00008461DA /* TimeLineView.swift in Sources */,
+				A2F9B495279BCF8E00FE2BF7 /* FeedView.swift in Sources */,
 				A20801C427896D00008461DA /* PF_TextField.swift in Sources */,
 				A23481CF2796900D008B8057 /* mentions.json in Sources */,
 				A27C62052794F9D700BF188F /* ActiveLabel.swift in Sources */,
@@ -693,7 +689,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -747,7 +743,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -778,7 +774,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -819,7 +815,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

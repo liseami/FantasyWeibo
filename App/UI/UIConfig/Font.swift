@@ -10,7 +10,7 @@ import SwiftUI
 
 public struct MFont : ViewModifier{
     
-    enum  Style {
+    public enum  Style {
         case large32_R,large32_B
         case largeTitle_24_B,LargeTitle_22_B
         case Title_19_B,Title_17_B,Title_16_B
@@ -24,7 +24,7 @@ public struct MFont : ViewModifier{
         
     }
     
-    var style : Style
+    public var style : Style
     
     public func body(content: Content) -> some View {
         
@@ -103,7 +103,7 @@ public struct MFont : ViewModifier{
         }
     }
     
-    public func getUIFont() -> UIFont {
+    public func returnUIFont() -> UIFont {
         switch self.style{
         case .large32_R:
               return UIFont(name: "MiSans-Normal", size: 32)!

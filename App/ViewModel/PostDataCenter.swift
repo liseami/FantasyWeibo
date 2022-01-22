@@ -41,6 +41,12 @@ class PostDataCenter :NSObject, ObservableObject,WeiboSDKDelegate{
                 if let arr = MockTool.readArray(Post.self, fileName: "timelinedata", atKeyPath: "statuses"){
                     DispatchQueue.main.async {
                         self.home_timeline = arr
+                        complete(true)
+                    }
+                }
+                else{
+                    DispatchQueue.main.async {
+                        complete(false)
                     }
                 }
             }

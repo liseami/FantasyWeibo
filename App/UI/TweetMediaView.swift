@@ -6,22 +6,21 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 import FantasyUI
 import AVKit
+import SDWebImageSwiftUI
 
 
 class VideoPlayerVM : ObservableObject{
     
     var player = AVPlayer()
-    
     func play(url:URL){
         self.player = AVPlayer(url: url)
         player.allowsExternalPlayback = true
         player.usesExternalPlaybackWhileExternalScreenIsActive = true
         player.play()
     }
-
+    
 }
 
 
@@ -48,17 +47,34 @@ struct TweetMediaView: View {
     
     var body: some View {
         
-        
         if cliped {
             geometryReader
-            .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(lineWidth: 1).foregroundColor(.fc3.opacity(0.6)))
-            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(lineWidth: 1).foregroundColor(.fc3.opacity(0.6)))
+                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
         }else{
             geometryReader
         }
-      
+        
         
     }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -96,27 +112,26 @@ struct TweetMediaView: View {
                             let url = urls.first!
                             switch url.count {
                             case 31...999 :
-                                WebImage(url: URL(string: urls[0]))
-                                    .resizable()
+                                PF_AsyncImage(url: URL(string: urls[0]))
                                     .scaledToFill()
                                     .clipped()
                             case 0...30 :
                                 VideoPlayer(player: AVPlayer())
-
+                                
                             default :
                                 EmptyView()
                             }
-                         
+                            
                         case 2 :
                             
                             HStack(spacing:1){
-                                WebImage(url: URL(string: urls[0]))
-                                    .resizable()
+                                PF_AsyncImage(url: URL(string: urls[0]))
+                                
                                     .scaledToFill()
                                     .frame(width: w / 2)
                                     .clipped()
-                                WebImage(url: URL(string: urls[1]))
-                                    .resizable()
+                                PF_AsyncImage(url: URL(string: urls[1]))
+                                
                                     .scaledToFill()
                                     .frame(width: w / 2)
                                     .clipped()
@@ -125,19 +140,19 @@ struct TweetMediaView: View {
                         case 3 :
                             
                             HStack(spacing:1){
-                                WebImage(url: URL(string: urls[0]))
-                                    .resizable()
+                                PF_AsyncImage(url: URL(string: urls[0]))
+                                
                                     .scaledToFill()
                                     .frame(width: w / 2)
                                     .clipped()
                                 VStack(spacing:1){
-                                    WebImage(url: URL(string: urls[1]))
-                                        .resizable()
+                                    PF_AsyncImage(url: URL(string: urls[1]))
+                                    
                                         .scaledToFill()
                                         .frame(height: h / 2)
                                         .clipped()
-                                    WebImage(url: URL(string: urls[2]))
-                                        .resizable()
+                                    PF_AsyncImage(url: URL(string: urls[2]))
+                                    
                                         .scaledToFill()
                                         .frame(height: h / 2)
                                         .clipped()
@@ -152,8 +167,8 @@ struct TweetMediaView: View {
                             Array(repeating:GridItem(.fixed(w / 2), spacing: 1), count: 2)
                             LazyVGrid(columns: columns, alignment: .leading, spacing: 1) {
                                 ForEach(urls,id:\.self){url in
-                                    WebImage(url: URL(string: url))
-                                        .resizable()
+                                    PF_AsyncImage(url: URL(string: url))
+                                    
                                         .scaledToFill()
                                         .frame(height: h / 2)
                                         .clipped()
@@ -164,41 +179,41 @@ struct TweetMediaView: View {
                         case 5 :
                             
                             VStack(spacing:1){
-                            HStack(spacing:1){
-                                WebImage(url: URL(string: urls.first!))
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: w / 3)
-                                    .clipped()
-                                WebImage(url: URL(string: urls[1]))
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: w / 3)
-                                    .clipped()
-                                WebImage(url: URL(string: urls[2]))
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: w / 3)
-                                    .clipped()
-                            }
-                            .frame(height : w / 3)
-                            .clipped()
+                                HStack(spacing:1){
+                                    PF_AsyncImage(url: URL(string: urls.first!))
+                                    
+                                        .scaledToFill()
+                                        .frame(width: w / 3)
+                                        .clipped()
+                                    PF_AsyncImage(url: URL(string: urls[1]))
+                                    
+                                        .scaledToFill()
+                                        .frame(width: w / 3)
+                                        .clipped()
+                                    PF_AsyncImage(url: URL(string: urls[2]))
+                                    
+                                        .scaledToFill()
+                                        .frame(width: w / 3)
+                                        .clipped()
+                                }
+                                .frame(height : w / 3)
+                                .clipped()
                                 
                                 HStack(spacing:1){
-                                    WebImage(url: URL(string: urls[3]))
-                                        .resizable()
+                                    PF_AsyncImage(url: URL(string: urls[3]))
+                                    
                                         .scaledToFill()
                                         .frame(width: w / 2)
                                         .clipped()
-                                    WebImage(url: URL(string: urls[4]))
-                                        .resizable()
+                                    PF_AsyncImage(url: URL(string: urls[4]))
+                                    
                                         .scaledToFill()
                                         .frame(width: w / 2)
                                         .clipped()
                                 }
                                 
-                            .frame(height : w / 3)
-                            .clipped()
+                                .frame(height : w / 3)
+                                .clipped()
                             }
                             
                         case 6...999 :
@@ -207,8 +222,8 @@ struct TweetMediaView: View {
                             Array(repeating:GridItem(.fixed(w / 3), spacing: 1), count: 3)
                             LazyVGrid(columns: columns, alignment: .leading, spacing: 1) {
                                 ForEach(urls,id:\.self){ url in
-                                    WebImage(url: URL(string: url))
-                                        .resizable()
+                                    PF_AsyncImage(url: URL(string: url))
+                                    
                                         .scaledToFill()
                                         .frame(width: w / 3, height: w / 3)
                                         .clipped()
@@ -220,7 +235,7 @@ struct TweetMediaView: View {
                             EmptyView()
                         }
                     }
-                   
+                    
                     
                 )
                 .clipped()
@@ -228,7 +243,7 @@ struct TweetMediaView: View {
         .frame(height : getImageAreaH())
     }
     func getImageAreaH()->CGFloat {
-        let w = uistate.picAreaW
+        let w = SW * 0.86 - 24 - 16 - 12
         let goldenW =  w * 0.618
         switch urls.count {
         case 1 : return w * 1.4
@@ -279,5 +294,54 @@ struct PostPicsView_Previews: PreviewProvider {
         
         
         
+    }
+}
+
+
+struct PF_AsyncImage : View{
+    let url : URL?
+    @State private var midY : CGFloat = 0
+    var body: some View{
+        
+        //        Group{
+        //            if isInScreen() {
+        //                WebImage(url: url)
+        //                    .resizable()
+        //            }else{
+        //                Color.red
+        //                    .overlay(Text("\(midY)"))
+        //            }
+        //        }
+        WebImage(url: url)
+            .resizable()
+        //        .background(
+        //            GeometryReader{ proxy -> AnyView in
+        //
+        //                DispatchQueue.main.async {
+        //                withAnimation(.spring()){
+        //                    let midY = proxy.frame(in: .global).midY
+        //                    guard midY != 0 && midY != self.midY else {return}
+        //                        self.midY = midY
+        //                }
+        //                }
+        //
+        //
+        //                return AnyView(
+        //                    Color.red
+        //                        .opacity(0)
+        //                )
+        //            }
+        //        )
+        
+    }
+    //检测是否在屏幕中
+    func isInScreen() -> Bool{
+        
+        if midY > 0  && midY < SH {
+            return true
+        }
+        else{
+            return false
+        }
     }
 }

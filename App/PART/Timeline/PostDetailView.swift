@@ -307,12 +307,8 @@ struct PostDetailView: View {
                 }
                 
                 
+                PF_TextArea(text: text, font: MFont(style: .Title_16_R).returnUIFont())
                 
-                PF_TapTextArea(text: forwarded_text,font: MFont(style: .Title_17_R).getUIFont()) {username in
-                } taptopic: {topicname in
-                    
-                } tapshorturl: {shorturl in
-                }
                 
             }
             .padding(.all,12)
@@ -341,12 +337,8 @@ struct PostDetailView: View {
     }
     var maincontent : some View {
         
-        PF_TapTextArea(text: text,font: MFont(style: .LargeTitle_22_R).getUIFont()) {username in
-        } taptopic: {topicname in
-            
-        } tapshorturl: {shorturl in
-            
-        }
+        PF_TextArea(text: text, font:MFont(style: .LargeTitle_22_R).returnUIFont())
+        
         
     }
     var retweet_userline : some View {
@@ -581,12 +573,8 @@ struct CommentView : View {
                     }
                     Spacer()
                 }
-                PF_TapTextArea(text: text,font: MFont(style: .Title_17_R).getUIFont()) {username in
-                    
-                } taptopic: {topicname in
-                    
-                } tapshorturl: {shorturl in
-                }
+                
+                PF_TextArea(text: text, font: MFont(style: .Title_16_R).returnUIFont())
             }
         }
         .padding(.vertical,12)

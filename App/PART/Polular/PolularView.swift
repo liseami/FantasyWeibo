@@ -14,28 +14,9 @@ class PolularViewModule : ObservableObject{
     static let shared  = PolularViewModule()
     
     
-    enum polularSwitch:MTPageSegmentProtocol {
-        case photo
-        case video
-        case post
-        case space
-
-        var showText: String{
-            switch self {
-            case .photo:
-                    return "照片"
-            case .video:
-                    return "视频"
-            case .post:
-                    return "推文"
-            case .space:
-                    return "Space"
-            }
-        }
-    }
+ 
     
-    @Published var polularTab : polularSwitch = .photo
-    var tabitems : [polularSwitch] = [.photo,.video,.post,.space]
+   
 }
 
 
@@ -49,11 +30,7 @@ struct PolularView: View {
         
 
         VStack(spacing:0){
-            MT_PageSegmentView(titles: vm.tabitems, offset: $offset)
-            //Text("\(Int(floor(offset + 0.5) / ScreenWidth()))")
-            MT_PageScrollowView(offset: $offset) {
-                mainViews
-            }
+         
         }
         .frame(width: SW)
         .navigationBarTitleDisplayMode(.inline)

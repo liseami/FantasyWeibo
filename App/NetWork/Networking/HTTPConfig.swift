@@ -7,6 +7,7 @@
 
 import FantasyUI
 import Foundation
+import UIKit
 
 
 protocol ApiType: CustomTargetType {
@@ -29,7 +30,7 @@ extension ApiType {
 }
 
 struct ProjectConfig {
-    static let env: Environment = .test
+    static let env: Environment = .mok
     
     
     

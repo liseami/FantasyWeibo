@@ -178,13 +178,13 @@ struct ProFileView: View {
         VStack(spacing: 0){
             if let posts = postDC.locuser_profile_posts{
                 ForEach(posts,id: \.self.id){post in
-                    TweetCard(post: post)
-                        .padding(.horizontal,6)
-                        .padding(.vertical,6)
-                        .overlay(Rectangle().frame( height: 0.5)
-                                    .foregroundColor(.fc3.opacity(0.3))
-                                 ,alignment: .bottom
-                        )
+//                    TweetCard(post: post)
+//                        .padding(.horizontal,6)
+//                        .padding(.vertical,6)
+//                        .overlay(Rectangle().frame( height: 0.5)
+//                                    .foregroundColor(.fc3.opacity(0.3))
+//                                 ,alignment: .bottom
+//                        )
                 }
             }else{
                 TextPlaceHolder(text: "暂无微博", subline: "出于第三方Api权限问题，这里最多会显示10条微博。", style: .inline)
