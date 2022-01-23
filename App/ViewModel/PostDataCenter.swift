@@ -13,15 +13,16 @@ class PostDataCenter :NSObject, ObservableObject,WeiboSDKDelegate{
     static let shared = PostDataCenter()
     var posttoolbtns : [postToolBtn] = [.comment,.repost,.attitude]
     
-    @Published var home_timeline : [Post]?
-    @Published var locuser_profile_posts : [Post]?
+    @Published var reload : Bool = false
+    @Published var home_timeline : [Post] = []
+    @Published var locuser_profile_posts : [Post] = []
     
     
     @Published var homeisloading : Bool = false
     
     
     //首页时间线
-    func getHomeTimeLine(complete : @escaping (_ isSuccess : Bool)->Void) {
+    func getHomeTimeLine() {
         
         DispatchQueue.global().async {
             switch ProjectConfig.env{
@@ -31,9 +32,7 @@ class PostDataCenter :NSObject, ObservableObject,WeiboSDKDelegate{
                     DispatchQueue.main.async {
                     if let arr = arr {
                         self.home_timeline = arr
-                        complete(true)
                     }else{
-                        complete(false)
                     }
                     }
                 }
@@ -41,16 +40,21 @@ class PostDataCenter :NSObject, ObservableObject,WeiboSDKDelegate{
                 if let arr = MockTool.readArray(Post.self, fileName: "timelinedata", atKeyPath: "statuses"){
                     DispatchQueue.main.async {
                         self.home_timeline = arr
-                        complete(true)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            self.reload.toggle()
+                        }
                     }
                 }
                 else{
                     DispatchQueue.main.async {
-                        complete(false)
                     }
                 }
             }
+            DispatchQueue.main.async {
+                self.reload.toggle()
+            }
         }
+        
       
     }
     

@@ -16,49 +16,43 @@ struct TimeLineView: View {
     var body: some View {
         
         
-        Group{
-            if let data = vm.home_timeline{
-                PF_SelfSizingView(data) { post in
-                TweetCard(post: post)
-                }
-            }else{
-                ProgressView()
-            }
-        }
-       
-
-     
+        
+        
+        PF_FeedView($vm.reload,$vm.home_timeline, { post in
+            TweetCard(post: post)
+                .id(post.id)
+        },refreshAction: {
+            vm.getHomeTimeLine()
+        })
         .navigationBarTitleDisplayMode(.inline)
         .PF_Navitop(style: offset < -5 ? .large : .none,showDivider: false, backgroundView: {
             BlurView()
         }, TopCenterView: {})
         .onAppear {
             //加载首页数据
-            guard vm.home_timeline == nil else {return}
-            vm.getHomeTimeLine { isSuccess in
-            }
+            guard vm.home_timeline.isEmpty else {return}
+            vm.getHomeTimeLine()
             madasoft()
         }
-        
-    }
-
-    var placeHolder : some View {
-        VStack{
-            Spacer()
-            TextPlaceHolder(text: "暂无数据", subline: "请尝试刷新数据。",style: .inline)
-            MainButton(title: "刷新") {
-                vm.getHomeTimeLine { isSuccess in
-                }
-            }
-            Spacer()
-                .padding(.horizontal,32)
-            Spacer()
-        }
-        .padding(.horizontal,32)
-        
-        
-    }
     
+}
+
+var placeHolder : some View {
+    VStack{
+        Spacer()
+        TextPlaceHolder(text: "暂无数据", subline: "请尝试刷新数据。",style: .inline)
+        MainButton(title: "刷新") {
+            vm.getHomeTimeLine()
+        }
+        Spacer()
+            .padding(.horizontal,32)
+        Spacer()
+    }
+    .padding(.horizontal,32)
+    
+    
+}
+
 }
 
 struct TimeLineView_Previews: PreviewProvider {
@@ -98,4 +92,4 @@ struct TimeLineView_Previews: PreviewProvider {
 //                }
 //                .padding(.all,12)
 //            })
-    
+

@@ -70,7 +70,7 @@
 		A299A131278FF19500EF9F13 /* UserAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299A130278FF19500EF9F13 /* UserAvatar.swift */; };
 		A299A13727900CA500EF9F13 /* ProFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299A13627900CA500EF9F13 /* ProFileView.swift */; };
 		A2F9B493279A9B9000FE2BF7 /* AttTextVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F9B492279A9B9000FE2BF7 /* AttTextVIew.swift */; };
-		A2F9B495279BCF8E00FE2BF7 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F9B494279BCF8D00FE2BF7 /* FeedView.swift */; };
+		A2F9B495279BCF8E00FE2BF7 /* PF_FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F9B494279BCF8D00FE2BF7 /* PF_FeedView.swift */; };
 		C0AE95AB62543DD693B05D06 /* Pods_FantasyWeibo__iOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF88F2E2428E944BAA7434CC /* Pods_FantasyWeibo__iOS_.framework */; };
 /* End PBXBuildFile section */
 
@@ -154,7 +154,7 @@
 		A299A130278FF19500EF9F13 /* UserAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAvatar.swift; sourceTree = "<group>"; };
 		A299A13627900CA500EF9F13 /* ProFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProFileView.swift; sourceTree = "<group>"; };
 		A2F9B492279A9B9000FE2BF7 /* AttTextVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttTextVIew.swift; sourceTree = "<group>"; };
-		A2F9B494279BCF8D00FE2BF7 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
+		A2F9B494279BCF8D00FE2BF7 /* PF_FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PF_FeedView.swift; sourceTree = "<group>"; };
 		AF88F2E2428E944BAA7434CC /* Pods_FantasyWeibo__iOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FantasyWeibo__iOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -383,7 +383,7 @@
 				A20801A827896D00008461DA /* PF_TextField.swift */,
 				A27C62042794F9D700BF188F /* ActiveLabel.swift */,
 				A2F9B492279A9B9000FE2BF7 /* AttTextVIew.swift */,
-				A2F9B494279BCF8D00FE2BF7 /* FeedView.swift */,
+				A2F9B494279BCF8D00FE2BF7 /* PF_FeedView.swift */,
 			);
 			path = UIKitViews;
 			sourceTree = "<group>";
@@ -619,7 +619,7 @@
 				A27C62022793F26300BF188F /* Extensions.swift in Sources */,
 				A20801B827896D00008461DA /* SearchView.swift in Sources */,
 				A20801BD27896D00008461DA /* TimeLineView.swift in Sources */,
-				A2F9B495279BCF8E00FE2BF7 /* FeedView.swift in Sources */,
+				A2F9B495279BCF8E00FE2BF7 /* PF_FeedView.swift in Sources */,
 				A20801C427896D00008461DA /* PF_TextField.swift in Sources */,
 				A23481CF2796900D008B8057 /* mentions.json in Sources */,
 				A27C62052794F9D700BF188F /* ActiveLabel.swift in Sources */,

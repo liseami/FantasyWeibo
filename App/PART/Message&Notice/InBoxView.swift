@@ -79,7 +79,7 @@ class InBoxManager : ObservableObject{
             case .mok:
                 if let arr = MockTool.readArray(Comment.self, fileName: "commentsmentions", atKeyPath: "comments"){
                     DispatchQueue.main.async {
-                    self.commentsMentions = arr
+                        self.commentsMentions = arr
                     }
                 }
                 
@@ -104,23 +104,29 @@ struct InBoxView: View {
         
         ZStack{
             
-            Color.BackGround.ignoresSafeArea()
+//            Color.BackGround.ignoresSafeArea()
+//
+//
+//            VStack(spacing:0){
+//
+//                tabbar
+//
+//                TabView(selection: $vm.messageTab) {
+//                    mentions.tag(InBoxManager.messageSwitch.mentions)
+//                    commentsmentions.tag(InBoxManager.messageSwitch.comment)
+//                }.tabViewStyle(.page(indexDisplayMode: .never))
+//            }
+//            .frame(width: SW)
+//
+//
             
-            
-            VStack(spacing:0){
-                
-                tabbar
-                
-                TabView(selection: $vm.messageTab) {
-                    mentions.tag(InBoxManager.messageSwitch.mentions)
-                    commentsmentions.tag(InBoxManager.messageSwitch.comment)
-                }.tabViewStyle(.page(indexDisplayMode: .never))
-            }
-            .frame(width: SW)
-            
-            
-            
-            
+//            PF_FeedView($vm.reload,$vm.commentsMentions) { comment in
+//                mentionsCommentView(comment: comment)
+//            }
+//                .onAppear {
+//                    guard vm.commentsMentions.isEmpty else {return}
+//                    vm.getuserCommentsMentions()
+//                }
         }
         
         .navigationBarTitleDisplayMode(.inline)
@@ -134,7 +140,7 @@ struct InBoxView: View {
             Group {
                 
                 //@我
-                mentions
+//                mentions
                 
                 
                 
@@ -143,54 +149,32 @@ struct InBoxView: View {
         }
     }
     
-    var mentions : some View{
-        ScrollView {
-            LazyVStack(spacing:12){
-                ForEach(vm.mentionList,id:\.self.id) { post  in
-//                    TweetCard(post: post)
-                }
-            }
-            .padding(.all,12)
-            .onAppear {
-                guard vm.mentionList.isEmpty else {return}
-                vm.getUserMentions()
-            }
-        }
-        .background(Color.BackGround.ignoresSafeArea())
-    }
-    
-    var commentsmentions : some View {
-        ScrollView {
-            LazyVStack(spacing:0){
-                ForEach(vm.commentsMentions,id:\.self.id) { comment in
-                    HStack(spacing:12){
-                        UserAvatar(url: URL(string: comment.user?.avatar_large ?? ""))
-                        VStack(alignment: .leading, spacing: 4){
-                            Text(comment.user?.name ?? "")
-                                .PF_Leading()
-                                .mFont(style: .Title_17_B,color:.fc1)
-                            PF_TapTextArea(text: comment.text ?? "", font: MFont(style: .Title_17_R).returnUIFont()) { username in
-                                
-                            } taptopic: { topicname in
-                                
-                            } tapimage: { shorturl in
-                                
-                            }
-                        }
-                    }
-                    .padding(.horizontal,12)
-                    .padding(.vertical,12)
-                    .overlay(Line(),alignment: .bottom)
-                    
-                }
-            }
-            .padding(.vertical,12)
-        }
-        .onAppear {
-            guard vm.commentsMentions.isEmpty else {return}
-            vm.getuserCommentsMentions()
-        }
-    }
+//    var mentions : some View{
+//
+//        Color.red
+//            .overlay(
+//            PF_FeedView($vm.reload,$vm.mentionList, { post in
+//                TweetCard(post: post)
+//            }))
+//            .onAppear {
+//                guard vm.mentionList.isEmpty else {return}
+//                vm.getUserMentions()
+//            }
+//
+//
+//    }
+//
+//    var commentsmentions : some View {
+//
+//        PF_FeedView($vm.commentsMentions, { comment in
+////            mentionsCommentView(comment: comment)
+//            Text("323")
+//        })
+//        .onAppear {
+//            guard vm.commentsMentions.isEmpty else {return}
+//            vm.getuserCommentsMentions()
+//        }
+//    }
     
     var tabbar : some View{
         HStack{
@@ -248,5 +232,32 @@ struct InBoxView_Previews: PreviewProvider {
         
         // ContentView(uistate: .init(tabbarIndex: .Message, logged: true))
         InBoxView()
+    }
+}
+
+
+struct mentionsCommentView : View {
+    var comment : Comment
+    var body: some View{
+        HStack(spacing:12){
+            UserAvatar(url: URL(string: comment.user?.avatar_large ?? ""))
+            VStack(alignment: .leading, spacing: 4){
+                
+                Text(comment.user?.name ?? "")
+                    .PF_Leading()
+                    .mFont(style: .Title_17_B,color:.fc1)
+                
+                PF_TapTextArea(text: comment.text ?? "", font: MFont(style: .Title_17_R).returnUIFont()) { username in
+                    
+                } taptopic: { topicname in
+                    
+                } tapimage: { shorturl in
+                    
+                }
+            }
+        }
+        .padding(.horizontal,12)
+        .padding(.vertical,12)
+        .overlay(Line(),alignment: .bottom)
     }
 }
