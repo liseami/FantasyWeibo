@@ -131,7 +131,7 @@ struct ActiveLabelStack : UIViewRepresentable {
         atttext.addAttributes([
             NSAttributedString.Key.link :"https://www.baidu.com",
                                NSAttributedString.Key.foregroundColor : UIColor(Color.green)
-                              ], range: NSRange(location: 0, length: text.length))
+        ], range: NSRange(location: 0, length: AttributedString(text).characters.count))
 
         label.attributedText = atttext
         

@@ -13,7 +13,7 @@ class PostDataCenter :NSObject, ObservableObject,WeiboSDKDelegate{
     static let shared = PostDataCenter()
     var posttoolbtns : [postToolBtn] = [.comment,.repost,.attitude]
     
-    @Published var home_timeline : [Post] = []
+    @Published var home_timeline : [Post]?
     @Published var locuser_profile_posts : [Post]?
     
     

@@ -67,11 +67,14 @@ struct TweetCard: View {
                     mainUserLine
                     //主要文字
                     mainText
-                    
                     //主要图片
-                    mainMediaArea
-                    //被转发微博
-//                    forwarded_post
+                    Group{
+                        mainMediaArea
+                        //被转发微博
+                        forwarded_post
+                    }
+                    .padding(.top,8)
+                    .padding(.bottom,8)
                     //按钮 + 数据
                     btns
                 }
@@ -125,21 +128,23 @@ struct TweetCard: View {
         .buttonStyle(.plain)
     }
     
+    
+    @ViewBuilder
     var mainMediaArea : some View{
         
+        let w = SW * 0.86 - 24 - 16 - 12
         //传递图片，或者寻找text中的视频链接进行传递
-        TweetMediaView(urls: !self.pic_urls.isEmpty ? self.pic_urls : [getVideoUrlInText(text: text) ?? ""])
+        TweetMediaView(urls: !self.pic_urls.isEmpty ? self.pic_urls : [getVideoUrlInText(text: text) ?? ""], width:w)
             .ifshow(!pic_urls.isEmpty || getVideoUrlInText(text: text) != nil)
             .ifshow(style != .repost)
-            .padding(.top,8)
-            .frame(width: SW * 0.86 - 24 - 16 - 12)
-            .clipped()
+
         
     }
     
     
-    
+    @ViewBuilder
     var forwarded_post : some View{
+        let w = SW * 0.86 - 24 - 16 - 12
         ///被正常转发的微博
         VStack(spacing:0){
             VStack(alignment: .leading, spacing:12){
@@ -167,7 +172,7 @@ struct TweetCard: View {
             }
             .padding(.all,12)
             
-            TweetMediaView(urls: pic_urls,cliped: false)
+            TweetMediaView(urls: pic_urls,cliped: false,width: w)
             
         }
         .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(lineWidth: 1).foregroundColor(.fc3.opacity(0.6)))
@@ -243,7 +248,6 @@ struct TweetCard: View {
         }
         .mFont(style: .Body_13_R,color: .fc2)
         .padding(.trailing,SW * 0.1)
-        .padding(.top,12)
     }
 }
 
@@ -374,3 +378,13 @@ func convertPost(post: repostPost) -> Post{
 }
 
 
+//
+//struct WidthMakerView<Content:View> : View{
+//
+//    let content : (_ width : CGFloat) -> View
+//
+//    var body : some View{
+//
+//        content
+//    }
+//}

@@ -53,13 +53,6 @@ class UIState : ObservableObject{
     ///Setting
     @Published var showFeedBackView : Bool = false
     
-    //媒体区域宽度，实时上报，实时更新
-    @Published var picAreaW : CGFloat = 0
-    //
-    
-    
-    
-    
     
     //顶层图片
     @Published var topImageUrl : [String] = []

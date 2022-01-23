@@ -57,13 +57,11 @@
 		A23481D32796A8EB008B8057 /* commentsmentions.json in Resources */ = {isa = PBXBuildFile; fileRef = A23481D12796A835008B8057 /* commentsmentions.json */; };
 		A23481D627979DB1008B8057 /* ShortUrlTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23481D527979DB1008B8057 /* ShortUrlTool.swift */; };
 		A23481E92797EB1E008B8057 /* TopMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23481E82797EB1E008B8057 /* TopMediaView.swift */; };
-		A23481EB27980432008B8057 /* UITextViewCC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23481EA27980431008B8057 /* UITextViewCC.swift */; };
 		A27C61F72793119400BF188F /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C61F62793119400BF188F /* ViewModifiers.swift */; };
 		A27C61FB2793C61A00BF188F /* NewMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C61FA2793C61A00BF188F /* NewMod.swift */; };
 		A27C61FE2793D84A00BF188F /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C61FD2793D84A00BF188F /* Emoji.swift */; };
 		A27C62022793F26300BF188F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C62012793F26300BF188F /* Extensions.swift */; };
 		A27C62052794F9D700BF188F /* ActiveLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C62042794F9D700BF188F /* ActiveLabel.swift */; };
-		A27C620C279531E000BF188F /* BSTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C620B279531E000BF188F /* BSTextView.swift */; };
 		A27C620D279558C000BF188F /* MiSans-Normal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A20802612789771A008461DA /* MiSans-Normal.ttf */; };
 		A27C620E279558C000BF188F /* MiSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A208022C27896D23008461DA /* MiSans-Semibold.ttf */; };
 		A299A11C278FC3BE00EF9F13 /* UserMods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299A11B278FC3BE00EF9F13 /* UserMods.swift */; };
@@ -145,13 +143,11 @@
 		A23481D12796A835008B8057 /* commentsmentions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = commentsmentions.json; sourceTree = "<group>"; };
 		A23481D527979DB1008B8057 /* ShortUrlTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortUrlTool.swift; sourceTree = "<group>"; };
 		A23481E82797EB1E008B8057 /* TopMediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMediaView.swift; sourceTree = "<group>"; };
-		A23481EA27980431008B8057 /* UITextViewCC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewCC.swift; sourceTree = "<group>"; };
 		A27C61F62793119400BF188F /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		A27C61FA2793C61A00BF188F /* NewMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMod.swift; sourceTree = "<group>"; };
 		A27C61FD2793D84A00BF188F /* Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		A27C62012793F26300BF188F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A27C62042794F9D700BF188F /* ActiveLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLabel.swift; sourceTree = "<group>"; };
-		A27C620B279531E000BF188F /* BSTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSTextView.swift; sourceTree = "<group>"; };
 		A299A11B278FC3BE00EF9F13 /* UserMods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMods.swift; sourceTree = "<group>"; };
 		A299A11E278FD46400EF9F13 /* TweetMediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetMediaView.swift; sourceTree = "<group>"; };
 		A299A12E278FEEFB00EF9F13 /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
@@ -387,8 +383,6 @@
 				A20801A827896D00008461DA /* PF_TextField.swift */,
 				A27C62042794F9D700BF188F /* ActiveLabel.swift */,
 				A2F9B492279A9B9000FE2BF7 /* AttTextVIew.swift */,
-				A23481EA27980431008B8057 /* UITextViewCC.swift */,
-				A27C620B279531E000BF188F /* BSTextView.swift */,
 				A2F9B494279BCF8D00FE2BF7 /* FeedView.swift */,
 			);
 			path = UIKitViews;
@@ -610,8 +604,6 @@
 				A206691D278FADFD00384380 /* MokTool.swift in Sources */,
 				A299A11C278FC3BE00EF9F13 /* UserMods.swift in Sources */,
 				A20801B927896D00008461DA /* SearchInputView.swift in Sources */,
-				A23481EB27980432008B8057 /* UITextViewCC.swift in Sources */,
-				A27C620C279531E000BF188F /* BSTextView.swift in Sources */,
 				A208018A27896CD5008461DA /* FantasyWeibo(iOS)-Bridging-Header.m in Sources */,
 				A208017A27896B62008461DA /* FantasyWeiboApp.swift in Sources */,
 				A20801B427896D00008461DA /* PolularVideo.swift in Sources */,

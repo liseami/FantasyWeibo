@@ -572,7 +572,6 @@ open class Attributer {
             let unEscapedString = (self.attributedText.string as NSString).substring(with: nsRange)
                 let escapedString = unEscapedString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlHostAllowed) ?? ""
             self.attributedText.addAttribute(NSAttributedString.Key.link, value: "AttributedTextView:\(escapedString)", range: nsRange)
-            attributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.yellow, range: nsRange)
                 urlCallbacks[unEscapedString] = callback
             
         }

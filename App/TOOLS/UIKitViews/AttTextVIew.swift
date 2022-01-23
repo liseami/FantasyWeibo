@@ -1,11 +1,10 @@
 import SwiftUI
-
 import AttributedTextView
 
 struct NativeTextsWithManagedHeight: View {
     let rows = Array(repeating: randomString(50),count: 120)
     var body: some View {
-        
+
         ScrollViewReader { scrollViewProxy in
             VStack {
                 ScrollView {
@@ -24,9 +23,9 @@ struct NativeTextsWithManagedHeight: View {
                 }.padding()
             }
         }
-        
+
     }
-    
+
 }
 struct NativeTextsWithManagedHeight_Previews: PreviewProvider {
     static var previews: some View {
@@ -41,9 +40,9 @@ typealias NativeColor = UIColor
 struct NativeTextView: UIViewRepresentable {
     let text: String
     var font : UIFont = MFont(style: .Title_16_R).returnUIFont()
-    
+
     func makeUIView(context: Context) -> AttributedTextView {
-        
+
         let textView = AttributedTextView()
         textView.isSelectable = true
         textView.isUserInteractionEnabled = true
@@ -54,31 +53,31 @@ struct NativeTextView: UIViewRepresentable {
         textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         textView.textContainer.lineFragmentPadding = 0
         textView.backgroundColor = UIColor(.clear)
-        
+
         textView
             .attributer  = text
 //            .color(UIColor(.fc1))
             .font(font)
             .paragraphLineSpacing(4)
             .paragraphApplyStyling
-        
+
             .matchshorturl
             .color(UIColor(.red))
-        
+
             .matchHashtags
             .color(UIColor(.green))
-        
+
             .matchMentions
             .makeInteract({ link in
                 print(link)
             })
-            
-        
-       
-        
-          
-        
-        
+
+
+
+
+
+
+
         return textView
     }
     func updateUIView(_ textView: AttributedTextView, context: Context) {
@@ -126,13 +125,13 @@ public func PF_MakeTextArea(_ w : CGFloat = SW * 0.86 - 24 - 16 - 12, text: Stri
 }
 
 struct PF_TextArea : View{
-    
+
     @State private var w : CGFloat = 0
     let text : String
     var font : UIFont = MFont(style: .Title_16_R).returnUIFont()
-    
+
     var body: some View{
-        
+
         ZStack{
             GeometryReader { geo  in
                 Rectangle().foregroundColor(.clear)

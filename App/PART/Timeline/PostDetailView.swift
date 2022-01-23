@@ -164,8 +164,8 @@ struct PostDetailView: View {
                             //工具栏
                             toolbtns
                             
-                        }  .padding(.horizontal,16)
-                        
+                        }
+                        .padding(.horizontal,16)
                         
                         Line()
                         
@@ -313,7 +313,7 @@ struct PostDetailView: View {
             }
             .padding(.all,12)
             
-            TweetMediaView(urls: pic_urls,cliped: false)
+            TweetMediaView(urls: pic_urls,cliped: false, width: SW - 32 - 24)
                 .ifshow(!pic_urls.isEmpty)
         }
         .background(Color.Card)
@@ -331,7 +331,7 @@ struct PostDetailView: View {
     var mediaArea : some View {
         TweetMediaView(urls: post.pic_urls.compactMap({ pic_url  in
             getbmiddleImageUrl(urlString: pic_url.thumbnail_pic!)
-        }))
+        }), width: SW - 32)
             .ifshow(!post.pic_urls.isEmpty)
             .ifshow(style != .repost)
     }

@@ -11,7 +11,7 @@ target 'FantasyWeibo (iOS)' do
 
 pod 'Introspect'
 pod 'lottie-ios'
-pod 'CropViewController'
+# pod 'CropViewController'
 pod 'FloatingPanel'
 
 
@@ -27,12 +27,8 @@ pod 'SDWebImageSwiftUI'
 pod "Weibo_SDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git" 
 
 
-
-
-
 pod 'ActiveLabel'
-pod 'BSText'
-pod  'AttributedTextView'
+pod 'AttributedTextView'
 
 end
 

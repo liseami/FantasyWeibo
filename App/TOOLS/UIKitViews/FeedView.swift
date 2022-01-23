@@ -18,8 +18,8 @@ class TableViewController<Data ,Row : View>: UITableViewController {
         self.data = data
         self.content = content
         super.init(style: style)
-       self.tableView.register(HostingCell<Row>.self, forCellReuseIdentifier: "tweet")
-        //        self.tableView.register(HostingCell<ComplicatedCellView>.self, forCellReuseIdentifier: "HostingCell<ComplicatedCellView>")
+        self.tableView.register(HostingCell<Row>.self, forCellReuseIdentifier: "tweet")
+   
         self.tableView.separatorStyle = .none
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 300
@@ -35,14 +35,6 @@ class TableViewController<Data ,Row : View>: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-//
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if indexPath.row < self.data.count {
-//            data[indexPath.row]
-//            return 300
-//        }
-//        return 200
-//    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
@@ -52,10 +44,10 @@ class TableViewController<Data ,Row : View>: UITableViewController {
         
         let index = indexPath.row
         let cell = HostingCell<Row>()
-            cell.set(rootView:  content(data[index]), parentController: self)
-            cell.clipsToBounds = true
-            return cell
-
+        cell.set(rootView:  content(data[index]), parentController: self)
+        cell.clipsToBounds = true
+        return cell
+        
     }
 }
 
@@ -174,8 +166,7 @@ struct TestTest : View{
         NavigationView {
             Group {
                 if  let arr = MockTool.readArray(Post.self, fileName: "timelinedata", atKeyPath: "statuses"){
-                    
-                    feedfeed(arr) { data in
+                    PF_SelfSizingView(arr) { data in
                         withAnimation(.spring()){
                             TweetCard(post: data)
                                 .id(data.text!)
@@ -186,10 +177,10 @@ struct TestTest : View{
                     ProgressView()
                 }
             }
-//            .ignoresSafeArea()
+            //            .ignoresSafeArea()
             .navigationBarTitleDisplayMode(.inline)
         }
-
+        
         
     }
 }
@@ -201,18 +192,18 @@ struct Test_Previews: PreviewProvider {
 }
 
 
-struct feedfeed<Data ,Row : View> : UIViewControllerRepresentable{
-
+struct PF_SelfSizingView<Data ,Row : View> : UIViewControllerRepresentable{
+    
     var content: (Data) -> Row
     var data: [Data]
     let con : TableViewController<Data, Row>
-
+    
     init(_ data: [Data], _ content: @escaping (_ data : Data) -> Row) {
-         self.data = data
-         self.content = content
+        self.data = data
+        self.content = content
         self.con = TableViewController(style: .grouped, data , content)
-     }
-
+    }
+    
     func makeUIViewController(context: Context) -> UITableViewController {
         return con
     }
@@ -238,7 +229,7 @@ final class HostingCell<Content: View>: UITableViewCell {
     func set(rootView: Content, parentController: UIViewController) {
         self.hostingController.view.invalidateIntrinsicContentSize()
         self.hostingController.rootView = rootView
-      
+        
         
         let requiresControllerMove = hostingController.parent != parentController
         if requiresControllerMove {
