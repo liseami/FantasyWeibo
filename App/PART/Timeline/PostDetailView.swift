@@ -306,7 +306,7 @@ struct PostDetailView: View {
                     }
                 }
                 
-                
+//                PF_MakeTextArea(text: text)
                 PF_TextArea(text: text, font: MFont(style: .Title_16_R).returnUIFont())
                 
                 

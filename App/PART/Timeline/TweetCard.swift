@@ -110,15 +110,21 @@ struct TweetCard: View {
     
     @ViewBuilder
     var mainText : some View {
-        Text(makeAttributeText())
+        
+        PF_MakeTextArea(text: text)
+//        Text(makeAttributeText())
+        
+        
+        
     }
+    
+    
     func makeAttributeText()->AttributedString{
         var att = AttributedString(text)
         att.font = MFont(style: .Title_16_R).returnUIFont()
         att.foregroundColor = .fc1
         //TODO: 关键词替换
         att.link = .init(string: "Http://www.baidu.com")
-        
         return att
     }
     

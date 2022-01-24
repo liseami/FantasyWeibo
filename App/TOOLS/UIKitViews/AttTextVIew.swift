@@ -118,7 +118,7 @@ func texts(count: Int) -> [String] {
 }
 
 
-public func PF_MakeTextArea(_ w : CGFloat = SW * 0.86 - 24 - 16 - 12, text: String,font : UIFont = UIFont(name: "MiSans-Semibold", size: 16)!) -> some View {
+public func PF_MakeTextArea(_ w : CGFloat = SW * 0.86 - 24 - 16 - 12, text: String,font : UIFont = UIFont(name: "MiSans-Normal", size: 16)!) -> some View {
     let attributed = attributedString(for: text)
     let height = attributed.height(containerWidth:w)
     return NativeTextView(text: text,font:font).frame(width: w, height: height).id(text)
