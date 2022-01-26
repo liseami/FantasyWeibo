@@ -23,14 +23,13 @@ struct ContentView: View {
             
         }else{
             
+            
             NavigationView {
                 Group{
                     mainViews
                         .toolbar {toolbar}
                 }
                 .overlay(Tabbar())
-                //                .overlay(TabbarBtn)
-                
             }
             .overlay(  //顶层媒体
                 TopMediaView())

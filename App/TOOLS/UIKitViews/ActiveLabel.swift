@@ -244,29 +244,4 @@ struct PF_TapTextArea : View {
 
 
 
-//正则替换
-func regexPattern(pattern:String,str:String,withTemplate:String) -> String {
-    
-    var finalStr = str
-    
-    do {
-        
-        // - 1、创建规则
-        let pattern = pattern
-        // - 2、创建正则表达式对象
-        let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.caseInsensitive)
-        
-        // - 3、正则替换
-        finalStr = regex.stringByReplacingMatches(in: str, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, str.count), withTemplate: withTemplate)
-        
-        //            获取满足条件的集合
-        //            let res = regex.matches(in: str, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, content.characters.count))
-        
-    }
-    catch {
-        print(error)
-    }
-    
-    return finalStr
-    
-}
+

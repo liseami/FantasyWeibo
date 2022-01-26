@@ -99,6 +99,17 @@ struct TweetCard: View {
         
         .padding(.horizontal,12)
         .padding(.vertical,6)
+        .contextMenu {
+            Button(""){
+            }
+        }
+        .onDrag {
+            NSItemProvider()
+        } preview: {
+            
+        }
+        
+        
         
         
         
@@ -111,9 +122,8 @@ struct TweetCard: View {
     @ViewBuilder
     var mainText : some View {
         
-        PF_MakeTextArea(text: text)
-//        Text(makeAttributeText())
         
+        PF_TextView(text)
         
         
     }
@@ -124,7 +134,7 @@ struct TweetCard: View {
         att.font = MFont(style: .Title_16_R).returnUIFont()
         att.foregroundColor = .fc1
         //TODO: 关键词替换
-        att.link = .init(string: "Http://www.baidu.com")
+        att.link = .init(string: "weixin://")
         return att
     }
     
@@ -147,7 +157,7 @@ struct TweetCard: View {
         TweetMediaView(urls: !self.pic_urls.isEmpty ? self.pic_urls : [getVideoUrlInText(text: text) ?? ""], width:w)
             .ifshow(!pic_urls.isEmpty || getVideoUrlInText(text: text) != nil)
             .ifshow(style != .repost)
-
+        
         
     }
     
@@ -176,7 +186,7 @@ struct TweetCard: View {
                 .PF_Leading()
                 
                 Text(text)
-//                PF_TextArea(text: forwarded_text)
+                //                PF_TextArea(text: forwarded_text)
                 
                 
             }

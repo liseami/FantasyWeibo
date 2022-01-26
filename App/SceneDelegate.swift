@@ -29,12 +29,10 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate,ObservableObject{
     //微博返回App时，接收URL，交给WeiboSDK处理，由WeiboLogin.shared监听处理结果
   func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
       if let url = URLContexts.first?.url{
+          guard url.relativeString.first != "F" else {return}
           WeiboSDK.handleOpen(url, delegate: WeiboLoginViewModel.shared)
       }
   }
-
-
-    
 }
 
 //486c2c9586ba8d810qcs99Qd6vYNzvm9rAiT

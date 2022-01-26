@@ -45,6 +45,7 @@
 		A20801CA27896D00008461DA /* UIstate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20801B027896D00008461DA /* UIstate.swift */; };
 		A208025C27896FF2008461DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208025A27896FF1008461DA /* AppDelegate.swift */; };
 		A208025D27896FF2008461DA /* DefultStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208025B27896FF1008461DA /* DefultStore.swift */; };
+		A22BAD6227A127CE00E2A7D3 /* PF_TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BAD6127A127CE00E2A7D3 /* PF_TextView.swift */; };
 		A23481C827965766008B8057 /* remoteuserprofile.json in Resources */ = {isa = PBXBuildFile; fileRef = A23481C227965765008B8057 /* remoteuserprofile.json */; };
 		A23481C927965766008B8057 /* comments.json in Resources */ = {isa = PBXBuildFile; fileRef = A23481C327965765008B8057 /* comments.json */; };
 		A23481CA27965766008B8057 /* profiletimeline.json in Resources */ = {isa = PBXBuildFile; fileRef = A23481C427965765008B8057 /* profiletimeline.json */; };
@@ -69,6 +70,7 @@
 		A299A12F278FEEFB00EF9F13 /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299A12E278FEEFB00EF9F13 /* SearchManager.swift */; };
 		A299A131278FF19500EF9F13 /* UserAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299A130278FF19500EF9F13 /* UserAvatar.swift */; };
 		A299A13727900CA500EF9F13 /* ProFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299A13627900CA500EF9F13 /* ProFileView.swift */; };
+		A2E864DE27A10CF20081261E /* ClickTextViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E864DD27A10CF20081261E /* ClickTextViewTest.swift */; };
 		A2F9B493279A9B9000FE2BF7 /* AttTextVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F9B492279A9B9000FE2BF7 /* AttTextVIew.swift */; };
 		A2F9B495279BCF8E00FE2BF7 /* PF_FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F9B494279BCF8D00FE2BF7 /* PF_FeedView.swift */; };
 		C0AE95AB62543DD693B05D06 /* Pods_FantasyWeibo__iOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF88F2E2428E944BAA7434CC /* Pods_FantasyWeibo__iOS_.framework */; };
@@ -133,6 +135,7 @@
 		A208025B27896FF1008461DA /* DefultStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefultStore.swift; sourceTree = "<group>"; };
 		A208025E278970EF008461DA /* FantasyWeibo--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "FantasyWeibo--iOS--Info.plist"; sourceTree = "<group>"; };
 		A20802612789771A008461DA /* MiSans-Normal.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MiSans-Normal.ttf"; sourceTree = "<group>"; };
+		A22BAD6127A127CE00E2A7D3 /* PF_TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PF_TextView.swift; sourceTree = "<group>"; };
 		A23481C227965765008B8057 /* remoteuserprofile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = remoteuserprofile.json; sourceTree = "<group>"; };
 		A23481C327965765008B8057 /* comments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = comments.json; sourceTree = "<group>"; };
 		A23481C427965765008B8057 /* profiletimeline.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = profiletimeline.json; sourceTree = "<group>"; };
@@ -153,6 +156,7 @@
 		A299A12E278FEEFB00EF9F13 /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
 		A299A130278FF19500EF9F13 /* UserAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAvatar.swift; sourceTree = "<group>"; };
 		A299A13627900CA500EF9F13 /* ProFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProFileView.swift; sourceTree = "<group>"; };
+		A2E864DD27A10CF20081261E /* ClickTextViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickTextViewTest.swift; sourceTree = "<group>"; };
 		A2F9B492279A9B9000FE2BF7 /* AttTextVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttTextVIew.swift; sourceTree = "<group>"; };
 		A2F9B494279BCF8D00FE2BF7 /* PF_FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PF_FeedView.swift; sourceTree = "<group>"; };
 		AF88F2E2428E944BAA7434CC /* Pods_FantasyWeibo__iOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FantasyWeibo__iOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -383,7 +387,9 @@
 				A20801A827896D00008461DA /* PF_TextField.swift */,
 				A27C62042794F9D700BF188F /* ActiveLabel.swift */,
 				A2F9B492279A9B9000FE2BF7 /* AttTextVIew.swift */,
+				A22BAD6127A127CE00E2A7D3 /* PF_TextView.swift */,
 				A2F9B494279BCF8D00FE2BF7 /* PF_FeedView.swift */,
+				A2E864DD27A10CF20081261E /* ClickTextViewTest.swift */,
 			);
 			path = UIKitViews;
 			sourceTree = "<group>";
@@ -572,6 +578,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A27C61FE2793D84A00BF188F /* Emoji.swift in Sources */,
+				A22BAD6227A127CE00E2A7D3 /* PF_TextView.swift in Sources */,
 				A2F9B493279A9B9000FE2BF7 /* AttTextVIew.swift in Sources */,
 				A299A11F278FD46400EF9F13 /* TweetMediaView.swift in Sources */,
 				A20801B327896D00008461DA /* PolularView.swift in Sources */,
@@ -603,6 +610,7 @@
 				A20801BC27896D00008461DA /* PostDetailView.swift in Sources */,
 				A206691D278FADFD00384380 /* MokTool.swift in Sources */,
 				A299A11C278FC3BE00EF9F13 /* UserMods.swift in Sources */,
+				A2E864DE27A10CF20081261E /* ClickTextViewTest.swift in Sources */,
 				A20801B927896D00008461DA /* SearchInputView.swift in Sources */,
 				A208018A27896CD5008461DA /* FantasyWeibo(iOS)-Bridging-Header.m in Sources */,
 				A208017A27896B62008461DA /* FantasyWeiboApp.swift in Sources */,
@@ -764,6 +772,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeRight;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -805,6 +814,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeRight;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
